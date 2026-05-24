@@ -1197,6 +1197,99 @@
         // 1. 提取核心关键词（中/英文通用）
         var kw = topic.toLowerCase();
 
+        // 通用中文→目标语言翻译函数（供主题和场景使用）
+        var translateGenericText = function (text, targetLang) {
+          if (targetLang === 'zh') return text;
+          if (!/[一-鿿㐀-䶿]/.test(text)) return text;
+          var dict = {
+            '非物质文化遗产': { en:'Intangible Cultural Heritage', ja:'無形文化遺産', ko:'무형문화유산', fr:'Patrimoine Culturel Immatériel', es:'Patrimonio Cultural Inmaterial', de:'Immaterielles Kulturerbe', th:'มรดกทางวัฒนธรรมที่จับต้องไม่ได้', vi:'Di sản Văn hóa Phi vật thể', id:'Warisan Budaya Takbenda', ms:'Warisan Budaya Tidak Ketara', ar:'تراث ثقافي غير مادي' },
+            '中华文化': { en:'Chinese Culture', ja:'中国文化', ko:'중국 문화', fr:'Culture Chinoise', es:'Cultura China', de:'Chinesische Kultur', th:'วัฒนธรรมจีน', vi:'Văn hóa Trung Hoa', id:'Budaya Tiongkok', ms:'Budaya Cina', ar:'ثقافة صينية' },
+            '传统文化': { en:'Traditional Culture', ja:'伝統文化', ko:'전통 문화', fr:'Culture Traditionnelle', es:'Cultura Tradicional', de:'Traditionelle Kultur', th:'วัฒนธรรมดั้งเดิม', vi:'Văn hóa Truyền thống', id:'Budaya Tradisional', ms:'Budaya Tradisional', ar:'ثقافة تقليدية' },
+            '中国': { en:'China', ja:'中国', ko:'중국', fr:'Chine', es:'China', de:'China', th:'จีน', vi:'Trung Quốc', id:'Tiongkok', ms:'China', ar:'الصين' },
+            '中华': { en:'Chinese', ja:'中華', ko:'중화', fr:'Chinois', es:'Chino', de:'Chinesisch', th:'จีน', vi:'Trung Hoa', id:'Tionghoa', ms:'Cina', ar:'صيني' },
+            '文化': { en:'Culture', ja:'文化', ko:'문화', fr:'Culture', es:'Cultura', de:'Kultur', th:'วัฒนธรรม', vi:'Văn hóa', id:'Budaya', ms:'Budaya', ar:'ثقافة' },
+            '传统': { en:'Tradition', ja:'伝統', ko:'전통', fr:'Tradition', es:'Tradición', de:'Tradition', th:'ประเพณี', vi:'Truyền thống', id:'Tradisi', ms:'Tradisi', ar:'تقليد' },
+            '艺术': { en:'Art', ja:'芸術', ko:'예술', fr:'Art', es:'Arte', de:'Kunst', th:'ศิลปะ', vi:'Nghệ thuật', id:'Seni', ms:'Seni', ar:'فن' },
+            '历史': { en:'History', ja:'歴史', ko:'역사', fr:'Histoire', es:'Historia', de:'Geschichte', th:'ประวัติศาสตร์', vi:'Lịch sử', id:'Sejarah', ms:'Sejarah', ar:'تاريخ' },
+            '节日': { en:'Festival', ja:'祭日', ko:'축제', fr:'Fête', es:'Festival', de:'Fest', th:'เทศกาล', vi:'Lễ hội', id:'Festival', ms:'Perayaan', ar:'مهرجان' },
+            '美食': { en:'Cuisine', ja:'料理', ko:'요리', fr:'Cuisine', es:'Cocina', de:'Küche', th:'อาหาร', vi:'Ẩm thực', id:'Kuliner', ms:'Kulinari', ar:'مطبخ' },
+            '饮食': { en:'Food', ja:'飲食', ko:'음식', fr:'Nourriture', es:'Comida', de:'Essen', th:'อาหาร', vi:'Thực phẩm', id:'Makanan', ms:'Makanan', ar:'طعام' },
+            '工艺': { en:'Craft', ja:'工芸', ko:'공예', fr:'Artisanat', es:'Artesanía', de:'Handwerk', th:'หัตถกรรม', vi:'Thủ công', id:'Kerajinan', ms:'Kraftangan', ar:'حرفة' },
+            '手艺': { en:'Handicraft', ja:'手工芸', ko:'수공예', fr:'Artisanat', es:'Artesanía', de:'Kunsthandwerk', th:'หัตถกรรม', vi:'Đồ thủ công', id:'Kerajinan Tangan', ms:'Kraftangan', ar:'صناعة يدوية' },
+            '非遗': { en:'Intangible Heritage', ja:'無形文化遺産', ko:'무형문화유산', fr:'Patrimoine Immatériel', es:'Patrimonio Inmaterial', de:'Immaterielles Erbe', th:'มรดกที่จับต้องไม่ได้', vi:'Di sản Phi vật thể', id:'Warisan Takbenda', ms:'Warisan Tidak Ketara', ar:'تراث غير مادي' },
+            '民俗': { en:'Folk Customs', ja:'民俗', ko:'민속', fr:'Coutumes Populaires', es:'Costumbres Populares', de:'Volksbräuche', th:'ประเพณีพื้นบ้าน', vi:'Phong tục Dân gian', id:'Adat Istiadat', ms:'Adat Resam', ar:'عادات شعبية' },
+            '故事': { en:'Story', ja:'物語', ko:'이야기', fr:'Histoire', es:'Historia', de:'Geschichte', th:'เรื่องราว', vi:'Câu chuyện', id:'Cerita', ms:'Cerita', ar:'قصة' },
+            '遗产': { en:'Heritage', ja:'遺産', ko:'유산', fr:'Patrimoine', es:'Patrimonio', de:'Erbe', th:'มรดก', vi:'Di sản', id:'Warisan', ms:'Warisan', ar:'تراث' },
+            '古代': { en:'Ancient', ja:'古代', ko:'고대', fr:'Ancien', es:'Antiguo', de:'Antik', th:'โบราณ', vi:'Cổ đại', id:'Kuno', ms:'Purba', ar:'قديم' },
+            '现代': { en:'Modern', ja:'現代', ko:'현대', fr:'Moderne', es:'Moderno', de:'Modern', th:'สมัยใหม่', vi:'Hiện đại', id:'Modern', ms:'Moden', ar:'حديث' },
+            '春节': { en:'Spring Festival', ja:'春節', ko:'춘절', fr:'Fête du Printemps', es:'Fiesta de la Primavera', de:'Frühlingsfest', th:'เทศกาลฤดูใบไม้ผลิ', vi:'Lễ hội Mùa xuân', id:'Festival Musim Semi', ms:'Perayaan Musim Bunga', ar:'مهرجان الربيع' },
+            '端午': { en:'Dragon Boat Festival', ja:'端午節', ko:'단오절', fr:'Fête des Bateaux-Dragons', es:'Festival del Bote del Dragón', de:'Drachenbootfest', th:'เทศกาลเรือมังกร', vi:'Lễ hội Thuyền rồng', id:'Festival Perahu Naga', ms:'Perayaan Perahu Naga', ar:'مهرجان قوارب التنين' },
+            '中秋': { en:'Mid-Autumn Festival', ja:'中秋節', ko:'중추절', fr:'Fête de la Mi-Automne', es:'Fiesta del Medio Otoño', de:'Mittherbstfest', th:'เทศกาลไหว้พระจันทร์', vi:'Tết Trung Thu', id:'Festival Pertengahan Musim Gugur', ms:'Perayaan Kuih Bulan', ar:'مهرجان منتصف الخريف' },
+            '元宵': { en:'Lantern Festival', ja:'元宵節', ko:'원소절', fr:'Fête des Lanternes', es:'Fiesta de los Faroles', de:'Laternenfest', th:'เทศกาลโคมไฟ', vi:'Tết Nguyên Tiêu', id:'Festival Lampion', ms:'Perayaan Tanglung', ar:'مهرجان الفوانيس' },
+            '清明': { en:'Qingming Festival', ja:'清明節', ko:'청명절', fr:'Fête de Qingming', es:'Festival de Qingming', de:'Qingming-Fest', th:'เทศกาลเชงเม้ง', vi:'Tết Thanh Minh', id:'Festival Qingming', ms:'Perayaan Qingming', ar:'مهرجان تشينغمينغ' },
+            '国画': { en:'Chinese Painting', ja:'中国画', ko:'중국화', fr:'Peinture Chinoise', es:'Pintura China', de:'Chinesische Malerei', th:'ภาพวาดจีน', vi:'Tranh Trung Quốc', id:'Lukisan Tiongkok', ms:'Lukisan Cina', ar:'رسم صيني' },
+            '水墨画': { en:'Ink Wash Painting', ja:'水墨画', ko:'수묵화', fr:'Peinture au Lavis', es:'Pintura en Tinta', de:'Tuschemalerei', th:'ภาพวาดหมึกจีน', vi:'Tranh Thủy mặc', id:'Lukisan Tinta', ms:'Lukisan Dakwat', ar:'رسم بالحبر' },
+            '龙': { en:'Dragon', ja:'龍', ko:'용', fr:'Dragon', es:'Dragón', de:'Drache', th:'มังกร', vi:'Rồng', id:'Naga', ms:'Naga', ar:'تنين' },
+            '凤': { en:'Phoenix', ja:'鳳凰', ko:'봉황', fr:'Phénix', es:'Fénix', de:'Phönix', th:'หงส์', vi:'Phượng hoàng', id:'Feniks', ms:'Feniks', ar:'طائر الفينيق' },
+            '茶道': { en:'Tea Ceremony', ja:'茶道', ko:'다도', fr:'Cérémonie du Thé', es:'Ceremonia del Té', de:'Teezeremonie', th:'พิธีชงชา', vi:'Trà đạo', id:'Upacara Teh', ms:'Upacara Teh', ar:'طقوس الشاي' },
+            '书法': { en:'Calligraphy', ja:'書道', ko:'서예', fr:'Calligraphie', es:'Caligrafía', de:'Kalligraphie', th:'การเขียนพู่กัน', vi:'Thư pháp', id:'Kaligrafi', ms:'Kaligrafi', ar:'خط' },
+            '京剧': { en:'Peking Opera', ja:'京劇', ko:'경극', fr:'Opéra de Pékin', es:'Ópera de Pekín', de:'Peking-Oper', th:'อุปรากรจีน', vi:'Kinh kịch', id:'Opera Peking', ms:'Opera Peking', ar:'أوبرا بكين' },
+            '陶瓷': { en:'Ceramics', ja:'陶磁器', ko:'도자기', fr:'Céramique', es:'Cerámica', de:'Keramik', th:'เซรามิก', vi:'Gốm sứ', id:'Keramik', ms:'Seramik', ar:'سيراميك' },
+            '瓷器': { en:'Porcelain', ja:'磁器', ko:'자기', fr:'Porcelaine', es:'Porcelana', de:'Porzellan', th:'เครื่องเคลือบ', vi:'Sứ', id:'Porselen', ms:'Porselin', ar:'خزف' },
+            '丝绸': { en:'Silk', ja:'絹', ko:'비단', fr:'Soie', es:'Seda', de:'Seide', th:'ผ้าไหม', vi:'Lụa', id:'Sutra', ms:'Sutera', ar:'حرير' },
+            '刺绣': { en:'Embroidery', ja:'刺繍', ko:'자수', fr:'Broderie', es:'Bordado', de:'Stickerei', th:'งานปัก', vi:'Thêu', id:'Sulaman', ms:'Sulaman', ar:'تطريز' },
+            '剪纸': { en:'Paper Cutting', ja:'切紙', ko:'종이공예', fr:'Découpage de Papier', es:'Recorte de Papel', de:'Papierschnitt', th:'การตัดกระดาษ', vi:'Cắt giấy', id:'Potong Kertas', ms:'Potongan Kertas', ar:'قص الورق' },
+            '皮影': { en:'Shadow Puppetry', ja:'影絵', ko:'그림자극', fr:'Théâtre d\'Ombres', es:'Teatro de Sombras', de:'Schattenspiel', th:'หนังตะลุง', vi:'Múa rối bóng', id:'Wayang Kulit', ms:'Wayang Kulit', ar:'مسرح ظل' },
+            '建筑': { en:'Architecture', ja:'建築', ko:'건축', fr:'Architecture', es:'Arquitectura', de:'Architektur', th:'สถาปัตยกรรม', vi:'Kiến trúc', id:'Arsitektur', ms:'Seni Bina', ar:'عمارة' },
+            '园林': { en:'Garden', ja:'庭園', ko:'정원', fr:'Jardin', es:'Jardín', de:'Garten', th:'สวน', vi:'Vườn', id:'Taman', ms:'Taman', ar:'حديقة' },
+            '音乐': { en:'Music', ja:'音楽', ko:'음악', fr:'Musique', es:'Música', de:'Musik', th:'ดนตรี', vi:'Âm nhạc', id:'Musik', ms:'Muzik', ar:'موسيقى' },
+            '舞蹈': { en:'Dance', ja:'舞踊', ko:'무용', fr:'Danse', es:'Danza', de:'Tanz', th:'เต้นรำ', vi:'Khiêu vũ', id:'Tarian', ms:'Tarian', ar:'رقص' },
+            '服饰': { en:'Costume', ja:'服飾', ko:'복식', fr:'Costume', es:'Vestimenta', de:'Tracht', th:'เครื่องแต่งกาย', vi:'Trang phục', id:'Busana', ms:'Pakaian', ar:'زي' },
+            '汉服': { en:'Hanfu', ja:'漢服', ko:'한푸', fr:'Hanfu', es:'Hanfu', de:'Hanfu', th:'ฮั่นฝู', vi:'Hán phục', id:'Hanfu', ms:'Hanfu', ar:'هانفو' },
+            '旗袍': { en:'Qipao', ja:'チャイナドレス', ko:'치파오', fr:'Qipao', es:'Qipao', de:'Qipao', th:'กี่เพ้า', vi:'Sườn xám', id:'Cheongsam', ms:'Cheongsam', ar:'تشيباو' },
+            '功夫': { en:'Kung Fu', ja:'功夫', ko:'쿵푸', fr:'Kung Fu', es:'Kung Fu', de:'Kung Fu', th:'กังฟู', vi:'Kung Fu', id:'Kung Fu', ms:'Kung Fu', ar:'كونغ فو' },
+            '武术': { en:'Martial Arts', ja:'武術', ko:'무술', fr:'Arts Martiaux', es:'Artes Marciales', de:'Kampfkunst', th:'ศิลปะการต่อสู้', vi:'Võ thuật', id:'Seni Bela Diri', ms:'Seni Mempertahankan Diri', ar:'فنون قتالية' },
+            '太极': { en:'Tai Chi', ja:'太極拳', ko:'태극권', fr:'Tai Chi', es:'Tai Chi', de:'Tai Chi', th:'ไทเก๊ก', vi:'Thái Cực Quyền', id:'Tai Chi', ms:'Tai Chi', ar:'تاي تشي' },
+            '中医': { en:'Chinese Medicine', ja:'中医', ko:'중의학', fr:'Médecine Chinoise', es:'Medicina China', de:'Chinesische Medizin', th:'การแพทย์จีน', vi:'Y học Trung Quốc', id:'Pengobatan Tiongkok', ms:'Perubatan Cina', ar:'طب صيني' },
+            '针灸': { en:'Acupuncture', ja:'鍼灸', ko:'침술', fr:'Acupuncture', es:'Acupuntura', de:'Akupunktur', th:'ฝังเข็ม', vi:'Châm cứu', id:'Akupunktur', ms:'Akupunktur', ar:'وخز بالإبر' },
+            '围棋': { en:'Go', ja:'囲碁', ko:'바둑', fr:'Jeu de Go', es:'Go', de:'Go', th:'หมากล้อม', vi:'Cờ vây', id:'Igo', ms:'Go', ar:'غو' },
+            '象棋': { en:'Chinese Chess', ja:'象棋', ko:'중국장기', fr:'Échecs Chinois', es:'Ajedrez Chino', de:'Chinesisches Schach', th:'หมากรุกจีน', vi:'Cờ tướng', id:'Catur Tiongkok', ms:'Catur Cina', ar:'شطرنج صيني' },
+            '故宫': { en:'Forbidden City', ja:'故宮', ko:'자금성', fr:'Cité Interdite', es:'Ciudad Prohibida', de:'Verbotene Stadt', th:'พระราชวังต้องห้าม', vi:'Tử Cấm Thành', id:'Kota Terlarang', ms:'Kota Terlarang', ar:'المدينة المحرمة' },
+            '长城': { en:'Great Wall', ja:'万里の長城', ko:'만리장성', fr:'Grande Muraille', es:'Gran Muralla', de:'Große Mauer', th:'กำแพงเมืองจีน', vi:'Vạn Lý Trường Thành', id:'Tembok Besar', ms:'Tembok Besar', ar:'سور الصين العظيم' },
+            '兵马俑': { en:'Terracotta Warriors', ja:'兵馬俑', ko:'병마용', fr:'Armée de Terre Cuite', es:'Guerreros de Terracota', de:'Terrakotta-Armee', th:'กองทัพทหารดินเผา', vi:'Đội quân Đất nung', id:'Prajurit Terakota', ms:'Pahlawan Terakota', ar:'محاربو الطين' },
+            '丝绸之路': { en:'Silk Road', ja:'シルクロード', ko:'실크로드', fr:'Route de la Soie', es:'Ruta de la Seda', de:'Seidenstraße', th:'เส้นทางสายไหม', vi:'Con đường Tơ lụa', id:'Jalur Sutra', ms:'Jalan Sutera', ar:'طريق الحرير' },
+            '敦煌': { en:'Dunhuang', ja:'敦煌', ko:'둔황', fr:'Dunhuang', es:'Dunhuang', de:'Dunhuang', th:'ตุนหวง', vi:'Đôn Hoàng', id:'Dunhuang', ms:'Dunhuang', ar:'دونهوانغ' },
+            '孙悟空': { en:'Monkey King', ja:'孫悟空', ko:'손오공', fr:'Roi Singe', es:'Rey Mono', de:'Affenkönig', th:'ซุนหงอคง', vi:'Tôn Ngộ Không', id:'Sun Go Kong', ms:'Raja Monyet', ar:'الملك القرد' },
+            '西游记': { en:'Journey to the West', ja:'西遊記', ko:'서유기', fr:'Voyage en Occident', es:'Viaje al Oeste', de:'Reise nach Westen', th:'ไซอิ๋ว', vi:'Tây Du Ký', id:'Perjalanan ke Barat', ms:'Perjalanan ke Barat', ar:'رحلة إلى الغرب' },
+            '红楼梦': { en:'Dream of the Red Chamber', ja:'紅楼夢', ko:'홍루몽', fr:'Rêve dans le Pavillon Rouge', es:'Sueño en el Pabellón Rojo', de:'Traum der Roten Kammer', th:'ความฝันในหอแดง', vi:'Hồng Lâu Mộng', id:'Impian Paviliun Merah', ms:'Mimpi Kamar Merah', ar:'حلم الغرفة الحمراء' },
+            '三国': { en:'Three Kingdoms', ja:'三国志', ko:'삼국지', fr:'Trois Royaumes', es:'Tres Reinos', de:'Drei Königreiche', th:'สามก๊ก', vi:'Tam Quốc', id:'Tiga Kerajaan', ms:'Tiga Kerajaan', ar:'الممالك الثلاث' },
+            '水浒': { en:'Water Margin', ja:'水滸伝', ko:'수호전', fr:'Au Bord de l\'Eau', es:'Bandidos del Pantano', de:'Die Räuber vom Liang-Schan-Moor', th:'ซ้องกั๋ง', vi:'Thủy Hử', id:'Batas Air', ms:'Hikayat Pinggir Air', ar:'حافة الماء' },
+          };
+          var result = text;
+          var keys = Object.keys(dict).sort(function(a, b) { return b.length - a.length; });
+          keys.forEach(function (key) {
+            if (result.indexOf(key) !== -1) {
+              var replacement = dict[key][targetLang] || dict[key]['en'];
+              if (replacement === undefined) replacement = key;
+              result = result.split(key).join(replacement);
+            }
+          });
+          if (targetLang !== 'ja' && targetLang !== 'ko') {
+            result = result.replace(/[一-鿿㐀-䶿]/g, '').replace(/[　-〿＀-￯]/g, '').replace(/\s+/g, ' ').trim();
+          }
+          if (!result || result.length < 2) {
+            // 无法翻译时，返回目标语言的通用文化主题标签
+            var genericLabels = {
+              en:'Chinese Cultural Theme', ja:'中国文化テーマ', ko:'중국 문화 테마',
+              fr:'Thème Culturel Chinois', es:'Tema Cultural Chino', de:'Chinesisches Kulturthema',
+              th:'หัวข้อวัฒนธรรมจีน', vi:'Chủ đề Văn hóa Trung Quốc',
+              id:'Tema Budaya Tiongkok', ms:'Tema Budaya Cina', ar:'موضوع ثقافي صيني'
+            };
+            return genericLabels[targetLang] || genericLabels['en'];
+          }
+          return result;
+        };
+
         // 2. 目标语言的关键词翻译 & 话题标签映射
         var topicTL = {};  // topic in target language
         var tags = {};     // hashtags in target language
@@ -1649,16 +1742,145 @@
         // 新语言 fallback：ja/ko/de 无专属内容时使用英语
         var fallbackLang = (lang === 'ja' || lang === 'ko' || lang === 'de' || lang === 'th' || lang === 'vi' || lang === 'id' || lang === 'ms') ? 'en' : lang;
         var t = topicTL[lang] || topicTL[fallbackLang] || topicTL.zh;
+        // 如果 topicTL 没有提供翻译（generic 情况），使用通用词典翻译主题
+        if (t === topic && lang !== 'zh') {
+          var topicDict = {
+            '中国结': { en:'Chinese Knot', ja:'中国結び', ko:'중국 매듭', fr:'Nœud Chinois', es:'Nudo Chino', de:'Chinesischer Knoten', th:'เงื่อนจีน', vi:'Nút thắt Trung Hoa', id:'Simpul Tiongkok', ms:'Simpulan Cina', ar:'عقدة صينية' },
+            '剪纸': { en:'Paper Cutting', ja:'切り紙', ko:'종이 공예', fr:'Découpage de Papier', es:'Recorte de Papel', de:'Papierschnitt', th:'การตัดกระดาษ', vi:'Cắt giấy', id:'Potong Kertas', ms:'Potongan Kertas', ar:'قص الورق' },
+            '皮影戏': { en:'Shadow Puppetry', ja:'影絵芝居', ko:'그림자 인형극', fr:'Théâtre d\'Ombres', es:'Teatro de Sombras', de:'Schattenspiel', th:'หนังตะลุง', vi:'Múa rối bóng', id:'Wayang Kulit', ms:'Wayang Kulit', ar:'مسرح الظل' },
+            '舞龙': { en:'Dragon Dance', ja:'龍舞', ko:'용춤', fr:'Danse du Dragon', es:'Danza del Dragón', de:'Drachentanz', th:'เชิดมังกร', vi:'Múa rồng', id:'Tarian Naga', ms:'Tarian Naga', ar:'رقصة التنين' },
+            '舞狮': { en:'Lion Dance', ja:'獅子舞', ko:'사자춤', fr:'Danse du Lion', es:'Danza del León', de:'Löwentanz', th:'เชิดสิงโต', vi:'Múa lân', id:'Tarian Singa', ms:'Tarian Singa', ar:'رقصة الأسد' },
+            '功夫': { en:'Kung Fu', ja:'カンフー', ko:'쿵푸', fr:'Kung Fu', es:'Kung Fu', de:'Kung Fu', th:'กังฟู', vi:'Kung Fu', id:'Kung Fu', ms:'Kung Fu', ar:'كونغ فو' },
+            '武术': { en:'Martial Arts', ja:'武術', ko:'무술', fr:'Arts Martiaux', es:'Artes Marciales', de:'Kampfkunst', th:'ศิลปะการต่อสู้', vi:'Võ thuật', id:'Seni Bela Diri', ms:'Seni Mempertahankan Diri', ar:'فنون قتالية' },
+            '太极': { en:'Tai Chi', ja:'太極拳', ko:'태극권', fr:'Tai Chi', es:'Tai Chi', de:'Tai Chi', th:'ไทเก๊ก', vi:'Thái Cực Quyền', id:'Tai Chi', ms:'Tai Chi', ar:'تاي تشي' },
+            '太极拳': { en:'Tai Chi', ja:'太極拳', ko:'태극권', fr:'Tai Chi', es:'Tai Chi', de:'Tai Chi', th:'ไทเก๊ก', vi:'Thái Cực Quyền', id:'Tai Chi', ms:'Tai Chi', ar:'تاي تشي' },
+            '丝绸': { en:'Silk', ja:'シルク', ko:'실크', fr:'Soie', es:'Seda', de:'Seide', th:'ผ้าไหม', vi:'Lụa', id:'Sutra', ms:'Sutera', ar:'حرير' },
+            '刺绣': { en:'Embroidery', ja:'刺繍', ko:'자수', fr:'Broderie', es:'Bordado', de:'Stickerei', th:'เย็บปักถักร้อย', vi:'Thêu', id:'Sulaman', ms:'Sulaman', ar:'تطريز' },
+            '围棋': { en:'Go / Weiqi', ja:'囲碁', ko:'바둑', fr:'Jeu de Go', es:'Go', de:'Go', th:'หมากล้อม', vi:'Cờ vây', id:'Igo', ms:'Go', ar:'غو' },
+            '象棋': { en:'Chinese Chess', ja:'中国将棋', ko:'중국 장기', fr:'Échecs Chinois', es:'Ajedrez Chino', de:'Chinesisches Schach', th:'หมากรุกจีน', vi:'Cờ tướng', id:'Catur Tiongkok', ms:'Catur Cina', ar:'شطرنج صيني' },
+            '中医': { en:'Chinese Medicine', ja:'漢方', ko:'중의학', fr:'Médecine Chinoise', es:'Medicina China', de:'Chinesische Medizin', th:'แพทย์แผนจีน', vi:'Y học Trung Quốc', id:'Pengobatan Tiongkok', ms:'Perubatan Cina', ar:'طب صيني' },
+            '针灸': { en:'Acupuncture', ja:'鍼灸', ko:'침술', fr:'Acupuncture', es:'Acupuntura', de:'Akupunktur', th:'ฝังเข็ม', vi:'Châm cứu', id:'Akupunktur', ms:'Akupunktur', ar:'وخز بالإبر' },
+            '旗袍': { en:'Qipao / Cheongsam', ja:'チャイナドレス', ko:'치파오', fr:'Qipao', es:'Qipao', de:'Qipao', th:'กี่เพ้า', vi:'Sườn xám', id:'Cheongsam', ms:'Cheongsam', ar:'تشيباو' },
+            '汉服': { en:'Hanfu', ja:'漢服', ko:'한푸', fr:'Hanfu', es:'Hanfu', de:'Hanfu', th:'ฮั่นฝู', vi:'Hán phục', id:'Hanfu', ms:'Hanfu', ar:'هانفو' },
+            '园林': { en:'Chinese Garden', ja:'中国庭園', ko:'중국 정원', fr:'Jardin Chinois', es:'Jardín Chino', de:'Chinesischer Garten', th:'สวนจีน', vi:'Vườn Trung Hoa', id:'Taman Tiongkok', ms:'Taman Cina', ar:'حديقة صينية' },
+            '故宫': { en:'Forbidden City', ja:'故宮', ko:'고궁', fr:'Cité Interdite', es:'Ciudad Prohibida', de:'Verbotene Stadt', th:'พระราชวังต้องห้าม', vi:'Tử Cấm Thành', id:'Kota Terlarang', ms:'Kota Terlarang', ar:'المدينة المحرمة' },
+            '长城': { en:'Great Wall', ja:'万里の長城', ko:'만리장성', fr:'Grande Muraille', es:'Gran Muralla', de:'Große Mauer', th:'กำแพงเมืองจีน', vi:'Vạn Lý Trường Thành', id:'Tembok Besar', ms:'Tembok Besar', ar:'سور الصين العظيم' },
+            '兵马俑': { en:'Terracotta Warriors', ja:'兵馬俑', ko:'병마용', fr:'Armée de Terre Cuite', es:'Guerreros de Terracota', de:'Terrakotta-Armee', th:'กองทัพทหารดินเผา', vi:'Đội quân Đất nung', id:'Prajurit Terakota', ms:'Pahlawan Terakota', ar:'محاربو الطين' },
+            '敦煌': { en:'Dunhuang', ja:'敦煌', ko:'둔황', fr:'Dunhuang', es:'Dunhuang', de:'Dunhuang', th:'ตุนหวง', vi:'Đôn Hoàng', id:'Dunhuang', ms:'Dunhuang', ar:'دونهوانغ' },
+            '孙悟空': { en:'Monkey King', ja:'孫悟空', ko:'손오공', fr:'Roi Singe', es:'Rey Mono', de:'Affenkönig', th:'ซุนหงอคง', vi:'Tôn Ngộ Không', id:'Sun Go Kong', ms:'Raja Monyet', ar:'الملك القرد' },
+            '西游记': { en:'Journey to the West', ja:'西遊記', ko:'서유기', fr:'Le Voyage en Occident', es:'Viaje al Oeste', de:'Reise nach Westen', th:'ไซอิ๋ว', vi:'Tây Du Ký', id:'Perjalanan ke Barat', ms:'Perjalanan ke Barat', ar:'رحلة إلى الغرب' },
+            '红楼梦': { en:'Dream of the Red Chamber', ja:'紅楼夢', ko:'홍루몽', fr:'Le Rêve dans le Pavillon Rouge', es:'Sueño en el Pabellón Rojo', de:'Traum der Roten Kammer', th:'หอการค้าฝันในหอแดง', vi:'Hồng Lâu Mộng', id:'Impian Paviliun Merah', ms:'Mimpi Kamar Merah', ar:'حلم الغرفة الحمراء' },
+          };
+          var fallbackTopic = topicDict[topic];
+          if (fallbackTopic) {
+            t = fallbackTopic[lang] || fallbackTopic['en'] || topic;
+          }
+          // 最后手段：使用通用翻译函数彻底翻译主题
+          if (t === topic) {
+            t = translateGenericText(topic, lang);
+          }
+        }
         var b = body[lang] || body[fallbackLang] || body.zh;
         var tg = tags[lang] || tags[fallbackLang] || tags.zh;
 
-        // ---- 场景适配：根据场景关键词调整文案风格 ----
-        var adapted = adaptForScenario(b, tg, scenario, topic, lang, fallbackLang);
+        // ---- 场景适配：根据场景关键词调整文案风格（使用目标语言的主题和场景）----
+        var adapted = adaptForScenario(b, tg, scenario, t, lang, fallbackLang);
         b = adapted.body;
         tg = adapted.tags;
 
-        // 中文引号包裹主题
-        var quotedTopic = '“' + topic + '”';
+        // 将正文中可能残留的原文主题替换为目标语言主题
+        if (t !== topic) {
+          b = b.split(topic).join(t);
+        }
+        // 最后清除正文中残留的任何中文字符（非CJK目标语言时）
+        if (lang !== 'zh' && lang !== 'ja' && lang !== 'ko') {
+          b = b.replace(/[一-鿿㐀-䶿]/g, '').replace(/[　-〿＀-￯]/g, '').replace(/\s+/g, ' ').trim();
+        }
+
+        // 将场景文本翻译为目标语言（保证输出完全为目标语言）
+        var translateScenario = function (rawScenario, targetLang) {
+          if (targetLang === 'zh') return rawScenario;
+          if (!/[一-鿿㐀-䶿]/.test(rawScenario)) return rawScenario;
+          var dict = {
+            // 完整常用场景短语（优先长匹配）
+            '用于 TikTok 海外推广': { en:'For TikTok Overseas Promotion', ja:'TikTok海外プロモーション用', ko:'TikTok 해외 프로모션용', fr:'Pour la Promotion Internationale sur TikTok', es:'Para Promoción Internacional en TikTok', de:'Für internationale TikTok-Werbung', th:'สำหรับโปรโมทต่างประเทศบน TikTok', vi:'Dành cho Quảng bá Quốc tế trên TikTok', id:'Untuk Promosi Internasional TikTok', ms:'Untuk Promosi Antarabangsa TikTok', ar:'للترويج الدولي على تيك توك' },
+            '用于 Instagram 社交媒体分享': { en:'For Instagram Social Media Sharing', ja:'Instagram SNSシェア用', ko:'인스타그램 SNS 공유용', fr:'Pour le Partage sur Instagram', es:'Para Compartir en Instagram', de:'Für Instagram Social-Media-Sharing', th:'สำหรับแชร์บนโซเชียลมีเดีย Instagram', vi:'Dành cho Chia sẻ trên Mạng xã hội Instagram', id:'Untuk Berbagi di Media Sosial Instagram', ms:'Untuk Perkongsian Media Sosial Instagram', ar:'للمشاركة على وسائل التواصل الاجتماعي إنستغرام' },
+            '跨境电商产品推广': { en:'Cross-border E-commerce Product Promotion', ja:'越境EC商品プロモーション', ko:'국경간 이커머스 상품 프로모션', fr:'Promotion de Produits E-commerce Transfrontalier', es:'Promoción de Productos de Comercio Electrónico Transfronterizo', de:'Grenzüberschreitende E-Commerce-Produktwerbung', th:'โปรโมทสินค้าอีคอมเมิร์ซข้ามพรมแดน', vi:'Quảng bá Sản phẩm Thương mại Điện tử Xuyên biên giới', id:'Promosi Produk E-dagang Lintas Batas', ms:'Promosi Produk E-dagang Rentas Sempadan', ar:'ترويج منتجات التجارة الإلكترونية عبر الحدود' },
+            '文化展览宣传推广': { en:'Cultural Exhibition Promotion', ja:'文化展覧会プロモーション', ko:'문화 전시회 프로모션', fr:'Promotion d\'Exposition Culturelle', es:'Promoción de Exposición Cultural', de:'Kulturausstellungswerbung', th:'โปรโมทนิทรรศการวัฒนธรรม', vi:'Quảng bá Triển lãm Văn hóa', id:'Promosi Pameran Budaya', ms:'Promosi Pameran Budaya', ar:'الترويج للمعرض الثقافي' },
+            '旅游景点宣传推广': { en:'Travel Destination Promotion', ja:'観光地プロモーション', ko:'관광지 프로모션', fr:'Promotion de Destination Touristique', es:'Promoción de Destino Turístico', de:'Tourismuswerbung', th:'โปรโมทสถานที่ท่องเที่ยว', vi:'Quảng bá Điểm đến Du lịch', id:'Promosi Tempat Wisata', ms:'Promosi Destinasi Pelancongan', ar:'الترويج للوجهة السياحية' },
+            '学术研究教育': { en:'Academic Research & Education', ja:'学術研究教育', ko:'학술 연구 교육', fr:'Recherche Académique et Éducation', es:'Investigación Académica y Educación', de:'Akademische Forschung & Bildung', th:'การวิจัยทางวิชาการและการศึกษา', vi:'Nghiên cứu Học thuật & Giáo dục', id:'Riset Akademik & Pendidikan', ms:'Penyelidikan Akademik & Pendidikan', ar:'البحث الأكاديمي والتعليم' },
+            '品牌营销推广': { en:'Brand Marketing Promotion', ja:'ブランドマーケティングプロモーション', ko:'브랜드 마케팅 프로모션', fr:'Promotion Marketing de Marque', es:'Promoción de Marketing de Marca', de:'Marken-Marketing-Werbung', th:'โปรโมทการตลาดแบรนด์', vi:'Quảng bá Tiếp thị Thương hiệu', id:'Promosi Pemasaran Merek', ms:'Promosi Pemasaran Jenama', ar:'ترويج تسويق العلامة التجارية' },
+            // 单词/短语: { en:'Overseas Promotion', ja:'海外プロモーション', ko:'해외 프로모션', fr:'Promotion Internationale', es:'Promoción Internacional', de:'Internationale Werbung', th:'โปรโมทต่างประเทศ', vi:'Quảng bá Quốc tế', id:'Promosi Internasional', ms:'Promosi Antarabangsa', ar:'ترويج دولي' },
+            '文化展览': { en:'Cultural Exhibition', ja:'文化展覧会', ko:'문화 전시회', fr:'Exposition Culturelle', es:'Exposición Cultural', de:'Kulturausstellung', th:'นิทรรศการวัฒนธรรม', vi:'Triển lãm Văn hóa', id:'Pameran Budaya', ms:'Pameran Budaya', ar:'معرض ثقافي' },
+            '社交媒体': { en:'Social Media', ja:'ソーシャルメディア', ko:'소셜 미디어', fr:'Réseaux Sociaux', es:'Redes Sociales', de:'Soziale Medien', th:'โซเชียลมีเดีย', vi:'Mạng xã hội', id:'Media Sosial', ms:'Media Sosial', ar:'وسائل التواصل الاجتماعي' },
+            '社媒': { en:'Social Media', ja:'SNS', ko:'SNS', fr:'Réseaux Sociaux', es:'Redes Sociales', de:'Soziale Medien', th:'โซเชียลมีเดีย', vi:'Mạng xã hội', id:'Media Sosial', ms:'Media Sosial', ar:'وسائل التواصل' },
+            '电商': { en:'E-commerce', ja:'Eコマース', ko:'이커머스', fr:'E-commerce', es:'Comercio Electrónico', de:'E-Commerce', th:'อีคอมเมิร์ซ', vi:'Thương mại Điện tử', id:'E-dagang', ms:'E-dagang', ar:'التجارة الإلكترونية' },
+            '旅游': { en:'Travel', ja:'旅行', ko:'여행', fr:'Voyage', es:'Viaje', de:'Reise', th:'ท่องเที่ยว', vi:'Du lịch', id:'Wisata', ms:'Pelancongan', ar:'سفر' },
+            '景区': { en:'Scenic Spot', ja:'観光地', ko:'관광지', fr:'Site Touristique', es:'Lugar Turístico', de:'Sehenswürdigkeit', th:'สถานที่ท่องเที่ยว', vi:'Điểm du lịch', id:'Tempat Wisata', ms:'Tempat Pelancongan', ar:'موقع سياحي' },
+            '学术': { en:'Academic', ja:'学術', ko:'학술', fr:'Académique', es:'Académico', de:'Akademisch', th:'วิชาการ', vi:'Học thuật', id:'Akademik', ms:'Akademik', ar:'أكاديمي' },
+            '教育': { en:'Education', ja:'教育', ko:'교육', fr:'Éducation', es:'Educación', de:'Bildung', th:'การศึกษา', vi:'Giáo dục', id:'Pendidikan', ms:'Pendidikan', ar:'تعليم' },
+            '品牌': { en:'Brand', ja:'ブランド', ko:'브랜드', fr:'Marque', es:'Marca', de:'Marke', th:'แบรนด์', vi:'Thương hiệu', id:'Merek', ms:'Jenama', ar:'علامة تجارية' },
+            '营销': { en:'Marketing', ja:'マーケティング', ko:'마케팅', fr:'Marketing', es:'Marketing', de:'Marketing', th:'การตลาด', vi:'Tiếp thị', id:'Pemasaran', ms:'Pemasaran', ar:'تسويق' },
+            '活动': { en:'Event', ja:'イベント', ko:'이벤트', fr:'Événement', es:'Evento', de:'Veranstaltung', th:'กิจกรรม', vi:'Sự kiện', id:'Acara', ms:'Acara', ar:'فعالية' },
+            '视频': { en:'Video', ja:'動画', ko:'영상', fr:'Vidéo', es:'Video', de:'Video', th:'วิดีโอ', vi:'Video', id:'Video', ms:'Video', ar:'فيديو' },
+            '短视频': { en:'Short Video', ja:'ショート動画', ko:'숏폼', fr:'Vidéo Courte', es:'Video Corto', de:'Kurzvideos', th:'วิดีโอสั้น', vi:'Video Ngắn', id:'Video Pendek', ms:'Video Pendek', ar:'فيديو قصير' },
+            '直播': { en:'Live Stream', ja:'ライブ配信', ko:'라이브 스트리밍', fr:'Streaming en Direct', es:'Transmisión en Vivo', de:'Livestream', th:'ไลฟ์สด', vi:'Phát trực tiếp', id:'Siaran Langsung', ms:'Siaran Langsung', ar:'بث مباشر' },
+            '国际': { en:'International', ja:'国際', ko:'국제', fr:'International', es:'Internacional', de:'International', th:'นานาชาติ', vi:'Quốc tế', id:'Internasional', ms:'Antarabangsa', ar:'دولي' },
+            '跨境': { en:'Cross-border', ja:'越境', ko:'국경간', fr:'Transfrontalier', es:'Transfronterizo', de:'Grenzüberschreitend', th:'ข้ามพรมแดน', vi:'Xuyên biên giới', id:'Lintas Batas', ms:'Rentas Sempadan', ar:'عبر الحدود' },
+            '推广': { en:'Promotion', ja:'プロモーション', ko:'프로모션', fr:'Promotion', es:'Promoción', de:'Promotion', th:'โปรโมท', vi:'Quảng bá', id:'Promosi', ms:'Promosi', ar:'ترويج' },
+            '宣传': { en:'Promotion', ja:'宣伝', ko:'홍보', fr:'Promotion', es:'Promoción', de:'Werbung', th:'ประชาสัมพันธ์', vi:'Quảng bá', id:'Promosi', ms:'Promosi', ar:'ترويج' },
+            '分享': { en:'Sharing', ja:'シェア', ko:'공유', fr:'Partage', es:'Compartir', de:'Teilen', th:'แชร์', vi:'Chia sẻ', id:'Berbagi', ms:'Perkongsian', ar:'مشاركة' },
+            '体验': { en:'Experience', ja:'体験', ko:'체험', fr:'Expérience', es:'Experiencia', de:'Erfahrung', th:'ประสบการณ์', vi:'Trải nghiệm', id:'Pengalaman', ms:'Pengalaman', ar:'تجربة' },
+            '商品': { en:'Product', ja:'商品', ko:'상품', fr:'Produit', es:'Producto', de:'Produkt', th:'สินค้า', vi:'Sản phẩm', id:'Produk', ms:'Produk', ar:'منتج' },
+            '产品': { en:'Product', ja:'製品', ko:'제품', fr:'Produit', es:'Producto', de:'Produkt', th:'ผลิตภัณฑ์', vi:'Sản phẩm', id:'Produk', ms:'Produk', ar:'منتج' },
+            '文化': { en:'Culture', ja:'文化', ko:'문화', fr:'Culture', es:'Cultura', de:'Kultur', th:'วัฒนธรรม', vi:'Văn hóa', id:'Budaya', ms:'Budaya', ar:'ثقافة' },
+            '传播': { en:'Communication', ja:'発信', ko:'소통', fr:'Communication', es:'Comunicación', de:'Kommunikation', th:'การสื่อสาร', vi:'Truyền thông', id:'Komunikasi', ms:'Komunikasi', ar:'تواصل' },
+            '内容': { en:'Content', ja:'コンテンツ', ko:'콘텐츠', fr:'Contenu', es:'Contenido', de:'Inhalt', th:'เนื้อหา', vi:'Nội dung', id:'Konten', ms:'Kandungan', ar:'محتوى' },
+            '创作': { en:'Creation', ja:'創作', ko:'창작', fr:'Création', es:'Creación', de:'Kreation', th:'การสร้างสรรค์', vi:'Sáng tạo', id:'Kreasi', ms:'Kreasi', ar:'إبداع' },
+            '制作': { en:'Production', ja:'制作', ko:'제작', fr:'Production', es:'Producción', de:'Produktion', th:'การผลิต', vi:'Sản xuất', id:'Produksi', ms:'Produksi', ar:'إنتاج' },
+            '设计': { en:'Design', ja:'デザイン', ko:'디자인', fr:'Design', es:'Diseño', de:'Design', th:'ออกแบบ', vi:'Thiết kế', id:'Desain', ms:'Reka Bentuk', ar:'تصميم' },
+            '发布': { en:'Publishing', ja:'公開', ko:'게시', fr:'Publication', es:'Publicación', de:'Veröffentlichung', th:'เผยแพร่', vi:'Xuất bản', id:'Publikasi', ms:'Penerbitan', ar:'نشر' },
+            '介绍': { en:'Introduction', ja:'紹介', ko:'소개', fr:'Introduction', es:'Introducción', de:'Einführung', th:'แนะนำ', vi:'Giới thiệu', id:'Perkenalan', ms:'Pengenalan', ar:'مقدمة' },
+            '展示': { en:'Showcase', ja:'展示', ko:'전시', fr:'Vitrine', es:'Exhibición', de:'Präsentation', th:'จัดแสดง', vi:'Trưng bày', id:'Pameran', ms:'Pameran', ar:'عرض' },
+            '用于': { en:'For', ja:'用', ko:'용', fr:'Pour', es:'Para', de:'Für', th:'สำหรับ', vi:'Cho', id:'Untuk', ms:'Untuk', ar:'لـ' },
+            '为': { en:'For', ja:'のため', ko:'위해', fr:'Pour', es:'Para', de:'Für', th:'เพื่อ', vi:'Cho', id:'Untuk', ms:'Untuk', ar:'لـ' },
+            '进行': { en:'', ja:'', ko:'', fr:'', es:'', de:'', th:'', vi:'', id:'', ms:'', ar:'' },
+            '与': { en:'and', ja:'と', ko:'와', fr:'et', es:'y', de:'und', th:'และ', vi:'và', id:'dan', ms:'dan', ar:'و' },
+            '和': { en:'and', ja:'と', ko:'와', fr:'et', es:'y', de:'und', th:'และ', vi:'và', id:'dan', ms:'dan', ar:'و' },
+            '的': { en:'', ja:'の', ko:'의', fr:'', es:'', de:'', th:'', vi:'', id:'', ms:'', ar:'' },
+            '了': { en:'', ja:'', ko:'', fr:'', es:'', de:'', th:'', vi:'', id:'', ms:'', ar:'' },
+          };
+          var result = rawScenario;
+          // 按key长度降序排列，先匹配长短语
+          var keys = Object.keys(dict).sort(function(a, b) { return b.length - a.length; });
+          keys.forEach(function (key) {
+            if (result.indexOf(key) !== -1) {
+              var replacement = dict[key][targetLang] || dict[key]['en'];
+              if (replacement === undefined) replacement = key;
+              result = result.split(key).join(replacement);
+            }
+          });
+          // 清除残留的中文/日韩文字符和多余空格（非CJK目标语言时）
+          if (targetLang !== 'ja' && targetLang !== 'ko') {
+            result = result.replace(/[一-鿿㐀-䶿]/g, '').replace(/[　-〿＀-￯]/g, '').replace(/\s+/g, ' ').trim();
+          }
+          if (!result || result.length < 2) {
+            var genericLabels = {
+              en:'Cultural Scenario', ja:'文化シーン', ko:'문화 시나리오',
+              fr:'Scénario Culturel', es:'Escenario Cultural', de:'Kulturszenario',
+              th:'สถานการณ์วัฒนธรรม', vi:'Kịch bản Văn hóa',
+              id:'Skenario Budaya', ms:'Senario Budaya', ar:'سيناريو ثقافي'
+            };
+            return genericLabels[targetLang] || genericLabels['en'];
+          }
+          return result;
+        };
+        var translatedScenario = translateScenario(scenario, lang);
+        // 根据目标语言使用合适的引号
+        var qOpen  = (lang === 'zh' || lang === 'ja' || lang === 'ko') ? '“' : '"';
+        var qClose = (lang === 'zh' || lang === 'ja' || lang === 'ko') ? '”' : '"';
+        var quotedTopic = qOpen + t + qClose;
+        var quotedScenario = qOpen + translatedScenario + qClose;
 
         // 根据语言生成格式
         var titleLabels = {
@@ -1676,18 +1898,18 @@
 
         // 场景适配文案前缀
         var scenarioPrefix = {
-          zh:'【场景：' + scenario + '】\n',
-          en:'[Scenario: ' + scenario + ']\n',
-          ja:'【シーン：' + scenario + '】\n',
-          ko:'[시나리오: ' + scenario + ']\n',
-          es:'[Escenario: ' + scenario + ']\n',
-          fr:'[Scénario : ' + scenario + ']\n',
-          de:'[Szenario: ' + scenario + ']\n',
-          th:'[สถานการณ์: ' + scenario + ']\n',
-          vi:'[Kịch bản: ' + scenario + ']\n',
-          id:'[Skenario: ' + scenario + ']\n',
-          ms:'[Senario: ' + scenario + ']\n',
-          ar:'[السيناريو: ' + scenario + ']\n'
+          zh:'【场景：' + quotedScenario + '】\n',
+          en:'[Scenario: ' + quotedScenario + ']\n',
+          ja:'【シーン：' + quotedScenario + '】\n',
+          ko:'[시나리오: ' + quotedScenario + ']\n',
+          es:'[Escenario: ' + quotedScenario + ']\n',
+          fr:'[Scénario : ' + quotedScenario + ']\n',
+          de:'[Szenario: ' + quotedScenario + ']\n',
+          th:'[สถานการณ์: ' + quotedScenario + ']\n',
+          vi:'[Kịch bản: ' + quotedScenario + ']\n',
+          id:'[Skenario: ' + quotedScenario + ']\n',
+          ms:'[Senario: ' + quotedScenario + ']\n',
+          ar:'[السيناريو: ' + quotedScenario + ']\n'
         };
 
         var out = scenarioPrefix[lang] || scenarioPrefix[fallbackLang] || scenarioPrefix.zh;
@@ -1740,6 +1962,16 @@
       });
     };
 
+    // 检测输入文本的主要语言
+    function detectInputLanguage(text) {
+      if (/[一-鿿㐀-䶿]/.test(text)) return 'zh';
+      if (/[぀-ゟ゠-ヿ]/.test(text)) return 'ja';
+      if (/[가-힯]/.test(text)) return 'ko';
+      if (/[؀-ۿ]/.test(text)) return 'ar';
+      if (/[฀-๿]/.test(text)) return 'th';
+      return 'en';
+    }
+
     window.adaptForSocial = function () {
       var inputEl  = $('#socialInput');
       var outputEl = $('#socialOutput');
@@ -1747,12 +1979,14 @@
       var content  = inputEl.value.trim();
 
       // 校验
+      var detectedLang = detectInputLanguage(content);
+      var isZh2 = detectedLang === 'zh';
       if (!selectedPlatform) {
-        showToast('请先选择一个目标平台～');
+        showToast(isZh2 ? '请先选择一个目标平台～' : 'Please select a target platform first～');
         return;
       }
       if (!content) {
-        showToast('请先输入待适配的文化文案～');
+        showToast(isZh2 ? '请先输入待适配的文化文案～' : 'Please enter the cultural copy to adapt～');
         inputEl.focus();
         inputEl.style.borderColor = '#8B2323';
         setTimeout(function () { inputEl.style.borderColor = ''; }, 1500);
@@ -1761,7 +1995,9 @@
 
       // 加载态
       var platformNames = { tiktok: 'TikTok', instagram: 'Instagram', youtube: 'YouTube', twitter: 'X/Twitter' };
-      resultEl.textContent = '⏳ AI 正在根据 ' + platformNames[selectedPlatform] + ' 平台特性适配文案……';
+      resultEl.textContent = isZh2 ?
+        '⏳ AI 正在根据 ' + platformNames[selectedPlatform] + ' 平台特性适配文案……' :
+        '⏳ AI is adapting content for ' + platformNames[selectedPlatform] + ' platform characteristics……';
       resultEl.classList.remove('italic', 'text-soft/50');
       resultEl.classList.add('text-golden', 'font-medium');
 
@@ -1828,61 +2064,98 @@
           }
         };
 
-        // 获取场景话术（中文优先，英语备用）
+        // 获取场景话术（根据输入语言自动匹配）
         var sceneTpl = sceneWording[scene] || sceneWording['social'];
-        var wording = sceneTpl.zh; // 根据输入内容语言可扩展
+        var wording = sceneTpl[detectedLang] || sceneTpl.en;
 
-        // 各平台适配规则（结合场景话术）
+        // 各平台适配规则（结合场景话术，双语支持）
+        var zhLabels = {
+          sceneDetect:'【场景识别】', lengthRec:'【字数建议】≤ ', chars:' 字符',
+          adaptedContent:'📝 适配文案', recommendedTags:'🏷️ 推荐标签',
+          tiktokLabel:'🎵 TikTok 适配版', instagramLabel:'📸 Instagram 适配版',
+          youtubeLabel:'▶️ YouTube 适配版', twitterLabel:'🐦 X/Twitter 适配版',
+          styleDefault:{tiktok:'短小精悍、节奏明快、话题感强',instagram:'视觉驱动、故事感强、标签矩阵',youtube:'深度内容、信息量大、标题党好友',twitter:'简洁有力、观点鲜明、Thread 体'},
+          tips:{
+            tiktok:'💡 配图建议：竖屏9:16短视频封面，高饱和度色彩\n🕐 最佳发布：北京时间 20:00-22:00（对应北美早间/欧洲午后）',
+            instagram:'💡 配图建议：1:1 方形高清图或 4:5 竖图，冷暖色调对比\n🕐 最佳发布：北京时间 18:00-21:00\n📌 建议搭配 5-8 张轮播图讲述完整故事',
+            youtube:'💡 封面建议：16:9 横版缩略图，大字标题+人物表情\n🕐 最佳发布：北京时间 17:00-19:00（周五最佳）\n📝 描述栏添加时间戳导航，提升完播率',
+            twitter:'💡 配图建议：单张信息图或数据可视化卡片\n🕐 最佳发布：北京时间 21:00-23:00（对应欧美白天）\n🔗 Thread 最后一条附完整文章链接'
+          }
+        };
+        var enLabels = {
+          sceneDetect:'[Scene Detection] ', lengthRec:'[Length] ≤ ', chars:' chars',
+          adaptedContent:'📝 Adapted Content', recommendedTags:'🏷️ Recommended Tags',
+          tiktokLabel:'🎵 TikTok Adaptation', instagramLabel:'📸 Instagram Adaptation',
+          youtubeLabel:'▶️ YouTube Adaptation', twitterLabel:'🐦 X/Twitter Adaptation',
+          styleDefault:{tiktok:'Short, punchy, trend-driven',instagram:'Visual-driven, storytelling, hashtag matrix',youtube:'In-depth content, information-rich, title-friendly',twitter:'Concise, opinionated, thread-style'},
+          tips:{
+            tiktok:'💡 Visual Tip: 9:16 vertical short-video cover, high saturation\n🕐 Best Posting: 8:00-10:00 PM Beijing time (morning in North America / afternoon in Europe)',
+            instagram:'💡 Visual Tip: 1:1 square HD or 4:5 vertical, warm/cool contrast\n🕐 Best Posting: 6:00-9:00 PM Beijing time\n📌 Use 5-8 carousel images for a complete visual story',
+            youtube:'💡 Thumbnail Tip: 16:9 horizontal thumbnail, bold title + expressive face\n🕐 Best Posting: 5:00-7:00 PM Beijing time (Friday works best)\n📝 Add timestamp navigation in the description to boost retention',
+            twitter:'💡 Visual Tip: Single infographic or data visualization card\n🕐 Best Posting: 9:00-11:00 PM Beijing time (daytime in Europe/Americas)\n🔗 Attach full article link at the end of the thread'
+          }
+        };
+        var isZh2_forRules = detectedLang === 'zh';
+        var L = isZh2_forRules ? zhLabels : enLabels;
+
         var adaptRules = {
           tiktok: {
-            label: '🎵 TikTok 适配版',
-            style: wording.tone || '短小精悍、节奏明快、话题感强',
+            label: L.tiktokLabel,
+            style: wording.tone || L.styleDefault.tiktok,
             maxLen: 150,
             template: wording.tiktok,
-            tips: '💡 配图建议：竖屏9:16短视频封面，高饱和度色彩\n🕐 最佳发布：北京时间 20:00-22:00（对应北美早间/欧洲午后）',
-            tags: '#ChinaCulture #LearnOnTikTok #Viral #FYP #ChineseTradition'
+            tips: L.tips.tiktok,
+            tags: isZh2_forRules ? '#中国文化 #TikTok学中文 #涨知识 #热门 #中华传统' : '#ChinaCulture #LearnOnTikTok #Viral #FYP #ChineseTradition'
           },
           instagram: {
-            label: '📸 Instagram 适配版',
-            style: wording.tone || '视觉驱动、故事感强、标签矩阵',
+            label: L.instagramLabel,
+            style: wording.tone || L.styleDefault.instagram,
             maxLen: 300,
             template: wording.instagram,
-            tips: '💡 配图建议：1:1 方形高清图或 4:5 竖图，冷暖色调对比\n🕐 最佳发布：北京时间 18:00-21:00\n📌 建议搭配 5-8 张轮播图讲述完整故事',
-            tags: ['tourism','food'].indexOf(scene)>-1 ? '#TravelChina #InstaChina #ExploreChina #VisualChina #CultureDaily' : '#ChinaCulture #CulturalHeritage #InstaChina #ChineseTradition #ExploreChina #VisualChina #CultureDaily'
+            tips: L.tips.instagram,
+            tags: isZh2_forRules ? (['tourism','food'].indexOf(scene)>-1 ? '#旅行中国 #Insta中国 #探索中国 #视觉中国 #文化日常' : '#中国文化 #文化遗产 #Insta中国 #中华传统 #文化日常') : (['tourism','food'].indexOf(scene)>-1 ? '#TravelChina #InstaChina #ExploreChina #VisualChina #CultureDaily' : '#ChinaCulture #CulturalHeritage #InstaChina #ChineseTradition #ExploreChina #VisualChina #CultureDaily')
           },
           youtube: {
-            label: '▶️ YouTube 适配版',
-            style: wording.tone || '深度内容、信息量大、标题党友好',
+            label: L.youtubeLabel,
+            style: wording.tone || L.styleDefault.youtube,
             maxLen: 500,
             template: wording.youtube,
-            tips: '💡 封面建议：16:9 横版缩略图，大字标题+人物表情\n🕐 最佳发布：北京时间 17:00-19:00（周五最佳）\n📝 描述栏添加时间戳导航，提升完播率',
-            tags: scene==='academic' ? '#ChineseCulture #AcademicLecture #ChinaExplained #CulturalStudies' : '#ChineseCulture #ChinaExplained #LearnChinese #CulturalDocumentary #ChinaTravel'
+            tips: L.tips.youtube,
+            tags: isZh2_forRules ? (scene==='academic' ? '#中国文化 #学术讲座 #解读中国 #文化研究' : '#中国文化 #解读中国 #学中文 #文化纪录片 #中国旅行') : (scene==='academic' ? '#ChineseCulture #AcademicLecture #ChinaExplained #CulturalStudies' : '#ChineseCulture #ChinaExplained #LearnChinese #CulturalDocumentary #ChinaTravel')
           },
           twitter: {
-            label: '🐦 X/Twitter 适配版',
-            style: wording.tone || '简洁有力、观点鲜明、Thread 体',
+            label: L.twitterLabel,
+            style: wording.tone || L.styleDefault.twitter,
             maxLen: 280,
             template: wording.twitter,
-            tips: '💡 配图建议：单张信息图或数据可视化卡片\n🕐 最佳发布：北京时间 21:00-23:00（对应欧美白天）\n🔗 Thread 最后一条附完整文章链接',
-            tags: '#ChinaCulture #Thread #LearnAboutChina #CulturalThread'
+            tips: L.tips.twitter,
+            tags: isZh2_forRules ? '#中国文化 #Thread #了解中国 #文化Thread' : '#ChinaCulture #Thread #LearnAboutChina #CulturalThread'
           }
         };
 
         var rule = adaptRules[selectedPlatform];
 
+        // 输出标签（统一使用 L 中的双语标签）
+        var sceneNames = isZh2_forRules ?
+          {tourism:'旅游出行',academic:'学术研究',ecommerce:'电商带货',exhibition:'展览活动',food:'美食文化',social:'社交媒体',festival:'节日节庆',brand:'品牌推广',heritage:'非遗传承',overseas:'海外传播',general:'通用'} :
+          {tourism:'Travel & Tourism',academic:'Academic Research',ecommerce:'E-commerce',exhibition:'Exhibition & Events',food:'Food Culture',social:'Social Media',festival:'Festivals & Holidays',brand:'Brand Promotion',heritage:'Heritage & Craft',overseas:'Global Communication',general:'General'};
+        var toastSceneNames = isZh2_forRules ?
+          {tourism:'旅游',academic:'学术',ecommerce:'电商',exhibition:'展览',food:'美食',social:'社媒',festival:'节日',brand:'品牌',heritage:'非遗',overseas:'海外',general:''} :
+          {tourism:'Travel',academic:'Academic',ecommerce:'E-commerce',exhibition:'Exhibition',food:'Food',social:'Social Media',festival:'Festival',brand:'Brand',heritage:'Heritage',overseas:'Global',general:''};
+
         var out = '━━━━━━━━━━━━━━━━━━\n';
         out += rule.label + '\n';
         out += '━━━━━━━━━━━━━━━━━━\n\n';
-        out += '【场景识别】' + ({tourism:'旅游出行',academic:'学术研究',ecommerce:'电商带货',exhibition:'展览活动',food:'美食文化',social:'社交媒体',festival:'节日节庆',brand:'品牌推广',heritage:'非遗传承',overseas:'海外传播',general:'通用'})[scene] + ' · ' + rule.style + '\n';
-        out += '【字数建议】≤ ' + rule.maxLen + ' 字符\n\n';
+        out += L.sceneDetect + sceneNames[scene] + ' · ' + rule.style + '\n';
+        out += L.lengthRec + rule.maxLen + L.chars + '\n\n';
         out += '──────────────────\n';
-        out += '📝 适配文案\n';
+        out += L.adaptedContent + '\n';
         out += '──────────────────\n\n';
         out += rule.template + '\n\n';
         out += '──────────────────\n';
         out += rule.tips + '\n';
         out += '──────────────────\n\n';
-        out += '🏷️ 推荐标签\n';
+        out += L.recommendedTags + '\n';
         out += rule.tags;
 
         resultEl.classList.remove('text-golden', 'font-medium');
@@ -1890,7 +2163,9 @@
         resultEl.style.whiteSpace = 'pre-line';
         resultEl.textContent = out;
 
-        showToast('已为 ' + platformNames[selectedPlatform] + ' 的' + ({tourism:'旅游',academic:'学术',ecommerce:'电商',exhibition:'展览',food:'美食',social:'社媒',festival:'节日',brand:'品牌',heritage:'非遗',overseas:'海外',general:''})[scene] + '场景生成适配文案！');
+        showToast(isZh2_forRules ?
+          '已为 ' + platformNames[selectedPlatform] + ' 的' + toastSceneNames[scene] + '场景生成适配文案！' :
+          'Adapted content generated for ' + platformNames[selectedPlatform] + ' (' + toastSceneNames[scene] + ')!');
       }, 1000);
     };
 
