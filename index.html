@@ -514,6 +514,21 @@
                         placeholder="输入主题并点击生成，AI 将为您创作多语种文化传播文案……"
                         readonly></textarea>
             </div>
+            <!-- 快捷操作按钮 -->
+            <div class="flex gap-2 mb-3">
+              <button onclick="copyToClipboard('copywritingResultText')"
+                      class="btn-press flex-1 px-3 py-2 bg-dark text-white font-medium rounded-xl
+                             hover:bg-gray-700 active:scale-95 transition-all duration-300 text-xs
+                             shadow-md">
+                📋 一键复制
+              </button>
+              <button onclick="sendToSocial()"
+                      class="btn-press flex-1 px-3 py-2 bg-golden text-dark font-medium rounded-xl
+                             hover:bg-yellow-500 active:scale-95 transition-all duration-300 text-xs
+                             shadow-md">
+                📱 发送到社媒适配
+              </button>
+            </div>
             <!-- 历史记录区 -->
             <div id="copyHistory" class="mt-3 hidden">
               <div class="text-xs text-soft/70 font-medium mb-1.5">📋 历史记录（点击恢复）</div>
@@ -1309,6 +1324,13 @@
             body = {
               zh: '中秋节是中国最重要的传统节日之一，每年农历八月十五，家人团聚、赏月吃月饼，寄托对亲人的思念与对美好生活的向往。\n\n中秋的起源可追溯至周代的祭月仪式，至唐宋时期已成为盛大的民间节日。嫦娥奔月、吴刚伐桂、玉兔捣药等神话传说为这一节日增添了浪漫色彩。\n\n如今，中秋节已传播至韩国、日本、越南等东亚国家，成为跨国界的文化符号。通过精美的月饼礼盒与"团圆"的文化内核，中秋节正在被越来越多的海外民众所了解和喜爱。',
               en: 'The Mid-Autumn Festival is one of China\'s most cherished traditional celebrations. Held on the 15th day of the 8th lunar month, families gather to admire the full moon and share mooncakes — a symbol of reunion and longing for loved ones.\n\nDating back to moon-worship rituals of the Zhou Dynasty over 3,000 years ago, it flourished into a grand folk festival by the Tang and Song dynasties. Legends like Chang\'e flying to the moon, Wu Gang chopping the osmanthus tree, and the Jade Rabbit pounding medicine add rich mythical layers to the celebration.\n\nToday, the festival has spread across Korea, Japan, Vietnam, and beyond, evolving into a transcultural symbol. With beautifully crafted mooncake gift boxes and the universal theme of "reunion," the Mid-Autumn Festival is capturing hearts worldwide.',
+              ja: '中秋節は中国で最も大切な伝統的な祝日の一つで、毎年旧暦8月15日に家族が集まり、満月を愛でながら月餅を食べ、愛する人への思いと幸せな生活への願いを込めます。\n\n中秋の起源は周代の月を祀る儀式に遡り、唐宋代には盛大な民間行事となりました。嫦娥が月に昇った伝説、呉剛が月桂樹を伐る話、玉兎が薬を搗く話などの神話伝説が、この祭りにロマンチックな彩りを添えています。\n\n今日、中秋節は韓国、日本、ベトナムなど東アジア諸国に広がり、国境を越えた文化的シンボルとなっています。美しい月餅のギフトボックスと「団欒」という文化的核心を通じて、中秋節はますます多くの海外の人々に知られ、愛されています。',
+              ko: '중추절(추석)은 중국에서 가장 소중한 전통 명절 중 하나로, 매년 음력 8월 15일에 가족이 함께 모여 보름달을 감상하며 월병을 나누어 먹습니다. 이는 화합과 사랑하는 사람들에 대한 그리움의 상징입니다.\n\n중추절의 기원은 3,000여 년 전 주나라 시대의 달 제사 의식으로 거슬러 올라가며, 당나라와 송나라 시대에 이르러 성대한 민간 명절로 발전했습니다. 항아가 달로 날아간 전설, 오강이 월계수를 베는 이야기, 옥토끼가 약을 찧는 이야기 등 신화 전설이 이 명절에 낭만적인 색채를 더합니다.\n\n오늘날 중추절은 한국, 일본, 베트남 등 동아시아 국가로 전파되어 국경을 초월한 문화적 상징으로 발전했습니다. 아름다운 월병 선물 상자와 "화합"이라는 보편적 주제를 통해 전 세계인의 마음을 사로잡고 있습니다.',
+              de: 'Das Mittherbstfest ist eines der beliebtesten traditionellen Feste Chinas. Am 15. Tag des 8. Mondmonats versammeln sich Familien, um den Vollmond zu bewundern und Mondkuchen zu teilen — ein Symbol der Verbundenheit und Sehnsucht nach geliebten Menschen.\n\nSeine Ursprünge reichen bis zu den Mondanbetungsritualen der Zhou-Dynastie vor über 3.000 Jahren zurück und entwickelte sich während der Tang- und Song-Dynastien zu einem großen Volksfest. Legenden wie Chang\'e, die zum Mond fliegt, Wu Gang, der den Osmanthusbaum fällt, und der Jade-Hase, der Medizin stampft, verleihen dem Fest eine reiche mythische Dimension.\n\nHeute hat sich das Fest in Korea, Japan, Vietnam und darüber hinaus verbreitet und ist zu einem transkulturellen Symbol geworden. Mit wunderschön gestalteten Mondkuchen-Geschenkboxen und dem universellen Thema der "Zusammenkunft" erobert das Mittherbstfest die Herzen weltweit.',
+              th: 'เทศกาลไหว้พระจันทร์เป็นหนึ่งในเทศกาลตามประเพณีอันเป็นที่รักที่สุดของจีน ในวันเพ็ญเดือน 8 ตามปฏิทินจันทรคติ ครอบครัวจะมารวมตัวกันเพื่อชมจันทร์เต็มดวงและแบ่งปันขนมไหว้พระจันทร์ — สัญลักษณ์ของการอยู่ร่วมกันและความผูกพัน\n\nมีต้นกำเนิดจากพิธีบวงสรวงดวงจันทร์สมัยราชวงศ์โจวเมื่อกว่า 3,000 ปีก่อน ตำนานเช่น ฉางเอ๋อเหาะสู่ดวงจันทร์ ได้เพิ่มมิติแห่งตำนานอันเข้มข้นให้กับเทศกาล\n\nปัจจุบัน เทศกาลนี้ได้แพร่หลายไปทั่วเอเชียตะวันออก มอบความสุขด้วยกล่องขนมไหว้พระจันทร์แสนสวยและธีมสากลของ "การอยู่ร่วมกัน"',
+              vi: 'Tết Trung Thu là một trong những lễ hội truyền thống được yêu mến nhất của Trung Quốc. Vào ngày rằm tháng Tám âm lịch, các gia đình quây quần ngắm trăng rằm và chia nhau bánh Trung Thu — biểu tượng của sự đoàn viên và nỗi nhớ mong.\n\nCó nguồn gốc từ nghi lễ cúng trăng thời nhà Chu hơn 3.000 năm trước. Những truyền thuyết như Hằng Nga bay lên cung trăng đã thêm vào tầng lớp thần thoại phong phú cho lễ hội.\n\nNgày nay, Tết Trung Thu đã lan tỏa khắp Đông Á, chinh phục trái tim toàn cầu bằng những hộp bánh Trung Thu tuyệt đẹp và chủ đề "đoàn viên" phổ quát.',
+              id: 'Festival Pertengahan Musim Gugur adalah salah satu perayaan tradisional paling dicintai di Tiongkok. Pada hari ke-15 bulan ke-8 penanggalan lunar, keluarga berkumpul untuk mengagumi bulan purnama dan berbagi kue bulan — simbol kebersamaan dan kerinduan.\n\nBerasal dari ritual pemujaan bulan Dinasti Zhou lebih dari 3.000 tahun lalu. Legenda seperti Chang\'e terbang ke bulan menambahkan dimensi mitos yang kaya pada perayaan ini.\n\nSaat ini, festival ini telah menyebar ke seluruh Asia Timur, memikat hati di seluruh dunia dengan kotak kado kue bulan yang indah dan tema universal "reuni".',
+              ms: 'Festival Kuih Bulan adalah salah satu perayaan tradisional paling disayangi di China. Pada hari ke-15 bulan ke-8 kalendar lunar, keluarga berkumpul untuk mengagumi bulan purnama dan berkongsi kuih bulan — simbol perpaduan dan kerinduan.\n\nBerasal dari ritual pemujaan bulan Dinasti Zhou lebih 3,000 tahun lalu. Legenda seperti Chang\'e terbang ke bulan menambahkan dimensi mitos yang kaya pada perayaan ini.\n\nHari ini, festival ini telah tersebar ke seluruh Asia Timur, memikat hati di seluruh dunia dengan kotak hadiah kuih bulan yang indah dan tema universal "perpaduan".',
               fr: 'La Fête de la Mi-Automne est l\'une des célébrations traditionnelles les plus précieuses de Chine. Le 15e jour du 8e mois lunaire, les familles se réunissent pour admirer la pleine lune et partager des gâteaux de lune — symbole de réunion et d\'attachement aux êtres chers.\n\nSes origines remontent aux rituels d\'adoration de la lune sous la dynastie Zhou, il y a plus de 3 000 ans. La fête a prospéré sous les dynasties Tang et Song. Des légendes comme celle de Chang\'e s\'envolant vers la lune ajoutent une dimension mythique à cette célébration.\n\nAujourd\'hui, cette fête s\'est diffusée en Corée, au Japon, au Vietnam et au-delà. Avec ses coffrets de gâteaux de lune et le thème universel des "retrouvailles", la Fête de la Mi-Automne séduit un public international toujours plus large.',
               es: 'La Fiesta del Medio Otoño es una de las celebraciones tradicionales más queridas de China. El día 15 del octavo mes lunar, las familias se reúnen para admirar la luna llena y compartir pasteles de luna, símbolo de reunión y añoranza.\n\nSus orígenes se remontan a los rituales lunares de la dinastía Zhou, hace más de 3.000 años, y floreció durante las dinastías Tang y Song. Leyendas como la de Chang\'e volando a la luna añaden una rica capa mitológica.\n\nHoy, el festival se celebra en Corea, Japón, Vietnam y más allá. Con sus elegantes cajas de pastel de luna y el tema universal del "reencuentro", esta fiesta está conquistando corazones en todo el mundo.',
               ar: 'عيد منتصف الخريف هو أحد أغلى الاحتفالات التقليدية في الصين. في اليوم الخامس عشر من الشهر القمري الثامن، تجتمع العائلات للاستمتاع بالقمر المكتمل ومشاركة كعك القمر — رمز للم الشمل والحنين إلى الأحبة.\n\nتعود أصوله إلى طقوس عبادة القمر في عهد أسرة تشو قبل أكثر من 3,000 عام، وازدهر خلال أسرتي تانغ وسونغ. وتضفي أساطير مثل قصة "تشانغ آه" وهي تطير إلى القمر بعداً أسطورياً على الاحتفال.\n\nاليوم، انتشر العيد إلى كوريا واليابان وفيتنام وأبعد من ذلك. بصناديق كعك القمر الأنيقة وموضوع "لم الشمل" العالمي، يأسر عيد منتصف الخريف القلوب في جميع أنحاء العالم.'
@@ -1327,6 +1349,13 @@
             body = {
               zh: '春节是中华民族最隆重的传统节日，象征辞旧迎新、阖家团圆。从腊月二十三的"小年"到正月十五的元宵节，持续近一个月的庆典包含了贴春联、放鞭炮、吃年夜饭、发红包等丰富多彩的民俗活动。\n\n"年"的传说源远流长——相传古时有一种叫"年"的怪兽，每逢除夕便出来伤人，人们发现它惧怕红色和巨响，于是有了贴红对联、燃放爆竹的习俗。\n\n如今，春节已不仅是中国的节日。从纽约时代广场的倒计时到伦敦特拉法加广场的舞狮表演，从悉尼歌剧院的"中国红"到巴黎埃菲尔铁塔的点亮仪式，春节正成为一场全球性的文化盛事。',
               en: 'Chinese New Year, also known as the Spring Festival, is the most important traditional holiday in China. It symbolizes renewal, family reunion, and bidding farewell to the old. From the "Little New Year" on the 23rd day of the 12th lunar month to the Lantern Festival on the 15th day of the first lunar month, the nearly month-long celebration features posting spring couplets, setting off firecrackers, enjoying reunion dinners, and giving red envelopes.\n\nThe legend of "Nian" — a fearsome beast that once terrorized villages every New Year\'s Eve — explains the customs: people discovered it feared the color red and loud noises, giving birth to the traditions of red decorations and firecrackers.\n\nToday, Chinese New Year has transcended borders. From the countdown in New York\'s Times Square to lion dances in London\'s Trafalgar Square, from the Sydney Opera House bathed in "Chinese red" to the Eiffel Tower\'s illumination ceremony, it has become a global cultural celebration.',
+              ja: '旧正月（春節）は中華民族で最も重要な伝統的な祝日で、新しい年を迎え、家族が団らんすることを象徴しています。旧暦12月23日の「小年」から1月15日の元宵節まで、1か月近くにわたる祝祭には、春聯を貼る、爆竹を鳴らす、年夜飯を食べる、お年玉を贈るなど、多彩な民俗行事が含まれます。\n\n「年」の伝説は古くから伝わっています——かつて「年」という怪物が大晦日に村を襲っていましたが、人々はそれが赤色と大きな音を恐れることを発見し、赤い装飾と爆竹の習慣が生まれました。\n\n今日、春節はもはや中国だけのお祭りではありません。ニューヨークのタイムズスクエアでのカウントダウンから、ロンドンのトラファルガー広場での獅子舞、シドニーオペラハウスの「中国紅」からパリのエッフェル塔の点灯式まで、春節は世界的な文化の祭典となっています。',
+              ko: '춘절(설날)은 중화민족의 가장 성대한 전통 명절로, 묵은해를 보내고 새해를 맞이하며 온 가족이 함께 모이는 것을 상징합니다. 음력 12월 23일 "소년(小年)"부터 정월 대보름인 원소절까지 약 한 달 동안 봄축련 붙이기, 폭죽 터뜨리기, 연야식사, 세뱃돈 주기 등 다채로운 민속 활동이 펼쳐집니다.\n\n"년(年)"의 전설은 유구합니다——옛날에 "년"이라는 괴물이 섣달그믐날 밤마다 나타나 사람들을 해쳤는데, 사람들은 이 괴물이 붉은색과 큰 소리를 두려워한다는 것을 발견하고 붉은 대련을 붙이고 폭죽을 터뜨리는 풍습이 생겨났습니다.\n\n오늘날 춘절은 더 이상 중국만의 명절이 아닙니다. 뉴욕 타임스퀘어의 카운트다운부터 런던 트라팔가 광장의 사자춤, 시드니 오페라하우스의 "중국 붉은색" 조명, 파리 에펠탑의 점등식까지, 춘절은 세계적인 문화 축제로 자리잡고 있습니다.',
+              de: 'Das Frühlingsfest (Chinesisches Neujahr) ist das wichtigste traditionelle Fest in China. Es symbolisiert Erneuerung, Familienzusammenführung und den Abschied vom Alten. Vom "Kleinen Neujahr" am 23. Tag des 12. Mondmonats bis zum Laternenfest am 15. Tag des ersten Mondmonats umfassen die fast einmonatigen Feierlichkeiten das Anbringen von Frühlingssprüchen, das Abbrennen von Feuerwerkskörpern, festliche Familienessen und das Überreichen von roten Umschlägen.\n\nDie Legende von "Nian" — einem furchterregenden Ungeheuer, das einst in jeder Silvesternacht Dörfer terrorisierte — erklärt die Bräuche: Die Menschen entdeckten, dass es die Farbe Rot und laute Geräusche fürchtete, was zu den Traditionen der roten Dekorationen und Feuerwerkskörper führte.\n\nHeute hat das Chinesische Neujahr Grenzen überschritten. Vom Countdown am New Yorker Times Square bis zu Löwentänzen am Londoner Trafalgar Square, vom "chinesischen Rot" am Sydney Opera House bis zur Beleuchtungszeremonie des Eiffelturms in Paris — es ist zu einem globalen Kulturfest geworden.',
+              th: 'เทศกาลตรุษจีน (ชุนเจี๋ย) เป็นวันหยุดตามประเพณีที่สำคัญที่สุดของจีน เป็นสัญลักษณ์ของการเริ่มต้นใหม่ การรวมญาติ และการอำลาปีเก่า ตั้งแต่ "ตรุษจีนน้อย" วันที่ 23 เดือน 12 ถึงเทศกาลโคมไฟวันที่ 15 เดือน 1 การเฉลิมฉลองยาวนานเกือบหนึ่งเดือนประกอบด้วยการติดบทร้อยกรองคู่ การจุดประทัด การรับประทานอาหารค่ำส่งท้ายปี และการแจกซองแดง\n\nตำนานของ "เหนียน" — สัตว์ร้ายที่เคยคุกคามหมู่บ้านในคืนส่งท้ายปี — อธิบายประเพณี: ผู้คนค้นพบว่ามันกลัวสีแดงและเสียงดัง จึงเกิดประเพณีการประดับสีแดงและจุดประทัด\n\nปัจจุบัน ตรุษจีนได้ก้าวข้ามพรมแดน จากการนับถอยหลังที่ไทม์สแควร์ในนิวยอร์กถึงการเชิดสิงโตที่จัตุรัสทราฟัลการ์ในลอนดอน จากซิดนีย์โอเปร่าเฮาส์ที่สว่างไสวด้วย "สีแดงจีน" ถึงพิธีจุดไฟหอไอเฟลในปารีส',
+              vi: 'Tết Nguyên Đán (Xuân Tiết) là ngày lễ truyền thống quan trọng nhất của Trung Quốc. Tượng trưng cho sự đổi mới, đoàn tụ gia đình và tiễn biệt năm cũ. Từ "Tết Ông Táo" ngày 23 tháng Chạp đến Tết Nguyên Tiêu rằm tháng Giêng, lễ hội kéo dài gần một tháng với các hoạt động như dán câu đối, đốt pháo, ăn cơm tất niên và mừng tuổi.\n\nTruyền thuyết về "Niên" giải thích các phong tục: người ta phát hiện quái thú sợ màu đỏ và tiếng ồn lớn, từ đó sinh ra truyền thống trang trí đỏ và đốt pháo.\n\nNgày nay, Tết Nguyên Đán đã vượt ra ngoài biên giới Trung Quốc. Từ đếm ngược ở Quảng trường Thời đại New York đến múa lân ở Quảng trường Trafalgar London, đây đã trở thành lễ kỷ niệm văn hóa toàn cầu.',
+              id: 'Festival Musim Semi (Imlek) adalah hari libur tradisional terpenting di Tiongkok. Melambangkan pembaruan, reuni keluarga, dan perpisahan dengan yang lama. Dari "Imlek Kecil" pada tanggal 23 bulan 12 lunar hingga Festival Lentera pada tanggal 15 bulan pertama, perayaan selama hampir sebulan meliputi pemasangan bait musim semi, petasan, makan malam reuni, dan pemberian angpau.\n\nLegenda "Nian" menjelaskan adat istiadat: orang menemukan bahwa monster itu takut pada warna merah dan suara keras, sehingga lahirlah tradisi dekorasi merah dan petasan.\n\nSaat ini, Imlek telah melampaui batas. Dari hitung mundur di Times Square New York hingga tarian singa di Trafalgar Square London, ini telah menjadi perayaan budaya global.',
+              ms: 'Festival Musim Bunga (Tahun Baru Cina) adalah percutian tradisional terpenting di China. Melambangkan pembaharuan, perjumpaan keluarga, dan perpisahan dengan yang lama. Dari "Tahun Baru Kecil" pada 23 haribulan 12 kalendar lunar hingga Festival Tanglung pada 15 haribulan pertama, perayaan hampir sebulan merangkumi pemasangan kuplet musim bunga, mercun, makan malam perjumpaan, dan pemberian sampul merah.\n\nLegenda "Nian" menerangkan adat resam: orang mendapati raksasa itu takut warna merah dan bunyi kuat, lalu lahirlah tradisi hiasan merah dan mercun.\n\nHari ini, Tahun Baru Cina telah merentasi sempadan. Dari kiraan detik di Times Square New York hingga tarian singa di Trafalgar Square London, ia telah menjadi perayaan budaya global.',
               fr: 'Le Nouvel An Chinois, ou Fête du Printemps, est la fête traditionnelle la plus importante de Chine. Il symbolise le renouveau et la réunion familiale. De la "Petite Année" au 23e jour du 12e mois lunaire jusqu\'à la Fête des Lanternes, près d\'un mois de célébrations inclut couplets printaniers, pétards, dîners de réunion et enveloppes rouges.\n\nLa légende de "Nian", une bête féroce qui terrorisait les villages chaque réveillon, explique les coutumes : on découvrit que la bête craignait le rouge et les bruits forts, donnant naissance aux décorations rouges et aux pétards.\n\nAujourd\'hui, le Nouvel An Chinois a dépassé les frontières. Du compte à rebours à Times Square aux danses du lion à Trafalgar Square, de l\'Opéra de Sydney illuminé en rouge à la Tour Eiffel, c\'est devenu une célébration culturelle mondiale.',
               es: 'El Año Nuevo Chino, o Fiesta de la Primavera, es la festividad tradicional más importante de China. Simboliza la renovación y la reunión familiar. Durante casi un mes de celebraciones, se colocan coplas primaverales, se lanzan petardos y se entregan sobres rojos.\n\nLa leyenda de "Nian", una bestia que aterrorizaba las aldeas, explica las costumbres: la gente descubrió que temía el color rojo y los ruidos fuertes.\n\nHoy, el Año Nuevo Chino ha trascendido fronteras. Desde Times Square en Nueva York hasta Trafalgar Square en Londres, es una celebración cultural global.',
               ar: 'رأس السنة الصينية، أو عيد الربيع، هو أهم الأعياد التقليدية في الصين. يرمز إلى التجديد والاجتماع العائلي. يمتد الاحتفال قرابة شهر ويتضمن تعليق الأبيات الشعرية الحمراء وإطلاق الألعاب النارية وتوزيع المظاريف الحمراء.\n\nأسطورة "نيان"، الوحش الذي كان يرعب القرى، تفسر هذه العادات: اكتشف الناس أنه يخاف من اللون الأحمر والأصوات العالية.\n\nاليوم، تجاوز العيد حدود الصين. من تايمز سكوير في نيويورك إلى ميدان ترافالغار في لندن، أصبح احتفالاً ثقافياً عالمياً.'
@@ -1345,6 +1374,13 @@
             body = {
               zh: '端午节是中国首个入选联合国教科文组织人类非物质文化遗产代表作名录的节日。每年农历五月初五，赛龙舟、吃粽子、挂艾草，纪念伟大的爱国诗人屈原。\n\n屈原是战国时期楚国大夫，因忧国忧民投汨罗江而亡。百姓划船投粽以护其遗体，由此演变出龙舟竞渡和吃粽子的千年习俗。\n\n今天，龙舟赛已发展为一项国际体育赛事，从伦敦泰晤士河到旧金山海湾，龙舟的鼓声在世界各地擂响，传递着团结拼搏的中华精神。',
               en: 'The Dragon Boat Festival is the first Chinese festival to be inscribed on UNESCO\'s Representative List of the Intangible Cultural Heritage of Humanity. On the 5th day of the 5th lunar month, people race dragon boats, eat zongzi (sticky rice dumplings), and hang mugwort to commemorate the great patriotic poet Qu Yuan.\n\nQu Yuan, a minister of the Chu State during the Warring States period, drowned himself in the Miluo River out of deep concern for his country. Villagers raced out in boats and threw rice into the water to protect his body — giving birth to the millennia-old traditions of dragon boat racing and zongzi.\n\nToday, dragon boat racing has become an international sport. From London\'s Thames to San Francisco Bay, the beating of dragon boat drums resonates across the globe, carrying forward the Chinese spirit of unity and perseverance.',
+              ja: '端午節はユネスコ無形文化遺産に初めて登録された中国の祝日です。毎年旧暦5月5日、人々はドラゴンボートを漕ぎ、ちまき（粽子）を食べ、ヨモギを飾り、偉大な愛国詩人・屈原を偲びます。\n\n屈原は戦国時代の楚の大臣で、国を憂いて汨羅江に身を投げました。村人たちは船で駆けつけ、魚から彼の体を守るために米を投げ入れました——これがドラゴンボートレースとちまきの千年の伝統の起源です。\n\n今日、ドラゴンボートレースは国際的なスポーツとなり、ロンドンのテムズ川からサンフランシスコ湾まで、ドラゴンボートの太鼓の響きが世界中に団結と忍耐の中華精神を伝えています。',
+              ko: '단오절은 유네스코 인류무형문화유산 대표목록에 최초로 등재된 중국의 명절입니다. 매년 음력 5월 5일, 사람들은 용선 경주를 하고 쫑즈(粽子)를 먹으며 쑥을 걸어두고 위대한 애국 시인 굴원을 기립니다.\n\n굴원은 전국시대 초나라의 대부로, 나라를 걱정하여 멱라강에 몸을 던졌습니다. 마을 사람들은 배를 타고 달려가 쌀을 물에 던져 그의 시신을 보호했습니다——이것이 천년 동안 이어져 온 용선 경주와 쫑즈의 전통이 되었습니다.\n\n오늘날 용선 경주는 국제적인 스포츠로 발전하여 런던 템스강에서 샌프란시스코 만까지, 용선 북소리가 전 세계에 울려 퍼지며 단결과 인내의 중화 정신을 전합니다.',
+              de: 'Das Drachenbootfest ist das erste chinesische Fest, das in die UNESCO-Liste des immateriellen Kulturerbes aufgenommen wurde. Am 5. Tag des 5. Mondmonats veranstalten Menschen Drachenbootrennen, essen Zongzi (Klebreisklöße) und hängen Beifuß auf, um des großen patriotischen Dichters Qu Yuan zu gedenken.\n\nQu Yuan, ein Minister des Chu-Staates während der Zeit der Streitenden Reiche, ertränkte sich aus tiefer Sorge um sein Land im Miluo-Fluss. Die Dorfbewohner eilten mit Booten hinaus und warfen Reis ins Wasser, um seinen Körper zu schützen — so entstanden die jahrtausendealten Traditionen des Drachenbootrennens und der Zongzi.\n\nHeute ist Drachenbootrennen eine internationale Sportart. Von der Londoner Themse bis zur Bucht von San Francisco hallt der Klang der Drachenboottrommeln rund um den Globus und trägt den chinesischen Geist der Einheit und Ausdauer weiter.',
+              th: 'เทศกาลเรือมังกรเป็นเทศกาลจีนแรกที่ได้รับการขึ้นทะเบียนในรายการตัวแทนมรดกทางวัฒนธรรมที่จับต้องไม่ได้ของมนุษยชาติของยูเนสโก ในวันที่ 5 เดือน 5 ตามปฏิทินจันทรคติ ผู้คนแข่งขันเรือมังกร รับประทานบ๊ะจ่าง และแขวนโกฐจุฬาลัมภาเพื่อรำลึกถึงกวีผู้รักชาติผู้ยิ่งใหญ่ ชวีหยวน\n\nชวีหยวน ขุนนางแห่งรัฐฉู่ในยุครณรัฐ ได้กระโดดลงแม่น้ำมี่หลัวเพื่อแสดงความห่วงใยต่อประเทศชาติ ชาวบ้านพากันพายเรือออกไปและโยนข้าวลงน้ำเพื่อปกป้องร่างของท่าน — ก่อให้เกิดประเพณีการแข่งขันเรือมังกรและการรับประทานบ๊ะจ่างที่มีอายุนับพันปี\n\nปัจจุบัน การแข่งขันเรือมังกรได้กลายเป็นกีฬาระดับนานาชาติ จากแม่น้ำเทมส์ในลอนดอนถึงอ่าวซานฟรานซิสโก เสียงกลองเรือมังกรดังก้องไปทั่วโลก สืบทอดจิตวิญญาณแห่งความสามัคคีและความเพียรของจีน',
+              vi: 'Tết Đoan Ngọ là lễ hội Trung Quốc đầu tiên được UNESCO ghi danh vào Danh sách Đại diện Di sản Văn hóa Phi vật thể của Nhân loại. Vào ngày mùng 5 tháng 5 âm lịch, mọi người đua thuyền rồng, ăn bánh ú (zongzi) và treo ngải cứu để tưởng nhớ nhà thơ yêu nước vĩ đại Khuất Nguyên.\n\nKhuất Nguyên, một đại phu nước Sở thời Chiến Quốc, đã trầm mình xuống sông Mịch La vì lo lắng cho đất nước. Người dân đã chèo thuyền ra và ném gạo xuống nước để bảo vệ thi thể ông — khai sinh truyền thống đua thuyền rồng và ăn bánh ú kéo dài hàng nghìn năm.\n\nNgày nay, đua thuyền rồng đã trở thành môn thể thao quốc tế. Từ sông Thames ở London đến Vịnh San Francisco, tiếng trống thuyền rồng vang vọng khắp toàn cầu, truyền tải tinh thần đoàn kết và kiên trì của Trung Hoa.',
+              id: 'Festival Perahu Naga adalah festival Tiongkok pertama yang masuk dalam Daftar Representatif Warisan Budaya Takbenda UNESCO. Pada hari ke-5 bulan ke-5 penanggalan lunar, orang-orang berlomba perahu naga, makan zongzi (bakcang), dan menggantung daun mugwort untuk mengenang penyair patriotik besar Qu Yuan.\n\nQu Yuan, seorang menteri Negara Chu pada masa Negara Berperang, menenggelamkan diri di Sungai Miluo karena keprihatinan mendalam terhadap negaranya. Penduduk desa bergegas naik perahu dan melemparkan beras ke air untuk melindungi jenazahnya — melahirkan tradisi lomba perahu naga dan zongzi yang berusia ribuan tahun.\n\nSaat ini, lomba perahu naga telah menjadi olahraga internasional. Dari Sungai Thames di London hingga Teluk San Francisco, dentuman genderang perahu naga bergema di seluruh dunia, meneruskan semangat persatuan dan ketekunan Tiongkok.',
+              ms: 'Festival Perahu Naga adalah perayaan Cina pertama yang disenaraikan dalam Senarai Perwakilan Warisan Budaya Tidak Ketara UNESCO. Pada hari ke-5 bulan ke-5 kalendar lunar, orang ramai berlumba perahu naga, makan zongzi (bacang), dan menggantung daun mugwort untuk memperingati penyair patriotik agung Qu Yuan.\n\nQu Yuan, seorang menteri Negeri Chu semasa Zaman Negeri-Negeri Berperang, menenggelamkan diri di Sungai Miluo kerana kebimbangan mendalam terhadap negaranya. Penduduk kampung bergegas dengan perahu dan melemparkan beras ke dalam air untuk melindungi jasadnya — melahirkan tradisi lumba perahu naga dan zongzi yang berusia ribuan tahun.\n\nHari ini, lumba perahu naga telah menjadi sukan antarabangsa. Dari Sungai Thames di London ke Teluk San Francisco, paluan gendang perahu naga bergema di seluruh dunia, meneruskan semangat perpaduan dan ketekunan Cina.',
               fr: 'La Fête des Bateaux-Dragons est le premier festival chinois inscrit sur la Liste représentative du patrimoine culturel immatériel de l\'humanité de l\'UNESCO. Le 5e jour du 5e mois lunaire, on participe à des courses de bateaux-dragons, on mange des zongzi et on suspend de l\'armoise.\n\nQu Yuan, ministre de l\'État de Chu, se noya dans la rivière Miluo par dévouement pour son pays. Les villageois se précipitèrent en bateau et jetèrent du riz pour protéger son corps — donnant naissance aux traditions millénaires des courses de bateaux-dragons et des zongzi.\n\nAujourd\'hui, les courses de bateaux-dragons sont devenues un sport international, de la Tamise à Londres à la baie de San Francisco.',
               es: 'El Festival del Bote del Dragón es el primer festival chino inscrito en la Lista Representativa del Patrimonio Cultural Inmaterial de la UNESCO. El 5º día del 5º mes lunar se celebran carreras de botes de dragón y se comen zongzi.\n\nQu Yuan, ministro del Estado Chu, se ahogó en el río Miluo por su profundo patriotismo. Los aldeanos remaron en botes y lanzaron arroz para proteger su cuerpo, tradiciones milenarias que perduran hoy.\n\nHoy, las carreras de botes de dragón son un deporte internacional, desde el Támesis en Londres hasta la Bahía de San Francisco.',
               ar: 'مهرجان قوارب التنين هو أول مهرجان صيني يُدرج على قائمة اليونسكو للتراث الثقافي غير المادي. في اليوم الخامس من الشهر القمري الخامس، يتسابق الناس بقوارب التنين ويأكلون تسونغتسي.\n\nتشو يوان، وزير في دولة تشو، أغرق نفسه في نهر ميلو حزناً على بلاده. هرع القرويون بالقوارب وألقوا الأرز لحماية جثته — لتولد تقاليد عمرها آلاف السنين.\n\nاليوم، أصبحت سباقات قوارب التنين رياضة دولية من لندن إلى سان فرانسيسكو.'
@@ -1363,9 +1399,64 @@
             body = {
               zh: '清明节既是二十四节气之一，也是中国传统祭祖扫墓的重要节日。每年公历4月5日前后，人们踏青郊游、扫墓祭祖，表达对先人的追思与敬意。\n\n"清明"二字寓意"气清景明"，此时春回大地、万物复苏。除扫墓外，放风筝、荡秋千、插柳等民俗活动也寄托了人们对健康平安的美好祈愿。\n\n清明体现了中国人"慎终追远"的文化传统——在缅怀中汲取前行的力量，在自然中感悟生命的轮回。这一独特的人文精神，正是中华文化对世界的深刻贡献。',
               en: 'Qingming Festival is both one of the 24 solar terms and a traditional day for tomb sweeping and ancestor worship in China. Around April 5th each year, families visit ancestral graves, offer sacrifices, and enjoy spring outings — honoring the past while embracing the renewal of nature.\n\nThe name "Qingming" means "clear and bright," reflecting the season when spring unfolds in full bloom. Beyond tomb sweeping, traditions like kite flying, swinging, and wearing willow branches express hopes for health and peace.\n\nQingming embodies the Chinese cultural value of "carefully attending to the end and honoring ancestors afar" — drawing strength from remembrance and contemplating the cycle of life in nature\'s rebirth.',
+              ja: '清明節は二十四節気の一つであると同時に、先祖を祀り墓参りをする中国の伝統的な重要な祝日です。毎年4月5日前後、家族は先祖の墓を訪れ、お供え物をし、春の行楽を楽しみます。\n\n「清明」という名は「気清らかで景色明るい」という意味で、春が満開になる季節を表しています。墓参りの他に、凧揚げ、ぶらんこ、柳の枝を挿すなどの風習も健康と平和を願う気持ちを表しています。\n\n清明は「終わりを慎み遠くを追う」という中国文化の価値観を体現しています——追憶から前進する力を得て、自然の中で生命の循環を感じ取ることです。',
+              ko: '청명절은 24절기 중 하나이자 중국 전통 성묘와 조상 숭배의 중요한 명절입니다. 매년 양력 4월 5일 경, 가족들은 조상의 묘를 방문하여 제사를 지내고 봄나들이를 즐기며 선조에 대한 추모와 존경을 표현합니다.\n\n"청명"이라는 이름은 "공기가 맑고 풍경이 밝다"는 의미로, 봄이 만개하는 계절을 반영합니다. 성묘 외에도 연 날리기, 그네 타기, 버드나무 가지 꽂기 등의 민속 활동은 건강과 평화에 대한 염원을 표현합니다.\n\n청명은 중국인의 "종사추원(終始追遠)" 문화적 가치를 구현합니다——추억에서 전진할 힘을 얻고, 자연에서 생명의 순환을 느끼는 것입니다.',
+              de: 'Das Qingming-Fest ist sowohl einer der 24 Sonnentermine als auch ein traditioneller Tag für Gräberfegen und Ahnenverehrung in China. Etwa am 5. April jedes Jahres besuchen Familien die Gräber ihrer Vorfahren und genießen Frühlingsausflüge.\n\nDer Name "Qingming" bedeutet "klar und hell" und spiegelt die Jahreszeit wider, in der der Frühling in voller Blüte steht. Neben dem Gräberfegen drücken Traditionen wie Drachensteigen, Schaukeln und das Tragen von Weidenzweigen Hoffnungen auf Gesundheit und Frieden aus.\n\nQingming verkörpert den chinesischen kulturellen Wert der "sorgfältigen Pflege des Endes und Ehrung der Ahnen" — Kraft aus der Erinnerung schöpfen und den Kreislauf des Lebens in der Wiedergeburt der Natur betrachten.',
+              th: 'เทศกาลเชงเม้งเป็นทั้งหนึ่งใน 24 ฤดูกาลสุริยะและวันไหว้บรรพบุรุษตามประเพณีของจีน ในวันที่ประมาณ 5 เมษายนของทุกปี ครอบครัวจะไปเยี่ยมสุสานบรรพบุรุษและเพลิดเพลินกับการออกไปเที่ยวชมธรรมชาติในฤดูใบไม้ผลิ\n\nชื่อ "เชงเม้ง" หมายถึง "แจ่มใสและสว่าง" สะท้อนถึงฤดูกาลที่ธรรมชาติผลิบานเต็มที่ นอกจากการไหว้สุสานแล้ว ประเพณีเช่นการเล่นว่าว การแกว่งชิงช้า และการปักกิ่งหลิวยังแสดงความหวังถึงสุขภาพและสันติภาพ\n\nเชงเม้งสะท้อนคุณค่าทางวัฒนธรรมจีนในการ "รำลึกถึงบรรพบุรุษ" — ดึงพลังจากการระลึกถึงอดีตและพินิจวัฏจักรแห่งชีวิต',
+              vi: 'Tết Thanh Minh vừa là một trong 24 tiết khí vừa là ngày tảo mộ và thờ cúng tổ tiên truyền thống của Trung Quốc. Vào khoảng ngày 5 tháng 4 hàng năm, các gia đình đi thăm mộ tổ tiên, dâng hương và tận hưởng chuyến du xuân.\n\nTên gọi "Thanh Minh" có nghĩa là "trong trẻo và tươi sáng", phản ánh mùa xuân đang nở rộ. Ngoài tảo mộ, các phong tục như thả diều, đánh đu, cắm cành liễu cũng thể hiện những ước nguyện về sức khỏe và bình an.\n\nTết Thanh Minh thể hiện giá trị văn hóa "thận chung truy viễn" của người Trung Quốc — rút ra sức mạnh từ ký ức và chiêm nghiệm vòng tuần hoàn của sự sống trong thiên nhiên.',
+              id: 'Festival Qingming adalah salah satu dari 24 istilah matahari sekaligus hari tradisional untuk ziarah kubur dan penghormatan leluhur di Tiongkok. Sekitar tanggal 5 April setiap tahunnya, keluarga mengunjungi makam leluhur, memberikan persembahan, dan menikmati tamasya musim semi.\n\nNama "Qingming" berarti "jernih dan cerah", mencerminkan musim semi yang sedang mekar penuh. Selain ziarah kubur, tradisi seperti menerbangkan layang-layang, berayun, dan mengenakan ranting willow mengungkapkan harapan akan kesehatan dan kedamaian.\n\nQingming mewujudkan nilai budaya Tionghoa "menghormati leluhur" — mengambil kekuatan dari kenangan dan merenungkan siklus kehidupan.',
+              ms: 'Festival Qingming adalah salah satu daripada 24 istilah solar dan hari tradisional untuk menziarahi kubur dan menyembah nenek moyang di China. Sekitar 5 April setiap tahun, keluarga menziarahi kubur nenek moyang dan menikmati aktiviti musim bunga.\n\nNama "Qingming" bermaksud "jernih dan cerah", mencerminkan musim bunga yang sedang mekar penuh. Selain menziarahi kubur, tradisi seperti bermain layang-layang, berbuai, dan memakai ranting willow melambangkan harapan untuk kesihatan dan keamanan.\n\nQingming merangkumi nilai budaya Cina "menghormati nenek moyang" — mengambil kekuatan daripada kenangan dan merenungkan kitaran kehidupan.',
               fr: 'La Fête de Qingming est à la fois l\'un des 24 termes solaires et un jour traditionnel de balayage des tombes. Vers le 5 avril, les familles visitent les tombes ancestrales et profitent des excursions printanières.\n\nLe nom "Qingming" signifie "clair et lumineux", reflétant la saison où le printemps s\'épanouit. Au-delà du balayage des tombes, les cerfs-volants et les balançoires expriment des vœux de santé et de paix.\n\nQingming incarne la valeur chinoise d\'"honorer les ancêtres" — puiser la force du souvenir et contempler le cycle de la vie.',
               es: 'El Festival de Qingming es uno de los 24 términos solares y un día tradicional de barrer tumbas. Alrededor del 5 de abril, las familias visitan las tumbas ancestrales y disfrutan de excursiones primaverales.\n\n"Qingming" significa "claro y brillante". Más allá del barrido de tumbas, las cometas y columpios expresan deseos de salud y paz.\n\nQingming encarna el valor chino de "honrar a los ancestros" — sacar fuerza del recuerdo y contemplar el ciclo de la vida.',
               ar: 'مهرجان تشينغمينغ هو أحد المواسم الشمسية الـ24 ويوم تقليدي لكنس القبور. في حوالي 5 أبريل، تزور العائلات قبور الأجداد وتستمتع بالنزهات الربيعية.\n\nاسم "تشينغمينغ" يعني "واضح ومشرق". الطائرات الورقية والأراجيح تعبر عن الأمنيات بالصحة والسلام.\n\nيجسد تشينغمينغ قيمة "تبجيل الأسلاف" في الثقافة الصينية — استمداد القوة من الذكرى والتأمل في دورة الحياة.'
+            };
+            return true;
+          }
+          if (kw.indexOf('元宵')>-1 || kw.indexOf('lantern festival')>-1 || kw.indexOf('灯笼')>-1 && kw.indexOf('春节')===-1) {
+            topicTL = { zh:'元宵节', en:'Lantern Festival', ja:'元宵節', ko:'원소절', fr:'Fête des Lanternes', es:'Fiesta de los Faroles', de:'Laternenfest', ar:'مهرجان الفوانيس' };
+            tags = {
+              zh: '#元宵节 #灯笼 #汤圆 #团圆 #非遗',
+              en: '#LanternFestival #YuanXiao #Tangyuan #ChineseTradition #Lanterns',
+              ja: '#元宵節 #灯籠 #団円 #中国文化 #無形文化遺産',
+              ko: '#원소절 #등롱 #탕위안 #중국전통 #무형문화유산',
+              es: '#FiestaDeLosFaroles #Linternas #Tangyuan #TradiciónChina',
+              fr: '#FêteDesLanternes #Lanternes #Tangyuan #TraditionChinoise',
+              de: '#Laternenfest #Laternen #Tangyuan #ChinesischeTradition',
+              ar: '#مهرجان_الفوانيس #فوانيس #تانغيوان #تقاليد_صينية'
+            };
+            body = {
+              zh: '元宵节是春节庆祝活动的压轴大戏，每年农历正月十五，人们赏花灯、猜灯谜、吃元宵（汤圆），寓意团圆美满。\n\n元宵赏灯的习俗可追溯至汉代（约公元前206年），至唐宋时期达到鼎盛。辛弃疾名句"东风夜放花千树，更吹落，星如雨"生动描绘了宋代元宵灯市的盛况。\n\n元宵节的汤圆/元宵，以糯米粉包裹芝麻、花生、红豆等馅料，圆润洁白象征着阖家团圆、生活甜美。2008年，元宵节被列入第二批国家级非物质文化遗产名录。',
+              en: 'The Lantern Festival marks the grand finale of Chinese New Year celebrations on the 15th day of the first lunar month. People admire colorful lantern displays, solve riddles written on lanterns, and eat yuanxiao (tangyuan) — sweet glutinous rice balls symbolizing family togetherness and completeness.\n\nThe tradition of lantern appreciation dates back to the Han Dynasty (c. 206 BCE), reaching its zenith during the Tang and Song dynasties. The poet Xin Qiji captured the spectacle: "One night\'s east wind adorns a thousand trees with flowers, and blows down countless stars in showers."\n\nTangyuan — glutinous rice balls filled with sesame, peanut, or red bean paste — embody the wish for family reunion and a sweet life. In 2008, the Lantern Festival was inscribed on China\'s National Intangible Cultural Heritage list.',
+              ja: '元宵節は旧暦1月15日、春節の締めくくりを飾る祭日です。色とりどりの灯籠を鑑賞し、灯籠に書かれた謎々を解き、元宵（団円）を食べて一家団欒を祝います。2008年に国家級無形文化遺産に登録されました。',
+              ko: '원소절은 음력 1월 15일, 춘절의 대미를 장식하는 축제입니다. 화려한 등롱을 감상하고, 등롱에 적힌 수수께끼를 풀며, 원소(탕위안)를 먹으며 가족의 화목을 기원합니다. 2008년 국가급 무형문화유산으로 등재되었습니다.',
+              es: 'La Fiesta de los Faroles es el gran final de las celebraciones del Año Nuevo Chino. La gente admira faroles, resuelve acertijos y come tangyuan — bolas de arroz glutinoso que simbolizan la unión familiar.',
+              fr: 'La Fête des Lanternes marque le point culminant des célébrations du Nouvel An chinois. On admire les lanternes, résout des énigmes et mange des tangyuan — boulettes de riz gluant symbolisant l\'union familiale.',
+              de: 'Das Laternenfest ist der krönende Abschluss der chinesischen Neujahrsfeierlichkeiten. Man bewundert Laternen, löst Rätsel und isst Tangyuan — Klebreisbällchen, die Familienzusammenhalt symbolisieren.',
+              ar: 'مهرجان الفوانيس هو الختام الكبير لاحتفالات رأس السنة الصينية. يستمتع الناس بالفوانيس الملونة ويحلون الألغاز ويأكلون تانغيوان — كرات الأرز الدبق التي ترمز إلى لم الشمل العائلي.'
+            };
+            return true;
+          }
+          if (kw.indexOf('七夕')>-1 || kw.indexOf('qixi')>-1 || kw.indexOf('chinese valentine')>-1 || kw.indexOf('double seventh')>-1) {
+            topicTL = { zh:'七夕节', en:'Qixi Festival (Chinese Valentine\'s Day)', ja:'七夕', ko:'칠석', fr:'Saint-Valentin Chinoise (Qixi)', es:'San Valentín Chino (Qixi)', de:'Chinesischer Valentinstag (Qixi)', ar:'عيد الحب الصيني (تشيشي)' };
+            tags = {
+              zh: '#七夕 #牛郎织女 #中国情人节 #非遗 #传统节日',
+              en: '#QixiFestival #ChineseValentinesDay #CowherdAndWeaverGirl #IntangibleHeritage #Love',
+              ja: '#七夕 #織姫彦星 #中国バレンタイン #無形文化遺産',
+              ko: '#칠석 #견우직녀 #중국발렌타인데이 #무형문화유산',
+              es: '#SanValentínChino #Qixi #LeyendaDeAmor #PatrimonioInmaterial',
+              fr: '#SaintValentinChinoise #Qixi #LégendeDAmour #PatrimoineImmatériel',
+              de: '#ChinesischerValentinstag #Qixi #Liebeslegende #ImmateriellesErbe',
+              ar: '#عيد_الحب_الصيني #تشيشي #أسطورة_حب #تراث_غير_مادي'
+            };
+            body = {
+              zh: '七夕节是中国最具浪漫色彩的传统节日，每年农历七月初七，源于牛郎织女的美丽传说。2006年被列入第一批国家级非物质文化遗产名录。\n\n相传天上的织女与凡间的牛郎相爱，被王母娘娘以银河相隔，只许每年七月初七鹊桥相会。这一夜，人间的女子们穿针乞巧、拜织女星，祈求心灵手巧与美满姻缘。\n\n今天，七夕节已成为中国版的"情人节"，但与传统西方情人节不同，七夕承载着"愿得一心人，白首不相离"的忠贞爱情观，也延续了手工技艺传承的文化内涵。',
+              en: 'The Qixi Festival — China\'s most romantic traditional holiday — falls on the 7th day of the 7th lunar month, rooted in the beautiful legend of the Cowherd and Weaver Girl. It was inscribed on China\'s first National Intangible Cultural Heritage list in 2006.\n\nAccording to legend, the celestial Weaver Girl fell in love with the mortal Cowherd. The Queen Mother of Heaven separated them by the Milky Way, allowing them to meet only once a year — on the 7th night of the 7th month — when magpies form a bridge across the stars. On this night, young women would demonstrate their needlework skills and pray to the Weaver Star for craftsmanship and a happy marriage.\n\nToday, Qixi has become China\'s "Valentine\'s Day." But unlike its Western counterpart, Qixi carries the ideal of lifelong devotion — "to find one heart, and grow old together without parting" — alongside a cultural tradition celebrating artisanship.',
+              ja: '七夕は中国で最もロマンチックな伝統祭日で、旧暦7月7日、牽牛と織女の美しい伝説に由来します。2006年に国家級無形文化遺産に登録されました。織女は天の機織り娘、牽牛は地上の牛飼い—二人は愛し合うも、天の川で隔てられ、年に一度、七夕の夜だけカササギの橋を渡って会うことが許されます。',
+              ko: '칠석은 중국에서 가장 낭만적인 전통 축제로, 음력 7월 7일, 견우와 직녀의 아름다운 전설에서 유래했습니다. 2006년 국가급 무형문화유산으로 등재되었습니다. 직녀는 하늘의 베짜는 선녀, 견우는 땅의 소치는 청년—둘은 사랑했지만 은하수에 갈려 일 년에 단 한 번 칠석 밤에만 까치 다리를 건너 만날 수 있습니다.',
+              es: 'El Festival Qixi es la festividad tradicional más romántica de China. Celebrado el 7º día del 7º mes lunar, se basa en la leyenda del Pastor y la Tejedora. Declarado Patrimonio Cultural Inmaterial Nacional en 2006.',
+              fr: 'La Fête de Qixi est la fête traditionnelle la plus romantique de Chine. Célébrée le 7e jour du 7e mois lunaire, elle s\'inspire de la légende du Bouvier et de la Tisserande. Inscrite au patrimoine culturel immatériel national en 2006.',
+              de: 'Das Qixi-Fest ist das romantischste traditionelle Fest Chinas. Gefeiert am 7. Tag des 7. Mondmonats, basiert es auf der Legende vom Kuhhirten und der Weberin. 2006 zum nationalen immateriellen Kulturerbe erklärt.',
+              ar: 'مهرجان تشيشي هو أكثر الأعياد التقليدية رومانسية في الصين. يُحتفل به في اليوم السابع من الشهر القمري السابع، ويستند إلى أسطورة الراعي والحائكة. أُدرج في قائمة التراث الثقافي غير المادي الوطني عام 2006.'
             };
             return true;
           }
@@ -1386,6 +1477,13 @@
             body = {
               zh: '京剧是中国的"国粹"，融合了音乐、舞蹈、武术、美术与文学，形成于清代乾隆年间（约1790年），至今已有二百余年历史。\n\n京剧最鲜明的标志是脸谱艺术——红脸代表忠勇（如关羽）、白脸代表奸诈（如曹操）、黑脸代表刚正（如包拯）。生、旦、净、末、丑五大行当各有独特的表演程式，唱念做打浑然一体。\n\n2010年，京剧被联合国教科文组织列入人类非物质文化遗产代表作名录。从梅兰芳到当代艺术家，京剧正以创新的姿态走向世界舞台。',
               en: 'Peking Opera, known as the "national essence" of China, is a comprehensive art form blending music, dance, martial arts, fine arts, and literature. It emerged around 1790 during the Qianlong reign of the Qing Dynasty and boasts over 200 years of history.\n\nIts most iconic feature is the facial makeup (lianpu): red symbolizes loyalty and courage (e.g., Guan Yu), white denotes treachery (e.g., Cao Cao), and black represents integrity (e.g., Bao Zheng). The five role categories — Sheng (male), Dan (female), Jing (painted face), Mo (old male), and Chou (clown) — each have unique performance conventions.\n\nInscribed on UNESCO\'s Intangible Cultural Heritage list in 2010, Peking Opera continues to captivate global audiences, from Mei Lanfang\'s legendary tours to contemporary fusion performances.',
+              ja: '京劇は中国の「国粋」であり、音楽、舞踊、武術、美術、文学を融合した総合芸術です。清代乾隆年間（約1790年）に形成され、200年以上の歴史を誇ります。\n\n最も象徴的な特徴は臉譜（隈取）芸術です——赤い顔は忠義と勇気（関羽など）、白い顔は奸詐（曹操など）、黒い顔は剛直（包拯など）を表します。生・旦・浄・末・丑の五大役柄がそれぞれ独自の演技様式を持ち、歌・台詞・所作・立ち回りが一体となっています。\n\n2010年にユネスコ無形文化遺産に登録され、梅蘭芳から現代の芸術家まで、京劇は革新的な姿で世界の舞台へと進出しています。',
+              ko: '경극은 중국의 "국수(國粹)"로, 음악, 무용, 무술, 미술, 문학이 융합된 종합 예술 형식입니다. 청나라 건륭 연간(약 1790년)에 형성되어 200년 이상의 역사를 자랑합니다.\n\n가장 상징적인 특징은 검보(臉譜) 예술입니다——붉은 얼굴은 충성과 용기(관우 등), 흰 얼굴은 간사함(조조 등), 검은 얼굴은 강직함(포청천 등)을 나타냅니다. 생(生)·단(旦)·정(淨)·말(末)·축(丑) 5대 배역이 각각 독특한 연기 양식을 가지고 있으며, 노래·대사·동작·무술이 하나로 어우러집니다.\n\n2010년 유네스코 무형문화유산에 등재되었고, 매란방부터 현대 예술가들까지, 경극은 혁신적인 자세로 세계 무대에 나아가고 있습니다.',
+              de: 'Die Peking-Oper, bekannt als "nationales Wesen" Chinas, ist eine umfassende Kunstform, die Musik, Tanz, Kampfkunst, Bildende Kunst und Literatur vereint. Sie entstand um 1790 während der Qianlong-Regentschaft der Qing-Dynastie und hat über 200 Jahre Geschichte.\n\nIhr ikonischstes Merkmal ist die Gesichtsschminke (Lianpu): Rot symbolisiert Loyalität und Mut (z.B. Guan Yu), Weiß steht für Verrat (z.B. Cao Cao), und Schwarz repräsentiert Integrität (z.B. Bao Zheng). Die fünf Rollenkategorien — Sheng (männlich), Dan (weiblich), Jing (geschminktes Gesicht), Mo (alter Mann) und Chou (Clown) — haben jeweils einzigartige Aufführungskonventionen.\n\n2010 in die UNESCO-Liste des immateriellen Kulturerbes aufgenommen, fasziniert die Peking-Oper weiterhin das globale Publikum.',
+              th: 'อุปรากรปักกิ่ง เป็น "แก่นแท้ของชาติ" จีน เป็นรูปแบบศิลปะที่ครอบคลุมซึ่งผสมผสานดนตรี การเต้นรำ ศิลปะการต่อสู้ วิจิตรศิลป์ และวรรณกรรม เกิดขึ้นประมาณปี 1790 ในรัชสมัยเฉียนหลงแห่งราชวงศ์ชิง มีประวัติยาวนานกว่า 200 ปี\n\nลักษณะที่โดดเด่นที่สุดคือการแต่งหน้า (เหลียนผู่): สีแดงหมายถึงความภักดีและความกล้าหาญ สีขาวหมายถึงการทรยศ สีดำหมายถึงความซื่อสัตย์ บทบาททั้งห้าประเภท แต่ละประเภทมีรูปแบบการแสดงที่เป็นเอกลักษณ์\n\nขึ้นทะเบียนเป็นมรดกทางวัฒนธรรมที่จับต้องไม่ได้ของยูเนสโกในปี 2010',
+              vi: 'Kinh kịch, được coi là "quốc túy" của Trung Quốc, là một loại hình nghệ thuật tổng hợp kết hợp âm nhạc, múa, võ thuật, mỹ thuật và văn học. Hình thành vào khoảng năm 1790 dưới triều Càn Long nhà Thanh, có hơn 200 năm lịch sử.\n\nĐặc trưng mang tính biểu tượng nhất là nghệ thuật vẽ mặt (lien pu): mặt đỏ tượng trưng cho lòng trung thành và dũng cảm, mặt trắng là sự phản bội, mặt đen là sự chính trực. Năm loại vai diễn có phong cách biểu diễn độc đáo riêng.\n\nĐược UNESCO ghi danh là Di sản Văn hóa Phi vật thể năm 2010.',
+              id: 'Opera Peking, dikenal sebagai "esensi nasional" Tiongkok, adalah bentuk seni komprehensif yang memadukan musik, tarian, seni bela diri, seni rupa, dan sastra. Muncul sekitar tahun 1790 pada masa pemerintahan Qianlong Dinasti Qing dan memiliki sejarah lebih dari 200 tahun.\n\nCiri paling ikoniknya adalah riasan wajah (lianpu): merah melambangkan kesetiaan dan keberanian, putih menunjukkan pengkhianatan, hitam mewakili integritas. Lima kategori peran masing-masing memiliki konvensi pertunjukan yang unik.\n\nTerdaftar dalam Warisan Budaya Takbenda UNESCO pada tahun 2010.',
+              ms: 'Opera Peking, dikenali sebagai "pati negara" China, adalah bentuk seni komprehensif yang menggabungkan muzik, tarian, seni mempertahankan diri, seni halus, dan sastera. Ia muncul sekitar tahun 1790 semasa pemerintahan Qianlong Dinasti Qing dan mempunyai sejarah lebih 200 tahun.\n\nCiri paling ikoniknya ialah solekan muka (lianpu): merah melambangkan kesetiaan dan keberanian, putih menandakan pengkhianatan, hitam mewakili integriti. Lima kategori peranan masing-masing mempunyai konvensyen persembahan yang unik.\n\nDisenaraikan dalam Warisan Budaya Tidak Ketara UNESCO pada tahun 2010.',
               fr: 'L\'Opéra de Pékin, "essence nationale" de la Chine, est un art complet mêlant musique, danse, arts martiaux, beaux-arts et littérature. Né vers 1790 sous le règne Qianlong, il a plus de 200 ans d\'histoire.\n\nSon trait le plus emblématique est le maquillage facial : le rouge symbolise la loyauté, le blanc la trahison, le noir l\'intégrité. Les cinq catégories de rôles — Sheng, Dan, Jing, Mo, Chou — ont chacune leurs conventions uniques.\n\nInscrit au patrimoine immatériel de l\'UNESCO en 2010, l\'Opéra de Pékin captive le public mondial.',
               es: 'La Ópera de Pekín, "esencia nacional" de China, combina música, danza, artes marciales, bellas artes y literatura. Surgió hacia 1790 durante el reinado Qianlong y tiene más de 200 años de historia.\n\nSu rasgo más icónico es el maquillaje facial: el rojo simboliza lealtad, el blanco traición, el negro integridad. Las cinco categorías de roles tienen cada una convenciones únicas.\n\nInscrita en el patrimonio inmaterial de la UNESCO en 2010, la Ópera de Pekín sigue cautivando audiencias globales.',
               ar: 'أوبرا بكين، "الجوهر الوطني" للصين، تجمع بين الموسيقى والرقص والفنون القتالية والفنون الجميلة والأدب. نشأت حوالي عام 1790 خلال حكم تشيان لونغ، وتمتلك أكثر من 200 عام من التاريخ.\n\nأبرز سماتها هو مكياج الوجه: الأحمر يرمز للولاء، والأبيض للخيانة، والأسود للنزاهة. لكل فئة من فئات الأدوار الخمس تقاليدها الفريدة.\n\nأُدرجت على قائمة اليونسكو للتراث غير المادي في 2010، ولا تزال تأسر الجماهير العالمية.'
@@ -1404,6 +1502,13 @@
             body = {
               zh: '中国书法是以汉字为载体的独特视觉艺术，被誉为"无言的诗、无形的舞、无图的画、无声的乐"。从甲骨文到金文、篆书、隶书、楷书、行书、草书，三千余年的演变史承载着中华文明的审美精神。\n\n"书圣"王羲之的《兰亭序》被誉为"天下第一行书"，其飘逸洒脱的笔法至今令人叹为观止。书法不仅是写字，更是修身养性的方式——"字如其人"，一笔一画间折射出书写者的品格与心境。\n\n2009年，中国书法被列入联合国教科文组织人类非物质文化遗产代表作名录。',
               en: 'Chinese calligraphy is a unique visual art form using Chinese characters as its medium. It has been described as "wordless poetry, invisible dance, pictureless painting, and soundless music." From oracle bone script to bronze inscriptions, seal script, clerical script, regular script, running script, and cursive script — over 3,000 years of evolution embody the aesthetic spirit of Chinese civilization.\n\nThe "Sage of Calligraphy," Wang Xizhi, created the "Preface to the Orchid Pavilion" (Lanting Xu), celebrated as the finest running-script work in history. Calligraphy is more than writing — it is a practice of self-cultivation. As the saying goes, "the handwriting mirrors the person," with every stroke reflecting the writer\'s character and state of mind.\n\nIn 2009, Chinese calligraphy was inscribed on UNESCO\'s Representative List of the Intangible Cultural Heritage of Humanity.',
+              ja: '中国書道は漢字を媒体とする独自の視覚芸術で、「言葉なき詩、形なき舞、絵なき絵画、音なき音楽」と称されます。甲骨文から金文、篆書、隷書、楷書、行書、草書まで、3,000年以上の変遷が中華文明の審美精神を体現しています。\n\n「書聖」王羲之の『蘭亭序』は「天下第一の行書」と称えられ、その流麗な筆致は今なお人々を魅了します。書道は単なる文字を書くことではなく、修身養性の道——「字は人なり」というように、一筆一画に書き手の人格と心境が映し出されます。\n\n2009年、中国書道はユネスコ無形文化遺産に登録されました。',
+              ko: '중국 서예는 한자를 매개로 하는 독특한 시각 예술로, "말 없는 시, 형태 없는 춤, 그림 없는 회화, 소리 없는 음악"이라고 불립니다. 갑골문에서 금문, 전서, 예서, 해서, 행서, 초서까지 3,000년 이상의 변천사가 중화 문명의 심미 정신을 담고 있습니다.\n\n"서성(書聖)" 왕희지의 『난정서(蘭亭序)』는 "천하제일행서"로 칭송받으며, 그 유려한 필법은 지금도 감탄을 자아냅니다. 서예는 단순한 글씨 쓰기가 아니라 수신과 수양의 방법——"글씨는 그 사람을 닮았다"라는 말처럼 한 획 한 획에 쓰는 이의 인품과 심경이 반영됩니다.\n\n2009년, 중국 서예는 유네스코 인류무형문화유산 대표목록에 등재되었습니다.',
+              de: 'Die chinesische Kalligraphie ist eine einzigartige visuelle Kunstform, die chinesische Schriftzeichen als Medium verwendet. Sie wurde als "wortlose Poesie, unsichtbarer Tanz, bildloses Gemälde und klanglose Musik" beschrieben. Von Orakelknocheninschriften über Bronzeschriften, Siegelschrift, Kanzleischrift, Regelschrift, Kursivschrift bis zur Konzeptschrift — über 3.000 Jahre Entwicklung verkörpern den ästhetischen Geist der chinesischen Zivilisation.\n\nDer "Weise der Kalligraphie," Wang Xizhi, schuf das "Vorwort zum Orchideenpavillon" (Lanting Xu), das als feinstes Werk in Kursivschrift der Geschichte gefeiert wird. Kalligraphie ist mehr als Schreiben — sie ist eine Praxis der Selbstkultivierung.\n\n2009 wurde die chinesische Kalligraphie in die UNESCO-Liste des immateriellen Kulturerbes aufgenommen.',
+              th: 'อักษรศิลป์จีนเป็นทัศนศิลป์ที่มีเอกลักษณ์โดยใช้ตัวอักษรจีนเป็นสื่อ ได้รับการขนานนามว่าเป็น "กวีไร้คำ ร่ายรำไร้รูป ภาพวาดไร้ภาพ ดนตรีไร้เสียง" จากอักษรกระดูกเสี่ยงทายถึงอักษรโลหะ อักษรตราประทับ อักษรบรรจง อักษรหวัด — วิวัฒนาการกว่า 3,000 ปีสะท้อนจิตวิญญาณทางสุนทรียภาพของอารยธรรมจีน\n\n"จอมปราชญ์แห่งอักษรศิลป์" หวัง ซีจือ สร้างสรรค์ "คำนำศาลากล้วยไม้" (หลานถิง สวี่) ซึ่งได้รับการยกย่องว่าเป็นงานเขียนหวัดที่งดงามที่สุดในประวัติศาสตร์\n\nในปี 2009 อักษรศิลป์จีนได้รับการขึ้นทะเบียนเป็นมรดกทางวัฒนธรรมที่จับต้องไม่ได้ของยูเนสโก',
+              vi: 'Thư pháp Trung Quốc là nghệ thuật thị giác độc đáo sử dụng chữ Hán làm phương tiện. Được mô tả là "thơ không lời, múa không hình, họa không tranh, nhạc không thanh". Từ giáp cốt văn đến kim văn, triện thư, lệ thư, khải thư, hành thư, thảo thư — hơn 3.000 năm tiến hóa thể hiện tinh thần thẩm mỹ của văn minh Trung Hoa.\n\n"Thư thánh" Vương Hy Chi đã sáng tác "Lan Đình Tự", được ca ngợi là tác phẩm hành thư tuyệt vời nhất lịch sử. Thư pháp không chỉ là viết chữ — đó là con đường tu thân dưỡng tính.\n\nNăm 2009, thư pháp Trung Quốc được UNESCO ghi danh vào Danh sách Di sản Văn hóa Phi vật thể.',
+              id: 'Kaligrafi Tiongkok adalah seni visual unik yang menggunakan aksara Tionghoa sebagai mediumnya. Digambarkan sebagai "puisi tanpa kata, tarian tanpa bentuk, lukisan tanpa gambar, musik tanpa suara." Dari aksara tulang orakel hingga inskripsi perunggu, aksara segel, aksara klerikal, aksara reguler, aksara kursif — lebih dari 3.000 tahun evolusi mewujudkan semangat estetika peradaban Tiongkok.\n\n"Sang Bijak Kaligrafi," Wang Xizhi, menciptakan "Kata Pengantar Paviliun Anggrek" (Lanting Xu), yang dirayakan sebagai karya kursif terbaik dalam sejarah.\n\nPada tahun 2009, kaligrafi Tiongkok terdaftar dalam Daftar Warisan Budaya Takbenda UNESCO.',
+              ms: 'Kaligrafi Cina adalah seni visual unik yang menggunakan aksara Cina sebagai mediumnya. Ia digambarkan sebagai "puisi tanpa kata, tarian tanpa bentuk, lukisan tanpa gambar, muzik tanpa bunyi." Dari aksara tulang orakel hingga inskripsi gangsa, aksara mohor, aksara kerani, aksara reguler, aksara kursif — lebih 3,000 tahun evolusi merangkumi semangat estetika tamadun Cina.\n\n"Sang Bijak Kaligrafi," Wang Xizhi, mencipta "Kata Pengantar Paviliun Orkid" (Lanting Xu), yang diraikan sebagai karya kursif terbaik dalam sejarah.\n\nPada tahun 2009, kaligrafi Cina disenaraikan dalam Senarai Warisan Budaya Tidak Ketara UNESCO.',
               fr: 'La calligraphie chinoise est un art visuel unique utilisant les caractères chinois. "Poésie sans mots, danse sans forme, peinture sans image, musique sans son" — plus de 3 000 ans d\'évolution incarnent l\'esprit esthétique de la civilisation chinoise.\n\nLe "Sage de la Calligraphie", Wang Xizhi, créa la "Préface au Pavillon des Orchidées", chef-d\'œuvre de l\'écriture cursive. La calligraphie est plus qu\'écrire — c\'est une pratique d\'auto-cultivation.\n\nEn 2009, la calligraphie chinoise a été inscrite au patrimoine immatériel de l\'UNESCO.',
               es: 'La caligrafía china es un arte visual único con caracteres chinos como medio. "Poesía sin palabras, danza sin forma, pintura sin imagen, música sin sonido" — más de 3.000 años de evolución encarnan el espíritu estético chino.\n\nEl "Sabio de la Caligrafía", Wang Xizhi, creó el "Prefacio al Pabellón de las Orquídeas". La caligrafía es más que escribir — es auto-cultivación.\n\nEn 2009, fue inscrita en la lista del patrimonio inmaterial de la UNESCO.',
               ar: 'الخط الصيني هو فن بصري فريد باستخدام الحروف الصينية. "شعر بلا كلمات، رقص بلا شكل، لوحة بلا صورة، موسيقى بلا صوت" — أكثر من 3,000 عام من التطور تجسد الروح الجمالية للحضارة الصينية.\n\n"حكيم الخط"، وانغ شيجي، أبدع "مقدمة جناح الأوركيد". الخط أكثر من مجرد كتابة — إنه ممارسة لتهذيب الذات.\n\nفي عام 2009، أُدرج الخط الصيني في قائمة اليونسكو للتراث غير المادي.'
@@ -1422,9 +1527,40 @@
             body = {
               zh: '中国是瓷器的故乡。早在商代（约公元前1600年）就出现了原始青瓷，至宋代达到艺术巅峰——汝、官、哥、钧、定五大名窑各具风韵。元代青花瓷的诞生更将中国瓷器推向世界，成为丝绸之路上最受追捧的贸易品。\n\n景德镇被誉为"千年瓷都"，其制瓷技艺传承千年不绝。"白如玉、薄如纸、明如镜、声如磬"——这是对景德镇瓷器最经典的描述。\n\n今天，中国陶瓷艺术在传统与创新之间寻找平衡，从日用器皿到当代艺术装置，陶瓷依然是讲述中国故事的重要载体。',
               en: 'China is the birthplace of porcelain. Proto-celadon emerged as early as the Shang Dynasty (c. 1600 BCE), and by the Song Dynasty, porcelain reached its artistic zenith — the five great kilns (Ru, Guan, Ge, Jun, and Ding) each produced distinctive wares. The birth of blue-and-white porcelain in the Yuan Dynasty propelled Chinese ceramics onto the world stage, becoming the most sought-after commodity on the Silk Road.\n\nJingdezhen, known as the "Millennium Porcelain Capital," has preserved its ceramic craftsmanship for over a thousand years. Classic descriptions praise Jingdezhen ware as "white as jade, thin as paper, bright as a mirror, and resonant as a chime."\n\nToday, Chinese ceramic art balances tradition with innovation. From everyday vessels to contemporary art installations, ceramics remain a powerful medium for telling China\'s story.',
+              ja: '中国は磁器の発祥地です。早くも商代（紀元前約1600年）に原始青磁が登場し、宋代には芸術の頂点に達しました——汝・官・哥・鈞・定の五大名窯がそれぞれ独自の風格を持ちました。元代の青花磁器の誕生は中国陶磁を世界へと押し出し、シルクロードで最も人気の高い交易品となりました。\n\n景徳鎮は「千年の陶都」と称され、その製陶技術は千年以上にわたって受け継がれています。「玉のように白く、紙のように薄く、鏡のように明るく、磬のように響く」——これが景徳鎮磁器の最も古典的な描写です。\n\n今日、中国陶磁芸術は伝統と革新のバランスを取りながら、日用品から現代アートのインスタレーションまで、陶磁器は依然として中国の物語を語る重要な媒体です。',
+              ko: '중국은 도자기의 발상지입니다. 이미 상나라(기원전 약 1600년)에 원시 청자가 등장했고, 송나라에 이르러 예술적 정점에 도달했습니다——여(汝)·관(官)·가(哥)·균(鈞)·정(定) 오대 명요가 각기 독특한 풍격을 지녔습니다. 원나라 시대 청화백자의 탄생은 중국 도자기를 세계 무대로 이끌었고, 실크로드에서 가장 인기 있는 교역품이 되었습니다.\n\n징더전(景德鎮)은 "천년 도자기 수도"로 불리며, 도자기 제조 기술이 천년 이상 이어져 왔습니다. "옥처럼 희고, 종이처럼 얇으며, 거울처럼 밝고, 경쇠처럼 울린다"——이것이 징더전 도자기에 대한 가장 고전적인 묘사입니다.\n\n오늘날 중국 도자 예술은 전통과 혁신 사이에서 균형을 찾으며, 생활 용기부터 현대 미술 설치에 이르기까지 도자기는 여전히 중국 이야기를 전하는 중요한 매체입니다.',
+              de: 'China ist die Geburtsstätte des Porzellans. Proto-Seladon erschien bereits in der Shang-Dynastie (ca. 1600 v. Chr.), und zur Song-Dynastie erreichte das Porzellan seinen künstlerischen Höhepunkt — die fünf großen Brennöfen (Ru, Guan, Ge, Jun und Ding) produzierten jeweils unverwechselbare Waren. Die Geburt des blau-weißen Porzellans in der Yuan-Dynastie katapultierte chinesische Keramik auf die Weltbühne.\n\nJingdezhen, bekannt als die "Jahrtausend-Porzellanhauptstadt", bewahrt ihr Handwerk seit über tausend Jahren — "weiß wie Jade, dünn wie Papier, hell wie ein Spiegel und klangvoll wie ein Glockenspiel."\n\nHeute balanciert chinesische Keramikkunst Tradition mit Innovation.',
+              th: 'จีนเป็นแหล่งกำเนิดของเครื่องเคลือบดินเผา เครื่องเคลือบเขียวยุคแรกปรากฏขึ้นตั้งแต่ราชวงศ์ชาง และถึงจุดสูงสุดทางศิลปะในราชวงศ์ซ่ง — เตาเผาชื่อดังห้าแห่งต่างผลิตผลงานที่มีเอกลักษณ์ การกำเนิดของเครื่องเคลือบลายครามในราชวงศ์หยวนผลักดันเซรามิกจีนสู่เวทีโลก\n\nจิ่งเต๋อเจิ้น "เมืองหลวงเครื่องเคลือบดินเผาพันปี" ได้รักษางานฝีมือเซรามิกมานานกว่าพันปี — "ขาวดังหยก บางดังกระดาษ สว่างดังกระจก กังวานดังระฆัง"\n\nปัจจุบัน ศิลปะเซรามิกจีนสร้างสมดุลระหว่างประเพณีและนวัตกรรม',
+              vi: 'Trung Quốc là cái nôi của đồ sứ. Đồ gốm tráng men nguyên thủy xuất hiện từ thời nhà Thương, và đến thời Tống, đồ sứ đạt đến đỉnh cao nghệ thuật — năm lò gốm lớn mỗi lò sản xuất những sản phẩm đặc trưng riêng. Sự ra đời của đồ sứ men xanh trắng thời Nguyên đã đưa gốm sứ Trung Quốc ra sân khấu thế giới.\n\nCảnh Đức Trấn, "Kinh đô Gốm sứ Ngàn năm", đã bảo tồn nghề thủ công gốm sứ hơn nghìn năm — "trắng như ngọc, mỏng như giấy, sáng như gương, vang như khánh."\n\nNgày nay, nghệ thuật gốm sứ Trung Quốc cân bằng giữa truyền thống và đổi mới.',
+              id: 'Tiongkok adalah tempat kelahiran porselen. Proto-seladon muncul sejak Dinasti Shang, dan pada Dinasti Song, porselen mencapai puncak artistiknya — lima tungku besar masing-masing menghasilkan barang yang khas. Kelahiran porselen biru-putih pada Dinasti Yuan mendorong keramik Tiongkok ke panggung dunia.\n\nJingdezhen, "Ibukota Porselen Milenium," telah melestarikan kerajinan keramik selama lebih dari seribu tahun — "putih seperti giok, tipis seperti kertas, cerah seperti cermin, dan nyaring seperti lonceng."\n\nSaat ini, seni keramik Tiongkok menyeimbangkan tradisi dengan inovasi.',
+              ms: 'China adalah tempat kelahiran porselin. Proto-seladon muncul seawal Dinasti Shang, dan pada Dinasti Song, porselin mencapai kemuncak artistiknya — lima relau besar masing-masing menghasilkan barangan yang tersendiri. Kelahiran porselin biru-putih pada Dinasti Yuan mendorong seramik China ke pentas dunia.\n\nJingdezhen, "Ibukota Porselin Milenium," telah memelihara ketukangan seramik selama lebih seribu tahun — "putih seperti jed, nipis seperti kertas, cerah seperti cermin, dan bergema seperti loceng."\n\nHari ini, seni seramik China mengimbangi tradisi dengan inovasi.',
               fr: 'La Chine est le berceau de la porcelaine. Le proto-céladon est apparu dès la dynastie Shang, et sous les Song, la porcelaine atteignit son apogée artistique avec les cinq grands fours. La porcelaine bleu-et-blanc de la dynastie Yuan conquit le monde via la Route de la Soie.\n\nJingdezhen, "Capitale millénaire de la porcelaine", préserve son artisanat depuis plus de mille ans — "blanc comme le jade, fin comme le papier, brillant comme un miroir".\n\nAujourd\'hui, la céramique chinoise équilibre tradition et innovation.',
               es: 'China es la cuna de la porcelana. El proto-celadón apareció en la dinastía Shang, y en la Song alcanzó su cénit artístico con los cinco grandes hornos. La porcelana azul y blanco de Yuan conquistó el mundo.\n\nJingdezhen, "Capital Milenaria de la Porcelana", preserva su artesanía — "blanco como jade, fino como papel, brillante como espejo".\n\nHoy, la cerámica china equilibra tradición e innovación.',
               ar: 'الصين هي مهد الخزف. ظهر السيلادون الأولي في عهد شانغ، وبلغ الخزف ذروته الفنية في عهد سونغ. وغزا الخزف الأزرق والأبيض العالم عبر طريق الحرير.\n\nجينغدتشن، "عاصمة الخزف الألفية"، تحافظ على حرفتها — "أبيض كاليشم، رقيق كالورق، لامع كالمرآة".\n\nاليوم، يوازن الخزف الصيني بين التقاليد والابتكار.'
+            };
+            return true;
+          }
+          if (kw.indexOf('国画')>-1 || kw.indexOf('水墨画')>-1 || kw.indexOf('chinese painting')>-1 || kw.indexOf('ink wash')>-1 || kw.indexOf('ink painting')>-1) {
+            topicTL = { zh:'中国国画', en:'Chinese Painting (Guohua)', ja:'中国画', ko:'중국화', fr:'Peinture Chinoise', es:'Pintura China', de:'Chinesische Malerei', ar:'الرسم الصيني' };
+            tags = {
+              zh: '#国画 #水墨画 #中国画 #非遗 #东方美学',
+              en: '#ChinesePainting #InkWash #Guohua #OrientalArt #Brushwork',
+              ja: '#中国画 #水墨画 #東洋美術 #無形文化遺産',
+              ko: '#중국화 #수묵화 #동양미술 #무형문화유산',
+              es: '#PinturaChina #TintaYLavado #ArteOriental #PatrimonioInmaterial',
+              fr: '#PeintureChinoise #Lavis #ArtOriental #PatrimoineImmatériel',
+              de: '#ChinesischeMalerei #Tuschemalerei #OrientalischeKunst',
+              ar: '#رسم_صيني #رسم_بالحبر #فن_شرقي #تراث_غير_مادي'
+            };
+            body = {
+              zh: '中国国画是世界美术史上独树一帜的绘画体系，以毛笔、墨、国画颜料在宣纸或绢上作画，距今已有两千余年历史。国画分人物、山水、花鸟三大科目，技法有工笔、写意、没骨等。\n\n山水画是国画的最高成就——"远山无皴，远水无波，远人无目"，以散点透视和留白营造"可游可居"的理想境界。宋代范宽的《溪山行旅图》、张择端的《清明上河图》等名作至今令人叹为观止。\n\n"外师造化，中得心源"——国画追求的不是形似而是神韵，是画家内心世界与自然万物的共鸣。这种"写意"精神深深影响了日本、韩国等东亚国家的绘画传统。',
+              en: 'Chinese painting (Guohua) is a unique artistic tradition in world art history, created with brush, ink, and mineral pigments on rice paper or silk — with over 2,000 years of continuous development. Its three main genres are figure painting, landscape painting, and bird-and-flower painting, executed in meticulous (gongbi), freehand (xieyi), or boneless (mogu) technique.\n\nLandscape painting (shanshui) represents the highest achievement — capturing the spirit of "distant mountains without texture strokes, distant waters without waves, distant figures without facial features." Using multiple-perspective composition and deliberate empty space, it creates an ideal realm "suitable for both wandering and dwelling." Masterworks like Fan Kuan\'s "Travelers Among Mountains and Streams" and Zhang Zeduan\'s "Along the River During the Qingming Festival" continue to inspire awe.\n\n"Learn from nature outside, find the source within" — Chinese painting seeks not superficial likeness but spiritual resonance, reflecting a deep harmony between the artist\'s inner world and nature. This "xieyi" (writing the idea) aesthetic profoundly influenced the painting traditions of Japan, Korea, and beyond.',
+              ja: '中国画は2,000年以上の歴史を持つ世界美術史上独自の絵画体系です。人物画、山水画、花鳥画の三科目に分けられ、技法には工筆、写意、没骨などがあります。山水画は「遠山無皴、遠水無波、遠人無目」という理念のもと、散点透視と余白で「遊び、住める」理想郷を創り出します。',
+              ko: '중국화는 2,000년 이상의 역사를 가진 세계 미술사에서 독특한 회화 체계입니다. 인물화, 산수화, 화조화의 세 장르로 나뉘며, 공필, 사의, 몰골 등의 기법이 있습니다. 산수화는 "먼 산에는 준법이 없고, 먼 물에는 물결이 없으며, 먼 사람에는 눈이 없다"는 이념으로 이상향을 표현합니다.',
+              es: 'La pintura china es una tradición artística única con más de 2.000 años de historia. Sus tres géneros principales son la figura, el paisaje y las flores y pájaros. La pintura de paisaje representa su logro supremo.',
+              fr: 'La peinture chinoise est une tradition artistique unique avec plus de 2 000 ans d\'histoire. Ses trois genres principaux sont la peinture de figures, de paysages et de fleurs et oiseaux. La peinture de paysage en est le sommet.',
+              de: 'Die chinesische Malerei ist eine einzigartige Kunsttradition mit über 2.000 Jahren Geschichte. Ihre drei Hauptgattungen sind Figuren-, Landschafts- und Blumen-Vogel-Malerei. Die Landschaftsmalerei ist ihr Höhepunkt.',
+              ar: 'الرسم الصيني هو تقليد فني فريد يمتد لأكثر من 2,000 عام. أجناسه الثلاثة الرئيسية هي رسم الشخصيات والمناظر الطبيعية والزهور والطيور. رسم المناظر الطبيعية هو ذروة إنجازه.'
             };
             return true;
           }
@@ -1445,6 +1581,13 @@
             body = {
               zh: '儒家思想由孔子（公元前551-479年）创立，是中国最具影响力的哲学体系之一，深刻塑造了东亚两千余年的政治、伦理与社会秩序。\n\n儒家核心思想包括"仁"（爱人）、"义"（正义）、"礼"（规范）、"智"（智慧）、"信"（诚信）五常，倡导通过修身、齐家、治国、平天下的递进路径实现社会和谐。"己所不欲，勿施于人"被视为道德金律。\n\n今天，全球500多所孔子学院传播着中国语言文化，儒家"和而不同"的理念为跨文化对话提供了宝贵的东方智慧。',
               en: 'Confucianism, founded by Confucius (551–479 BCE), is one of China\'s most influential philosophical systems, profoundly shaping East Asian politics, ethics, and social order for over two millennia.\n\nIts core teachings center on the Five Constants: Ren (benevolence), Yi (righteousness), Li (propriety), Zhi (wisdom), and Xin (trustworthiness). It advocates a progressive path to social harmony — from self-cultivation to family regulation, state governance, and ultimately world peace. "Do not do to others what you would not want done to yourself" stands as its moral golden rule.\n\nToday, over 500 Confucius Institutes worldwide promote Chinese language and culture, while the Confucian ideal of "harmony without uniformity" offers valuable Eastern wisdom for cross-cultural dialogue.',
+              ja: '儒教は孔子（紀元前551-479年）によって創始され、二千年以上にわたって東アジアの政治、倫理、社会秩序を深く形成してきた中国で最も影響力のある哲学体系の一つです。\n\nその核心教義は五常——仁（慈しみ）、義（正義）、礼（礼節）、智（知恵）、信（誠実）——を中心としています。「己の欲せざるところ、人に施すことなかれ」は道徳の黄金律とされています。\n\n今日、世界500以上の孔子学院が中国語と中国文化を広め、「和して同ぜず」という儒教の理想は異文化対話に貴重な東洋の知恵を提供しています。',
+              ko: '유교는 공자(기원전 551-479년)에 의해 창시되었으며, 2천년 이상 동아시아의 정치, 윤리, 사회 질서를 깊이 형성해 온 중국에서 가장 영향력 있는 철학 체계 중 하나입니다.\n\n핵심 가르침은 오상(五常)——인(仁, 자비), 의(義, 정의), 예(禮, 예절), 지(智, 지혜), 신(信, 신의)——을 중심으로 합니다. "자신이 바라지 않는 일을 남에게 베풀지 말라"는 말은 도덕의 황금률로 간주됩니다.\n\n오늘날 전 세계 500여 개의 공자학원이 중국어와 중국 문화를 널리 알리고 있으며, "화이부동(和而不同)"이라는 유교의 이상은 문화 간 대화에 귀중한 동양의 지혜를 제공합니다.',
+              de: 'Der Konfuzianismus, gegründet von Konfuzius (551–479 v. Chr.), ist eines der einflussreichsten philosophischen Systeme Chinas und prägte die ostasiatische Politik, Ethik und Gesellschaftsordnung über zwei Jahrtausende.\n\nSeine Kernlehren drehen sich um die Fünf Konstanten: Ren (Wohlwollen), Yi (Rechtschaffenheit), Li (Anstand), Zhi (Weisheit) und Xin (Vertrauenswürdigkeit). "Was du nicht willst, das man dir tu\', das füg\' auch keinem anderen zu" gilt als seine moralische Goldene Regel.\n\nHeute fördern über 500 Konfuzius-Institute weltweit die chinesische Sprache und Kultur, während das konfuzianische Ideal der "Harmonie ohne Gleichförmigkeit" wertvolle östliche Weisheit für den interkulturellen Dialog bietet.',
+              th: 'ลัทธิขงจื๊อ ก่อตั้งโดยขงจื๊อ (551–479 ก่อนคริสตกาล) เป็นหนึ่งในระบบปรัชญาที่มีอิทธิพลมากที่สุดของจีน หล่อหลอมการเมือง จริยธรรม และระเบียบสังคมของเอเชียตะวันออกมานานกว่าสองพันปี\n\nคำสอนหลักมุ่งเน้นไปที่เบญจคุณธรรม: เหริน (มนุษยธรรม), อี้ (ความชอบธรรม), หลี่ (จรรยามารยาท), จื้อ (ปัญญา) และ ซิ่น (ความซื่อสัตย์) "ปฏิบัติต่อผู้อื่นดังที่ท่านปรารถนาให้ผู้อื่นปฏิบัติต่อท่าน" เป็นกฎทองทางศีลธรรม\n\nปัจจุบัน สถาบันขงจื๊อกว่า 500 แห่งทั่วโลกส่งเสริมภาษาและวัฒนธรรมจีน',
+              vi: 'Nho giáo, do Khổng Tử (551–479 TCN) sáng lập, là một trong những hệ thống triết học có ảnh hưởng nhất của Trung Quốc, định hình sâu sắc chính trị, đạo đức và trật tự xã hội Đông Á trong hơn hai thiên niên kỷ.\n\nGiáo lý cốt lõi xoay quanh Ngũ Thường: Nhân, Nghĩa, Lễ, Trí, Tín. "Kỷ sở bất dục, vật thi ư nhân" được coi là kim chỉ nam đạo đức.\n\nNgày nay, hơn 500 Học viện Khổng Tử trên toàn thế giới quảng bá ngôn ngữ và văn hóa Trung Quốc.',
+              id: 'Konfusianisme, yang didirikan oleh Konfusius (551–479 SM), adalah salah satu sistem filosofis paling berpengaruh di Tiongkok, membentuk politik, etika, dan tatanan sosial Asia Timur selama lebih dari dua milenium.\n\nAjaran intinya berpusat pada Lima Kebajikan: Ren (kebajikan), Yi (kebenaran), Li (kepatutan), Zhi (kebijaksanaan), dan Xin (kepercayaan). "Jangan lakukan kepada orang lain apa yang Anda tidak ingin orang lain lakukan kepada Anda" adalah aturan moral emasnya.\n\nSaat ini, lebih dari 500 Institut Konfusius di seluruh dunia mempromosikan bahasa dan budaya Tiongkok.',
+              ms: 'Konfusianisme, yang diasaskan oleh Confucius (551–479 SM), adalah salah satu sistem falsafah paling berpengaruh di China, membentuk politik, etika, dan ketertiban sosial Asia Timur selama lebih dua milenium.\n\nAjaran terasnya berpusat pada Lima Ketetapan: Ren (kebajikan), Yi (kebenaran), Li (kesopanan), Zhi (kebijaksanaan), dan Xin (kepercayaan). "Jangan lakukan kepada orang lain apa yang anda tidak mahu orang lain lakukan kepada anda" adalah peraturan moral emasnya.\n\nHari ini, lebih 500 Institut Confucius di seluruh dunia mempromosikan bahasa dan budaya Cina.',
               fr: 'Le Confucianisme, fondé par Confucius (551–479 av. J.-C.), est l\'un des systèmes philosophiques les plus influents de Chine, façonnant l\'Asie de l\'Est depuis plus de deux millénaires.\n\nSes enseignements reposent sur les Cinq Constantes : Ren (bienveillance), Yi (justice), Li (bienséance), Zhi (sagesse) et Xin (fidélité). "Ne faites pas à autrui ce que vous ne voudriez pas qu\'on vous fasse" est sa règle d\'or morale.\n\nAujourd\'hui, plus de 500 Instituts Confucius promeuvent la langue et la culture chinoises dans le monde.',
               es: 'El Confucianismo, fundado por Confucio (551–479 a.C.), es uno de los sistemas filosóficos más influyentes de China, moldeando Asia Oriental por más de dos milenios.\n\nSus enseñanzas se centran en las Cinco Constantes: Ren (benevolencia), Yi (justicia), Li (decoro), Zhi (sabiduría) y Xin (fidelidad).\n\nHoy, más de 500 Institutos Confucio promueven la lengua y cultura china en todo el mundo.',
               ar: 'الكونفوشيوسية، التي أسسها كونفوشيوس (551-479 ق.م)، هي أحد أكثر الأنظمة الفلسفية تأثيراً في الصين، شكلت شرق آسيا لأكثر من ألفي عام.\n\nتركز تعاليمها على الثوابت الخمسة: رين (الإحسان)، يي (العدل)، لي (اللياقة)، جي (الحكمة)، وشين (الإخلاص).\n\nاليوم، هناك أكثر من 500 معهد كونفوشيوس يروجون للغة والثقافة الصينية في جميع أنحاء العالم.'
@@ -1463,9 +1606,40 @@
             body = {
               zh: '道家思想以老子（约公元前6世纪）和庄子为代表，是中国哲学的另一座高峰。《道德经》短短五千言，却以"道法自然"、"无为而治"等深邃思想影响了中国乃至世界的哲学、政治与艺术。\n\n"道可道，非常道"——道是宇宙万物的本源与规律，超越语言与概念。道家倡导顺应自然、清静无为的生活态度，与儒家积极入世形成互补，共同构成了中国人精神世界的"儒道互补"结构。\n\n在全球生态危机日益严峻的今天，道家"天人合一"的生态智慧正受到前所未有的关注。',
               en: 'Taoism, represented by Laozi (c. 6th century BCE) and Zhuangzi, is another pinnacle of Chinese philosophy. The "Tao Te Ching," though merely 5,000 characters long, has profoundly influenced philosophy, politics, and art worldwide with its profound ideas of "the Tao follows nature" and "governing by non-action" (wu wei).\n\n"The Tao that can be told is not the eternal Tao" — the Tao is the origin and principle of all things, transcending language and concepts. Taoism advocates living in harmony with nature and cultivating inner tranquility, complementing Confucian active engagement to form the "Confucian-Taoist complementarity" in the Chinese spiritual world.\n\nAmid growing global ecological crises, the Taoist wisdom of "unity between heaven and humanity" is receiving unprecedented attention.',
+              ja: '道教は老子（紀元前約6世紀）と荘子に代表される、中国哲学のもう一つの高峰です。『道徳経』はわずか五千文字でありながら、「道は自然に法る」「無為にして治まる」といった深遠な思想で、中国のみならず世界の哲学、政治、芸術に影響を与えてきました。\n\n「道の道とすべきは常の道にあらず」——道とは万物の根源と法則であり、言語や概念を超越したものです。道教は自然に順応し、清らかで静かな無為の生き方を説き、儒家の積極的な経世済民と補完し合って「儒道補完」という中国人の精神的構造を形成しています。\n\n世界的な生態系の危機が深刻化する今日、道教の「天人合一」というエコロジーの知恵が、かつてない注目を集めています。',
+              ko: '도교는 노자(기원전 약 6세기)와 장자로 대표되는 중국 철학의 또 다른 정점입니다. 『도덕경』은 단 5천 자에 불과하지만 "도는 자연을 본받는다", "무위로 다스린다"는 심오한 사상으로 중국은 물론 세계의 철학, 정치, 예술에 깊은 영향을 미쳤습니다.\n\n"도를 도라고 말할 수 있다면 그것은 영원한 도가 아니다"——도는 우주 만물의 근원이자 원리로, 언어와 개념을 초월합니다. 도교는 자연에 순응하고 청정무위의 삶을 살 것을 주장하며, 유교의 적극적 현실 참여와 상호보완하여 중국인 정신세계의 "유도상보(儒道互補)" 구조를 형성했습니다.\n\n전 세계적인 생태 위기가 심화되는 오늘날, 도교의 "천인합일(天人合一)"이라는 생태 지혜가 유례없는 주목을 받고 있습니다.',
+              de: 'Der Taoismus, vertreten durch Laozi (ca. 6. Jh. v. Chr.) und Zhuangzi, ist ein weiterer Höhepunkt der chinesischen Philosophie. Das "Tao Te Ching," obwohl nur 5.000 Zeichen lang, hat Philosophie, Politik und Kunst weltweit tiefgreifend beeinflusst.\n\n"Das Tao, das gesagt werden kann, ist nicht das ewige Tao" — das Tao ist der Ursprung und das Prinzip aller Dinge und transzendiert Sprache und Konzepte. Der Taoismus befürwortet ein Leben in Harmonie mit der Natur und die Kultivierung innerer Ruhe.\n\nAngesichts wachsender globaler ökologischer Krisen erhält die taoistische Weisheit der "Einheit zwischen Himmel und Menschheit" beispiellose Aufmerksamkeit.',
+              th: 'ลัทธิเต๋า ซึ่งมีเล่าจื๊อ (ประมาณศตวรรษที่ 6 ก่อนคริสตกาล) และจวงจื่อเป็นตัวแทน เป็นอีกจุดสูงสุดของปรัชญาจีน "เต๋าเต๋อจิง" แม้มีความยาวเพียง 5,000 ตัวอักษร แต่ได้ส่งอิทธิพลอย่างลึกซึ้งต่อปรัชญา การเมือง และศิลปะทั่วโลก\n\n"เต๋าที่อธิบายได้ไม่ใช่เต๋านิรันดร์" — เต๋าคือต้นกำเนิดและหลักการของสรรพสิ่ง อยู่เหนือภาษาและมโนทัศน์ ลัทธิเต๋าสนับสนุนการดำเนินชีวิตอย่างกลมกลืนกับธรรมชาติ\n\nท่ามกลางวิกฤตทางนิเวศวิทยาที่ทวีความรุนแรง ภูมิปัญญาทางนิเวศของเต๋าเรื่อง "สวรรค์และมนุษย์เป็นหนึ่งเดียว" กำลังได้รับความสนใจอย่างที่ไม่เคยมีมาก่อน',
+              vi: 'Đạo giáo, được đại diện bởi Lão Tử (khoảng thế kỷ 6 TCN) và Trang Tử, là một đỉnh cao khác của triết học Trung Quốc. "Đạo Đức Kinh" tuy chỉ vỏn vẹn 5.000 chữ nhưng đã ảnh hưởng sâu sắc đến triết học, chính trị và nghệ thuật toàn thế giới.\n\n"Đạo khả đạo, phi thường đạo" — Đạo là nguồn gốc và nguyên lý của vạn vật, siêu việt ngôn ngữ và khái niệm. Đạo giáo chủ trương sống hài hòa với thiên nhiên và tu dưỡng sự tĩnh lặng nội tâm.\n\nTrong bối cảnh khủng hoảng sinh thái toàn cầu, trí tuệ sinh thái "thiên nhân hợp nhất" của Đạo giáo đang nhận được sự chú ý chưa từng có.',
+              id: 'Taoisme, yang diwakili oleh Laozi (sekitar abad ke-6 SM) dan Zhuangzi, adalah puncak lain dari filsafat Tiongkok. "Tao Te Ching," meskipun hanya 5.000 karakter, telah sangat mempengaruhi filsafat, politik, dan seni di seluruh dunia.\n\n"Tao yang dapat dikatakan bukanlah Tao yang abadi" — Tao adalah asal-usul dan prinsip segala sesuatu, melampaui bahasa dan konsep. Taoisme menganjurkan hidup selaras dengan alam dan memupuk ketenangan batin.\n\nDi tengah krisis ekologi global yang semakin parah, kebijaksanaan ekologis Tao tentang "kesatuan antara langit dan kemanusiaan" menerima perhatian yang belum pernah terjadi sebelumnya.',
+              ms: 'Taoisme, yang diwakili oleh Laozi (sekitar abad ke-6 SM) dan Zhuangzi, adalah satu lagi kemuncak falsafah China. "Tao Te Ching," walaupun hanya 5,000 aksara, telah sangat mempengaruhi falsafah, politik, dan seni di seluruh dunia.\n\n"Tao yang boleh dikatakan bukanlah Tao yang kekal" — Tao adalah asal-usul dan prinsip segala sesuatu, melampaui bahasa dan konsep. Taoisme menganjurkan hidup selaras dengan alam dan memupuk ketenangan dalaman.\n\nDi tengah-tengah krisis ekologi global yang semakin meruncing, kebijaksanaan ekologi Tao tentang "kesatuan antara langit dan kemanusiaan" menerima perhatian yang belum pernah terjadi sebelumnya.',
               fr: 'Le Taoïsme, représenté par Laozi (VIe siècle av. J.-C.) et Zhuangzi, est un autre sommet de la philosophie chinoise. Le "Tao Te King", en seulement 5 000 caractères, a profondément influencé la philosophie, la politique et l\'art.\n\n"Le Tao qui peut être nommé n\'est pas le Tao éternel" — le Tao est le principe originel de toutes choses. Le Taoïsme prône l\'harmonie avec la nature et la tranquillité intérieure.\n\nFace aux crises écologiques mondiales, la sagesse taoïste de "l\'unité entre le ciel et l\'humanité" attire une attention sans précédent.',
               es: 'El Taoísmo, representado por Laozi (s. VI a.C.) y Zhuangzi, es otra cumbre de la filosofía china. El "Tao Te Ching", de solo 5.000 caracteres, ha influido profundamente en la filosofía, política y arte.\n\n"El Tao que puede nombrarse no es el Tao eterno" — el Tao es el principio original de todas las cosas. El Taoísmo aboga por la armonía con la naturaleza y la tranquilidad interior.\n\nAnte las crisis ecológicas globales, la sabiduría taoísta de "unidad entre cielo y humanidad" recibe atención sin precedentes.',
               ar: 'الطاوية، التي يمثلها لاوزي (القرن السادس ق.م) وتشوانغتسي، هي قمة أخرى للفلسفة الصينية. "تاو تي تشينغ"، رغم أنه 5,000 حرف فقط، أثر بعمق على الفلسفة والسياسة والفن.\n\n"التاو الذي يمكن التعبير عنه ليس التاو الأبدي" — التاو هو المبدأ الأصلي لكل الأشياء. تدعو الطاوية للعيش في انسجام مع الطبيعة وهدوء البال.\n\nوسط الأزمات البيئية العالمية، تجذب الحكمة الطاوية المتمثلة في "الوحدة بين السماء والإنسانية" اهتماماً غير مسبوق.'
+            };
+            return true;
+          }
+          if (kw.indexOf('孙子兵法')>-1 || kw.indexOf('art of war')>-1 || kw.indexOf('sun tzu')>-1) {
+            topicTL = { zh:'《孙子兵法》', en:'The Art of War', ja:'『孫子兵法』', ko:'『손자병법』', fr:'« L\'Art de la Guerre »', es:'« El Arte de la Guerra »', de:'„Die Kunst des Krieges"', ar:'«فن الحرب»' };
+            tags = {
+              zh: '#孙子兵法 #孙武 #兵家经典 #中国智慧 #战略哲学',
+              en: '#ArtOfWar #SunTzu #MilitaryStrategy #ChineseWisdom #StrategicThinking',
+              ja: '#孫子兵法 #孫武 #兵法 #中国の知恵 #戦略',
+              ko: '#손자병법 #손무 #병법 #중국지혜 #전략',
+              es: '#ElArteDeLaGuerra #SunTzu #Estrategia #SabiduríaChina',
+              fr: '#LArtDeLaGuerre #SunTzu #Stratégie #SagesseChinoise',
+              de: '#KunstDesKrieges #SunTzu #Strategie #ChinesischeWeisheit',
+              ar: '#فن_الحرب #سون_تزو #استراتيجية #حكمة_صينية'
+            };
+            body = {
+              zh: '《孙子兵法》是中国现存最早的兵书，也是世界军事史上最伟大的著作之一，由春秋末期孙武所著，成书于约公元前5世纪。全书仅六千余字，分为十三篇，以"兵者，国之大事"开篇，系统阐述了战争规律与制胜之道。\n\n"知己知彼，百战不殆"、"不战而屈人之兵"、"上兵伐谋"等思想早已超越军事领域，被广泛应用于商业竞争、体育竞技、外交谈判等现代场景。\n\n《孙子兵法》已被翻译为数十种语言，是全球商学院和管理培训的必读书目。NBA教练、硅谷CEO和各国军事院校都在研读这本两千年前的东方智慧之作。',
+              en: '"The Art of War" is China\'s oldest surviving military treatise and one of the most influential works on strategy in world history. Written by Sun Wu (Sun Tzu) in the late Spring and Autumn period (c. 5th century BCE), its 6,000 characters across 13 chapters open with: "War is a matter of vital importance to the state."\n\nIts maxims — "Know the enemy and know yourself, and you will never be defeated in a hundred battles," "The supreme art of war is to subdue the enemy without fighting," and "The highest form of generalship is to balk the enemy\'s plans" — transcend military contexts, finding application in business, sports, and diplomacy.\n\nTranslated into dozens of languages, "The Art of War" is required reading at business schools worldwide. NBA coaches, Silicon Valley CEOs, and military academies everywhere study this 2,500-year-old masterpiece of Eastern wisdom.',
+              ja: '『孫子兵法』は中国最古の兵法書であり、世界で最も影響力のある戦略書の一つです。春秋末期の孫武によって紀元前5世紀頃に書かれました。「彼を知り己を知れば百戦殆うからず」「戦わずして人の兵を屈するは善の善なる者なり」—これらの格言は軍事を超え、ビジネスやスポーツにも応用されています。世界中のビジネススクールで必読書となっています。',
+              ko: '『손자병법』은 중국 최고의 병법서이자 세계에서 가장 영향력 있는 전략서 중 하나입니다. 춘추 말기 손무가 기원전 5세기경에 저술했습니다. "지피지기 백전불태", "싸우지 않고 적을 굴복시키는 것이 최고의 전략"—이러한 격언은 군사 분야를 넘어 비즈니스와 스포츠에 적용되고 있습니다.',
+              es: '"El Arte de la Guerra" es el tratado militar más antiguo de China y una de las obras más influyentes del mundo sobre estrategia. Escrito por Sun Tzu hacia el siglo V a.C., sus máximas trascienden el ámbito militar.',
+              fr: '« L\'Art de la Guerre » est le plus ancien traité militaire chinois et l\'un des ouvrages les plus influents sur la stratégie. Écrit par Sun Tzu vers le Ve siècle av. J.-C., ses maximes dépassent le cadre militaire.',
+              de: '„Die Kunst des Krieges" ist das älteste erhaltene militärische Traktat Chinas und eines der einflussreichsten Werke über Strategie. Verfasst von Sun Tzu um 500 v. Chr., gehen seine Maximen über das Militärische hinaus.',
+              ar: '"فن الحرب" هو أقدم أطروحة عسكرية صينية باقية وأحد أكثر الأعمال تأثيراً في الاستراتيجية. كتبه سون تزو حوالي القرن الخامس قبل الميلاد، وتتجاوز أقواله المأثورة المجال العسكري.'
             };
             return true;
           }
@@ -1486,6 +1660,13 @@
             body = {
               zh: '中国是茶的故乡，饮茶历史可追溯至神农时代（约公元前2737年）。从唐代陆羽《茶经》到宋代点茶技艺，从明清功夫茶到当代新式茶饮，茶文化贯穿中华文明五千年的发展脉络。\n\n中国茶分六大类：绿茶（如龙井）、红茶（如祁红）、乌龙茶（如铁观音）、白茶（如白毫银针）、黄茶（如君山银针）、黑茶（如普洱）。每一种茶都有独特的风味与冲泡之道。\n\n"茶和天下"——2022年，"中国传统制茶技艺及其相关习俗"入选联合国非遗名录。一杯茶，承载着中国人"以茶会友、以茶修心"的生活哲学。',
               en: 'China is the birthplace of tea, with a drinking history dating back to the time of Shennong (c. 2737 BCE). From Lu Yu\'s "The Classic of Tea" in the Tang Dynasty to Song Dynasty tea whisking, from Ming-Qing gongfu tea to contemporary tea trends, tea culture threads through 5,000 years of Chinese civilization.\n\nChinese tea falls into six categories: green tea (e.g., Longjing), black tea (e.g., Keemun), oolong tea (e.g., Tieguanyin), white tea (e.g., Baihao Yinzhen), yellow tea (e.g., Junshan Yinzhen), and dark tea (e.g., Pu-erh). Each variety has its unique flavor profile and brewing artistry.\n\n"Tea brings harmony to the world" — in 2022, "Traditional Chinese Tea Processing Techniques and Associated Social Practices" was inscribed on UNESCO\'s Intangible Cultural Heritage list. A cup of tea embodies the Chinese philosophy of cultivating friendship and inner peace through tea.',
+              ja: '中国は茶の発祥地であり、飲茶の歴史は神農の時代（紀元前約2737年）にまで遡ります。唐代の陸羽『茶経』から宋代の点茶技法、明清の功夫茶から現代のニューウエーブ茶飲料まで、茶文化は中華文明五千年の発展の歩みと共にあります。\n\n中国茶は六大分類に分けられます：緑茶（龍井など）、紅茶（祁門など）、烏龍茶（鉄観音など）、白茶（白毫銀針など）、黄茶（君山銀針など）、黒茶（プーアルなど）。それぞれに独特の風味と淹れ方があります。\n\n「茶和天下」——2022年、「中国の伝統的製茶技術とその関連習俗」がユネスコ無形文化遺産に登録されました。一杯の茶には、中国人の「茶で友と交わり、茶で心を修める」という人生哲学が込められています。',
+              ko: '중국은 차의 발상지로, 차를 마시는 역사는 신농 시대(기원전 약 2737년)로 거슬러 올라갑니다. 당나라 육우의 『다경(茶經)』에서 송나라의 점다(點茶) 기법, 명청 시대의 공부차(功夫茶)에서 현대의 새로운 차 음료까지, 차 문화는 중화 문명 5천 년의 발전 맥락을 관통합니다.\n\n중국차는 6대 분류로 나뉩니다: 녹차(용정 등), 홍차(기문 등), 우롱차(철관음 등), 백차(백호은침 등), 황차(군산은침 등), 흑차(보이차 등). 각각 독특한 풍미와 우리는 방식을 지니고 있습니다.\n\n"차가 천하를 화합하게 한다"——2022년, "중국 전통 제다 기술 및 그 관련 관습"이 유네스코 무형문화유산에 등재되었습니다. 한 잔의 차에는 중국인의 "차로 벗을 사귀고, 차로 마음을 닦는다"는 생활 철학이 담겨 있습니다.',
+              de: 'China ist die Geburtsstätte des Tees mit einer Trinkgeschichte, die bis in die Zeit von Shennong (ca. 2737 v. Chr.) zurückreicht. Von Lu Yus "Klassiker des Tees" in der Tang-Dynastie über die Teezeremonie der Song-Dynastie bis zu zeitgenössischen Teetrends durchzieht die Teekultur 5.000 Jahre chinesischer Zivilisation.\n\nChinesischer Tee wird in sechs Kategorien eingeteilt: grüner Tee (z.B. Longjing), schwarzer Tee (z.B. Keemun), Oolong-Tee (z.B. Tieguanyin), weißer Tee, gelber Tee und dunkler Tee (z.B. Pu-Erh). Jede Sorte hat ihr einzigartiges Geschmacksprofil.\n\n"Tee bringt Harmonie in die Welt" — 2022 wurden die "Traditionellen chinesischen Teeverarbeitungstechniken" in die UNESCO-Liste des immateriellen Kulturerbes aufgenommen.',
+              th: 'จีนเป็นแหล่งกำเนิดของชา มีประวัติการดื่มชาย้อนไปถึงยุคเสินหนง ประมาณ 2737 ปีก่อนคริสตกาล จาก "ตำราชา" ของลู่ยวี่ในราชวงศ์ถังถึงพิธีชงชาแบบซ่ง จากชากังฟูสมัยหมิงชิงถึงกระแสชาร่วมสมัย วัฒนธรรมชาดำเนินผ่านอารยธรรมจีน 5,000 ปี\n\nชาจีนแบ่งออกเป็น 6 ประเภท: ชาเขียว (เช่น หลงจิ่ง), ชาดำ (เช่น ฉีเหมิน), ชาอู่หลง (เช่น เถี่ยกวานอิน), ชาขาว, ชาเหลือง และชาดำ (เช่น ผูเอ่อร์) แต่ละชนิดมีรสชาติและศิลปะการชงที่เป็นเอกลักษณ์\n\nในปี 2022 "เทคนิคการแปรรูปชาจีนแบบดั้งเดิม" ได้รับการขึ้นทะเบียนเป็นมรดกทางวัฒนธรรมที่จับต้องไม่ได้ของยูเนสโก',
+              vi: 'Trung Quốc là cái nôi của trà, với lịch sử uống trà có từ thời Thần Nông (khoảng 2737 TCN). Từ "Trà Kinh" của Lục Vũ thời Đường đến kỹ thuật điểm trà thời Tống, từ trà công phu Minh-Thanh đến trà hiện đại, văn hóa trà xuyên suốt 5.000 năm văn minh Trung Hoa.\n\nTrà Trung Quốc được chia thành sáu loại: trà xanh (như Long Tỉnh), trà đen (như Kỳ Môn), trà ô long (như Thiết Quan Âm), trà trắng, trà vàng và trà đen (như Phổ Nhĩ). Mỗi loại có hương vị và nghệ thuật pha chế độc đáo.\n\nNăm 2022, "Kỹ thuật Chế biến Trà Truyền thống Trung Quốc" được UNESCO ghi danh là Di sản Văn hóa Phi vật thể.',
+              id: 'Tiongkok adalah tempat kelahiran teh, dengan sejarah minum teh yang berasal dari zaman Shennong (sekitar 2737 SM). Dari "Kitab Teh" Lu Yu pada Dinasti Tang hingga teknik mengocok teh Dinasti Song, dari teh gongfu Ming-Qing hingga tren teh kontemporer, budaya teh mengalir melalui 5.000 tahun peradaban Tiongkok.\n\nTeh Tiongkok terbagi dalam enam kategori: teh hijau (mis. Longjing), teh hitam (mis. Keemun), teh oolong (mis. Tieguanyin), teh putih, teh kuning, dan teh gelap (mis. Pu-erh). Setiap varietas memiliki profil rasa dan seni penyeduhan yang unik.\n\nPada tahun 2022, "Teknik Pengolahan Teh Tradisional Tiongkok" terdaftar dalam Warisan Budaya Takbenda UNESCO.',
+              ms: 'China adalah tempat kelahiran teh, dengan sejarah minum teh yang bermula dari zaman Shennong (sekitar 2737 SM). Dari "Kitab Teh" Lu Yu pada Dinasti Tang hingga teknik mengacau teh Dinasti Song, dari teh gongfu Ming-Qing hingga tren teh kontemporari, budaya teh mengalir melalui 5,000 tahun tamadun China.\n\nTeh China terbahagi kepada enam kategori: teh hijau (cth. Longjing), teh hitam (cth. Keemun), teh oolong (cth. Tieguanyin), teh putih, teh kuning, dan teh gelap (cth. Pu-erh). Setiap varieti mempunyai profil rasa dan seni pembruan yang unik.\n\nPada tahun 2022, "Teknik Pemprosesan Teh Tradisional China" disenaraikan dalam Warisan Budaya Tidak Ketara UNESCO.',
               fr: 'La Chine est le berceau du thé, avec une histoire remontant à Shennong (vers 2737 av. J.-C.). Du "Classique du Thé" de Lu Yu aux cérémonies contemporaines, la culture du thé traverse 5 000 ans de civilisation chinoise.\n\nLes six catégories de thé : vert (Longjing), noir (Keemun), oolong (Tieguanyin), blanc, jaune et sombre (Pu-erh). Chaque variété a son profil unique.\n\nEn 2022, les "techniques traditionnelles de transformation du thé en Chine" ont été inscrites au patrimoine immatériel de l\'UNESCO.',
               es: 'China es la cuna del té, con una historia que se remonta a Shennong (c. 2737 a.C.). Del "Clásico del Té" de Lu Yu a las ceremonias contemporáneas, la cultura del té atraviesa 5.000 años.\n\nLas seis categorías: verde (Longjing), negro (Keemun), oolong (Tieguanyin), blanco, amarillo y oscuro (Pu-erh).\n\nEn 2022, las "técnicas tradicionales chinas de procesamiento del té" fueron inscritas en el patrimonio inmaterial de la UNESCO.',
               ar: 'الصين هي مهد الشاي، مع تاريخ يعود إلى شينونغ (حوالي 2737 ق.م). من "كلاسيكية الشاي" للو يو إلى الاحتفالات المعاصرة، تمتد ثقافة الشاي عبر 5,000 عام.\n\nالفئات الست: الشاي الأخضر (لونغجينغ)، الأسود (كيمون)، أولونغ (تيغوانيين)، الأبيض، الأصفر، والداكن (بواير).\n\nفي عام 2022، أُدرجت "تقنيات معالجة الشاي الصينية التقليدية" في قائمة اليونسكو للتراث غير المادي.'
@@ -1506,6 +1687,13 @@
               body = {
                 zh: '饺子是中国最具代表性的传统面食之一，距今已有1800多年历史，相传由东汉"医圣"张仲景发明。饺子形似元宝，寓意"招财进宝"；春节全家围坐包饺子，更寄托着阖家团圆的美好祝愿。\n\n从和面、擀皮到调馅、包制，每一道工序都凝聚着手艺人的匠心。北方人偏爱猪肉白菜馅，南方人则善用虾仁笋丁，中国各地饺子的风味千变万化。\n\n如今，饺子早已走出国门。从纽约法拉盛到伦敦唐人街，"dumpling"已成为全球食客熟知的中餐符号。',
                 en: 'Chinese dumplings (jiaozi) are among the most iconic traditional foods in China, with a history of over 1,800 years. Legend credits their invention to Zhang Zhongjing, the "Sage of Medicine" of the Eastern Han Dynasty. Shaped like ancient gold ingots, they symbolize wealth and prosperity; families gathering to make dumplings during Chinese New Year embodies hopes for reunion and togetherness.\n\nFrom kneading dough to rolling wrappers and mixing fillings, every step reflects artisanal mastery. Northerners favor pork and cabbage fillings, while southerners prefer shrimp and bamboo shoots — the regional variations are endless.\n\nToday, dumplings have gone global. From Flushing, New York to London\'s Chinatown, "dumpling" has become a beloved symbol of Chinese cuisine worldwide.',
+                ja: '餃子（ジャオズ）は中国で最も代表的な伝統的粉物料理の一つで、1,800年以上の歴史があります。伝説では東漢の「医聖」張仲景によって発明されたとされています。形が古代の金塊に似ていることから富と繁栄を象徴し、旧正月に家族全員で餃子を包むのは一家団欒の願いを込めています。\n\n生地をこねて皮を伸ばし、具を混ぜて包むまで、すべての工程に職人の技が光ります。北方では豚肉と白菜の餡、南方ではエビとタケノコの餡が好まれ、地域ごとに無限のバリエーションがあります。\n\n今日、餃子はすでに世界に広がっています。ニューヨークのフラッシングからロンドンの中華街まで、「dumpling」は世界中の食通に愛される中華料理のシンボルとなりました。',
+                ko: '만두(餃子, jiaozi)는 중국에서 가장 대표적인 전통 면식 중 하나로, 1,800년 이상의 역사를 가지고 있습니다. 전설에 따르면 동한 시대 "의성(醫聖)" 장중경이 발명했습니다. 고대 금괴 모양을 닮아 재물과 번영을 상징하며, 춘절에 온 가족이 둘러앉아 만두를 빚는 것은 화합과 단결의 소망을 담고 있습니다.\n\n반죽부터 피 만들기, 소 만들기, 빚기까지 모든 과정에 장인의 혼이 담겨 있습니다. 북방 사람들은 돼지고기 배추 소를, 남방 사람들은 새우 죽순 소를 선호하여 지역별로 무한한 변화를 보여줍니다.\n\n오늘날 만두는 이미 세계로 진출했습니다. 뉴욕 플러싱에서 런던 차이나타운까지, "dumpling"은 전 세계인의 사랑을 받는 중화 요리의 상징이 되었습니다.',
+                de: 'Chinesische Teigtaschen (Jiaozi) gehören zu den ikonischsten traditionellen Speisen Chinas mit über 1.800 Jahren Geschichte. Der Legende nach wurden sie von Zhang Zhongjing, dem "Weisen der Medizin" der Östlichen Han-Dynastie, erfunden. In Form antiker Goldbarren symbolisieren sie Wohlstand.\n\nVom Kneten des Teigs über das Ausrollen der Hüllen bis zum Mischen der Füllungen spiegelt jeder Schritt handwerkliche Meisterschaft wider. Nordchinesen bevorzugen Schweinefleisch-Kohl-Füllungen, während Südchinesen Garnelen und Bambussprossen bevorzugen.\n\nHeute sind Jiaozi global geworden. Von Flushing, New York, bis zu Londons Chinatown ist "Dumpling" ein weltweit geliebtes Symbol der chinesischen Küche.',
+                th: 'เกี๊ยวจีน (เจี่ยวจื่อ) เป็นหนึ่งในอาหารดั้งเดิมที่เป็นสัญลักษณ์มากที่สุดของจีน มีประวัติยาวนานกว่า 1,800 ปี รูปทรงคล้ายทองคำโบราณเป็นสัญลักษณ์ของความมั่งคั่ง ทุกขั้นตอนสะท้อนถึงความเชี่ยวชาญของช่างฝีมือ\n\nปัจจุบัน เกี๊ยวได้ก้าวสู่ระดับโลก จากฟลัชชิง นิวยอร์ก ถึงไชนาทาวน์ในลอนดอน "dumpling" ได้กลายเป็นสัญลักษณ์แห่งอาหารจีนอันเป็นที่รักไปทั่วโลก',
+                vi: 'Sủi cảo Trung Quốc (jiaozi) là một trong những món ăn truyền thống mang tính biểu tượng nhất của Trung Quốc, với lịch sử hơn 1.800 năm. Có hình dạng như thỏi vàng cổ, tượng trưng cho sự giàu có và thịnh vượng.\n\nNgày nay, sủi cảo đã vươn ra toàn cầu. Từ Flushing, New York đến Chinatown London, "dumpling" đã trở thành biểu tượng ẩm thực Trung Hoa được yêu thích trên toàn thế giới.',
+                id: 'Pangsit Tiongkok (jiaozi) adalah salah satu makanan tradisional paling ikonik di Tiongkok, dengan sejarah lebih dari 1.800 tahun. Berbentuk seperti batangan emas kuno, melambangkan kekayaan dan kemakmuran.\n\nSaat ini, pangsit telah mendunia. Dari Flushing, New York hingga Chinatown London, "dumpling" telah menjadi simbol masakan Tiongkok yang dicintai di seluruh dunia.',
+                ms: 'Ladu Cina (jiaozi) adalah antara makanan tradisional paling ikonik di China, dengan sejarah lebih 1,800 tahun. Berbentuk seperti jongkong emas kuno, melambangkan kekayaan dan kemakmuran.\n\nHari ini, ladu telah menjadi global. Dari Flushing, New York ke Chinatown London, "dumpling" telah menjadi simbol masakan Cina yang dicintai di seluruh dunia.',
                 fr: 'Les raviolis chinois (jiaozi) comptent parmi les aliments traditionnels les plus emblématiques de Chine, avec plus de 1 800 ans d\'histoire. Façonnés comme des lingots d\'or anciens, ils symbolisent richesse et prospérité.\n\nDu pétrissage de la pâte au roulage des feuilles et au mélange des farces, chaque étape reflète une maîtrise artisanale. Les nordistes préfèrent le porc et le chou, les sudistes les crevettes et le bambou.\n\nAujourd\'hui, les jiaozi ont conquis le monde, de Flushing à New York au quartier chinois de Londres.',
                 es: 'Las empanadillas chinas (jiaozi) son uno de los alimentos más emblemáticos de China, con más de 1.800 años de historia. Con forma de lingotes de oro, simbolizan riqueza y prosperidad.\n\nDel amasado al relleno, cada paso refleja maestría artesanal. Los norteños prefieren cerdo y col, los sureños camarones y bambú.\n\nHoy, los jiaozi han conquistado el mundo, de Flushing a Chinatown en Londres.',
                 ar: 'الزلابية الصينية (جياوزي) هي من أكثر الأطعمة التقليدية شهرة في الصين، مع تاريخ يزيد عن 1,800 عام. على شكل سبائك ذهبية قديمة، ترمز إلى الثروة والازدهار.\n\nمن عجن العجين إلى خلط الحشوات، كل خطوة تعكس إتقاناً حرفياً. يفضل الشماليون لحم الخنزير والكرنب، والجنوبيون الروبيان والخيزران.\n\nاليوم، غزت الجياوزي العالم، من فلاشينغ في نيويورك إلى الحي الصيني في لندن.'
@@ -1521,6 +1709,13 @@
               };
               body = {
                 zh: '火锅是中国饮食文化中极富社交属性的美食形式，历史可追溯至商周时期的"鼎食"传统。如今，火锅已发展为重庆麻辣火锅、北京涮羊肉、潮汕牛肉火锅、云南菌汤火锅等众多流派。\n\n"围炉而食"是火锅的精髓——亲朋好友围坐一桌，将各色食材投入沸腾的汤底中涮烫，在热气蒸腾间分享美食、畅谈人生。火锅不仅是食物，更是一种温暖的人际连接方式。\n\n近年来，中国火锅品牌加速出海，从海底捞在新加坡、洛杉矶的门店到伦敦、东京的川味火锅热潮，这口"沸腾的中国味道"正俘获全球食客的味蕾。',
+                ja: '火鍋は中国の食文化において極めて社交性の高い料理形式で、商周時代の「鼎食」にまで遡ります。重慶麻辣火鍋、北京羊肉しゃぶしゃぶ、潮汕牛肉火鍋、雲南きのこ火鍋など多様なスタイルがあります。\n\n「炉を囲んで食す」——親しい人々がテーブルを囲み、沸騰する出汁に様々な具材をくぐらせ、湯気の中で食事と会話を楽しみます。\n\n近年、海底捞の海外展開をはじめ、中国火鍋ブランドのグローバル化が加速し、世界中の食通を魅了しています。',
+                ko: '훠궈(火鍋)는 중국 음식 문화에서 가장 사회적인 요리 형식 중 하나로, 상주 시대의 "정(鼎)" 조리 도구에 뿌리를 두고 있습니다. 충칭 마라 훠궈, 베이징 양고기 샤부샤부, 차오산 쇠고기 훠궈, 윈난 버섯 전골 등 다양한 지역 스타일로 발전했습니다.\n\n"화로를 둘러싸고 먹는다"는 것이 훠궈의 정수——친구와 가족이 끓는 육수 주위에 모여 다양한 재료를 찍어 먹으며 대화를 나눕니다.\n\n최근 몇 년간 하이디라오를 비롯한 중국 훠궈 브랜드의 글로벌 확장이 가속화되며 전 세계인의 입맛을 사로잡고 있습니다.',
+                de: 'Hot Pot ist eine der geselligsten Formen der chinesischen Küche, deren Wurzeln bis zu den "Ding"-Kochgefäßen der Shang- und Zhou-Dynastien zurückreichen. Heute gibt es verschiedene regionale Stile — Chongqing Mala, Peking-Lamm, Chaoshan-Rindfleisch, Yunnan-Pilz.\n\n"Essen um den Ofen herum" — Freunde und Familie versammeln sich um eine köchelnde Brühe, tauchen Zutaten ein und teilen Essen und Gespräche.\n\nIn den letzten Jahren haben chinesische Hot-Pot-Marken wie Haidilao weltweit expandiert und erobern mit diesem "kochenden Geschmack Chinas" Gaumen auf der ganzen Welt.',
+                th: 'หม้อไฟจีนเป็นหนึ่งในรูปแบบอาหารที่ส่งเสริมการเข้าสังคมมากที่สุดของจีน มีรากฐานย้อนไปถึงภาชนะหุงต้ม "ติ่ง" สมัยราชวงศ์ชางและโจว ปัจจุบันมีหลากหลายสไตล์ตามภูมิภาค\n\n"รับประทานอาหารรอบเตา" — เพื่อนฝูงและครอบครัวรวมตัวกันรอบน้ำซุปเดือด จุ่มวัตถุดิบหลากหลาย แบ่งปันอาหารและบทสนทนา\n\nในช่วงไม่กี่ปีที่ผ่านมา แบรนด์หม้อไฟจีนได้ขยายไปทั่วโลก จากไห่ตี่เลาถึงร้านหม้อไฟเสฉวนในลอนดอนและโตเกียว',
+                vi: 'Lẩu Trung Quốc là một trong những hình thức ẩm thực mang tính xã hội cao nhất, có nguồn gốc từ nồi "đỉnh" thời Thương-Chu. Ngày nay có nhiều phong cách vùng miền như lẩu cay Trùng Khánh, lẩu cừu Bắc Kinh, lẩu bò Triều Sán, lẩu nấm Vân Nam.\n\n"Quây quần bên nồi lẩu" — bạn bè và gia đình tụ họp quanh nồi nước dùng sôi sùng sục, nhúng nguyên liệu và chia sẻ câu chuyện.\n\nNhững năm gần đây, các thương hiệu lẩu Trung Quốc đã mở rộng ra toàn cầu, chinh phục thực khách khắp thế giới.',
+                id: 'Hot pot adalah salah satu bentuk masakan Tiongkok yang paling sosial, dengan akar pada periuk "ding" Dinasti Shang dan Zhou. Kini berkembang menjadi beragam gaya daerah seperti Chongqing mala, Beijing lamb, Chaoshan beef, Yunnan mushroom.\n\n"Makan di sekitar tungku" — teman dan keluarga berkumpul di sekitar kuah mendidih, mencelupkan bahan, berbagi makanan dan percakapan.\n\nBelakangan ini, merek hot pot Tiongkok seperti Haidilao telah berekspansi secara global, memikat selera di seluruh dunia.',
+                ms: 'Hot pot adalah salah satu bentuk masakan Cina yang paling sosial, dengan akar pada periuk "ding" Dinasti Shang dan Zhou. Kini berkembang menjadi pelbagai gaya daerah seperti Chongqing mala, kambing Beijing, daging lembu Chaoshan, cendawan Yunnan.\n\n"Makan di sekeliling dapur" — rakan dan keluarga berkumpul di sekitar kuah mendidih, mencelup bahan, berkongsi makanan dan perbualan.\n\nKebelakangan ini, jenama hot pot Cina seperti Haidilao telah berkembang secara global, memikat selera di seluruh dunia.',
                 en: 'Hot pot is one of the most socially engaging forms of Chinese cuisine, with roots tracing back to the "ding" cooking vessels of the Shang and Zhou dynasties. Today, it has evolved into diverse regional styles — Chongqing spicy mala, Beijing lamb hot pot, Chaoshan beef hot pot, Yunnan mushroom hot pot, and more.\n\n"Dining around the stove" captures the essence of hot pot: friends and family gather around a simmering broth, dipping an array of ingredients, sharing food and conversation amid rising steam. Hot pot is more than a meal — it\'s a warm form of human connection.\n\nIn recent years, Chinese hot pot brands have expanded globally. From Haidilao locations in Singapore and Los Angeles to Sichuan-style hot pot sensations in London and Tokyo, this "boiling taste of China" is winning over palates worldwide.',
                 fr: 'La fondue chinoise est l\'une des formes les plus sociales de la cuisine chinoise. Aujourd\'hui, elle se décline en divers styles régionaux : Chongqing mala, agneau de Pékin, bœuf de Chaoshan, champignons du Yunnan.\n\n"Manger autour du four" capture l\'essence de la fondue — amis et famille réunis autour d\'un bouillon frémissant, partageant nourriture et conversation.\n\nLes marques chinoises de fondue se sont développées mondialement, de Haidilao à Singapour et Los Angeles aux restaurants du Sichuan à Londres et Tokyo.',
                 es: 'La olla caliente china es una de las formas más sociales de la cocina china. Hoy tiene diversos estilos regionales: Chongqing mala, cordero de Pekín, carne de Chaoshan, setas de Yunnan.\n\n"Comer alrededor de la estufa" captura la esencia: amigos y familia reunidos alrededor de un caldo, compartiendo comida y conversación.\n\nLas marcas chinas se han expandido globalmente, de Haidilao en Singapur y Los Ángeles a los restaurantes de Sichuan en Londres y Tokio.',
@@ -1538,11 +1733,553 @@
               body = {
                 zh: '中华美食博大精深，素有"八大菜系"之说——鲁、川、粤、苏、闽、浙、湘、徽，各具风味。从精致的粤式点心到豪放的川味火锅，从清淡的淮扬菜到醇厚的鲁菜，中国饮食文化展现了"一方水土养一方人"的丰富多样性。\n\n中国人讲究"色、香、味、形、器"五位一体，"食不厌精，脍不厌细"的饮食哲学影响深远。"民以食为天"——饮食在中国不仅关乎生存，更是文化的重要载体。\n\n2011年，中国烹饪协会推动"中餐申报世界非物质文化遗产"，让世界品味中华美食的深厚底蕴。',
                 en: 'Chinese cuisine is profoundly rich and diverse, traditionally categorized into the "Eight Great Cuisines": Lu, Chuan, Yue, Su, Min, Zhe, Xiang, and Hui. From the refined dim sum of Cantonese cuisine to the bold heat of Sichuan dishes, from delicate Huaiyang cuisine to robust Shandong fare, Chinese food culture embodies the philosophy that "each region\'s water and soil nourishes its own people."\n\nChinese gastronomy pursues the harmony of "color, aroma, taste, form, and vessel" — a holistic philosophy captured in the ancient adage "one does not object to the finest food." In China, food is more than sustenance; it is a vital vessel of culture.\n\nIn 2011, efforts began to nominate Chinese cuisine as UNESCO Intangible Cultural Heritage, inviting the world to savor its profound legacy.',
+                ja: '中華料理は奥深く、「八大菜系」——魯・川・粤・蘇・閩・浙・湘・徽——に分類され、それぞれ独自の風味を持ちます。精緻な広東点心から豪快な四川火鍋、あっさりした淮揚料理からコクのある山東料理まで、中国の食文化は「各地の風土がそこに住む人々を育む」という多様性を示しています。\n\n中国人は「色・香・味・形・器」の調和を重視し、「食は精を厭わず、膾は細を厭わず」という食の哲学が深く根付いています。「民は食を以て天と為す」——中国において食は単なる生存の手段ではなく、文化の重要な担い手です。\n\n2011年、中国烹飪協会は「中国料理の世界無形文化遺産登録」を推進し、世界中に中華美食の深い魅力を発信しています。',
+                ko: '중화 요리는 광대하고 심오하여 "8대 요리 계통"——노(魯)·천(川)·월(粵)·소(蘇)·민(閩)·절(浙)·상(湘)·휘(徽)——으로 나뉘며 각각 독특한 풍미를 지니고 있습니다. 정교한 광둥식 딤섬에서 호방한 쓰촨식 훠궈까지, 담백한 화이양 요리에서 진한 산둥 요리까지, 중국 음식 문화는 "각 지역의 물과 토양이 그곳 사람들을 키운다"는 다양성을 보여줍니다.\n\n중국인은 "색·향·미·형·기"의 조화를 중시하며, "음식은 정교할수록 좋고, 회는 가늘수록 좋다"는 미식 철학이 깊이 뿌리내려 있습니다. "백성은 먹는 것을 하늘로 삼는다"——중국에서 음식은 단순한 생존의 문제가 아닌 문화의 중요한 전달체입니다.\n\n2011년, 중국요리협회는 "중화 요리의 세계무형문화유산 등재"를 추진하여 전 세계에 중화 미식의 깊은 저력을 알리고 있습니다.',
+                de: 'Die chinesische Küche ist tiefgründig und vielfältig, traditionell in die "Acht Großen Küchen" unterteilt: Lu, Chuan, Yue, Su, Min, Zhe, Xiang und Hui. Vom raffinierten kantonesischen Dim Sum bis zur kräftigen Sichuan-Küche, von der delikaten Huaiyang-Küche bis zur herzhaften Shandong-Küche.\n\nDie chinesische Gastronomie strebt nach Harmonie von "Farbe, Aroma, Geschmack, Form und Gefäß". "Essen ist der Himmel des Volkes" — in China ist Essen mehr als Nahrung; es ist ein lebenswichtiger Kulturträger.\n\n2011 begannen Bestrebungen, die chinesische Küche als UNESCO-Weltkulturerbe zu nominieren.',
+                th: 'อาหารจีนมีความหลากหลายและลุ่มลึกอย่างยิ่ง ตามธรรมเนียมแบ่งออกเป็น "แปดสุดยอดอาหาร" — หลู่ ชวน เยว่ ซู หมิน เจ้อ เซียง และฮุย ตั้งแต่อาหารแต้จิ๋วอันประณีตถึงอาหารเสฉวนรสจัดจ้าน ปรัชญา "สี กลิ่น รส รูปทรง และภาชนะ" เป็นหัวใจของศาสตร์การประกอบอาหารจีน\n\nในจีน อาหารเป็นมากกว่าเครื่องยังชีพ — เป็นภาชนะแห่งวัฒนธรรม',
+                vi: 'Ẩm thực Trung Hoa vô cùng phong phú và đa dạng, được phân thành "Bát Đại Thái Hệ" — Lỗ, Xuyên, Việt, Tô, Mân, Chiết, Tương, và Huy. Từ điểm tâm Quảng Đông tinh tế đến lẩu Tứ Xuyên đậm đà, từ ẩm thực Hoài Dương thanh nhã đến ẩm thực Sơn Đông đậm đà hương vị.\n\nTriết lý "sắc, hương, vị, hình, khí" là trọng tâm của nghệ thuật ẩm thực Trung Hoa. Ở Trung Quốc, "dân dĩ thực vi thiên" — ẩm thực là chất chứa văn hóa.',
+                id: 'Masakan Tiongkok sangat kaya dan beragam, secara tradisional dikategorikan dalam "Delapan Masakan Besar": Lu, Chuan, Yue, Su, Min, Zhe, Xiang, dan Hui. Dari dim sum Kanton yang halus hingga panasnya hidangan Sichuan, masakan Tiongkok mewujudkan filosofi bahwa "setiap daerah memiliki karakteristik uniknya sendiri."\n\nFilosofi "warna, aroma, rasa, bentuk, dan wadah" adalah inti gastronomi Tiongkok. Di Tiongkok, makanan lebih dari sekadar penghidupan — makanan adalah wadah budaya yang vital.',
+                ms: 'Masakan Cina sangat kaya dan pelbagai, secara tradisional dikategorikan dalam "Lapan Masakan Besar": Lu, Chuan, Yue, Su, Min, Zhe, Xiang, dan Hui. Dari dim sum Kanton yang halus hingga kepanasan hidangan Sichuan, masakan Cina mewujudkan falsafah bahawa "setiap wilayah mempunyai keunikan tersendiri."\n\nFalsafah "warna, aroma, rasa, bentuk, dan bekas" adalah teras gastronomi Cina. Di China, makanan lebih daripada sekadar rezeki — makanan adalah wadah budaya yang penting.',
                 fr: 'La cuisine chinoise est riche et diversifiée, avec "Huit Grandes Cuisines" régionales. Des dim sum cantonais raffinés aux plats épicés du Sichuan, de la délicate cuisine Huaiyang aux saveurs robustes du Shandong.\n\nLa gastronomie chinoise poursuit l\'harmonie de "couleur, arôme, goût, forme et vaisselle". En Chine, la nourriture est plus que subsistance — c\'est un vecteur culturel.',
                 es: 'La cocina china es rica y diversa, con "Ocho Grandes Cocinas" regionales. Del dim sum cantonés a los platos picantes de Sichuan, de la cocina Huaiyang a los sabores de Shandong.\n\nLa gastronomía china busca armonía de "color, aroma, sabor, forma y vajilla". En China, la comida es más que sustento — es un vehículo cultural.',
                 ar: 'المطبخ الصيني غني ومتنوع، مع "المطابخ الثمانية الكبرى". من الديم سام الكانتوني إلى أطباق سيتشوان الحارة، ومن مطبخ هوايانغ إلى نكهات شاندونغ.\n\nيسعى فن الطهي الصيني إلى تناغم "اللون والرائحة والطعم والشكل والإناء". الطعام أكثر من مجرد غذاء — إنه وعاء ثقافي.'
               };
             }
+            return true;
+          }
+          if (kw.indexOf('月饼')>-1 || kw.indexOf('mooncake')>-1 || kw.indexOf('点心')>-1 || kw.indexOf('dim sum')>-1 || kw.indexOf('糕点')>-1 && kw.indexOf('中秋')===-1) {
+            topicTL = { zh:'中式点心', en:'Chinese Pastries & Dim Sum', ja:'中国点心', ko:'중국 전통 과자와 딤섬', fr:'Pâtisseries Chinoises & Dim Sum', es:'Pasteles Chinos y Dim Sum', de:'Chinesisches Gebäck & Dim Sum', ar:'المعجنات الصينية والدم سم' };
+            tags = {
+              zh: '#中式点心 #月饼 #美食文化 #传统糕点 #手工制作',
+              en: '#ChinesePastry #Mooncake #DimSum #FoodCulture #TraditionalBaking',
+              ja: '#中国点心 #月餅 #食文化 #伝統菓子',
+              ko: '#중국전통과자 #월병 #식문화 #전통제과',
+              es: '#PasteleríaChina #PastelDeLuna #CulturaGastronómica',
+              fr: '#PâtisserieChinoise #GâteauDeLune #CultureGastronomique',
+              de: '#ChinesischesGebäck #Mondkuchen #Esskultur',
+              ar: '#معجنات_صينية #كعك_القمر #ثقافة_الطعام'
+            };
+            body = {
+              zh: '中式点心是中华饮食文化中精致与匠心的极致体现。从广式早茶的蒸笼点心——虾饺、烧卖、叉烧包——到苏式酥皮月饼、京式艾窝窝，每一道点心都是一方水土的味觉名片。\n\n月饼是中秋节最具代表性的传统点心。广式月饼皮薄馅靓，苏式月饼层层酥脆，京式月饼甜而不腻。2017年，香港"传统月饼制作技艺"被列入首批香港非物质文化遗产名录。\n\n今天，中式点心正在走向国际——从伦敦的广式早茶馆到巴黎的创意点心餐厅，"Dim Sum"已成为全球美食爱好者通用的词汇。',
+              en: 'Chinese pastries and dim sum represent the pinnacle of refinement in Chinese food culture. From Cantonese steamed dim sum — har gow (shrimp dumplings), siu mai, char siu bao — to Suzhou-style flaky mooncakes and Beijing aiwowo, each delicacy is a flavor passport to its region.\n\nMooncakes are the iconic pastry of the Mid-Autumn Festival. Cantonese mooncakes feature thin skins and rich fillings, Suzhou-style ones are layered and flaky, and Beijing-style ones are sweet but balanced. In 2017, "Traditional Mooncake Making Techniques" were inscribed on Hong Kong\'s first Intangible Cultural Heritage list.\n\nToday, Chinese pastries are going global — from Cantonese dim sum houses in London to creative dim sum restaurants in Paris, "Dim Sum" has become a universal word for food lovers worldwide.',
+              ja: '中国点心は中華食文化の精緻さと匠の技の極致です。広東式蒸籠点心から蘇州式月餅、北京の艾窩窩まで、それぞれが地域の味覚の名刺です。今日、中国点心は世界中で愛され、「Dim Sum」は国際的な食文化用語となっています。',
+              ko: '중국 전통 과자와 딤섬은 중국 음식 문화의 정교함과 장인정신을 보여줍니다. 광둥식 찜 딤섬부터 쑤저우식 월병, 베이징 아이워워까지 각 지역의 맛을 대표합니다. 오늘날 "Dim Sum"은 전 세계 미식가들의 공통 언어가 되었습니다.',
+              es: 'Los pasteles chinos y el dim sum representan la cumbre del refinamiento en la cultura gastronómica china. Hoy, el "Dim Sum" se ha convertido en una palabra universal para los amantes de la comida en todo el mundo.',
+              fr: 'Les pâtisseries chinoises et les dim sum représentent le summum du raffinement dans la culture gastronomique chinoise. Aujourd\'hui, « Dim Sum » est devenu un mot universel pour les amateurs de gastronomie du monde entier.',
+              de: 'Chinesisches Gebäck und Dim Sum sind der Inbegriff der Raffinesse in der chinesischen Esskultur. Heute ist „Dim Sum" ein universelles Wort für Feinschmecker weltweit.',
+              ar: 'المعجنات الصينية والدم سم تمثل قمة الرقي في ثقافة الطعام الصيني. اليوم، أصبح "دم سم" كلمة عالمية لعشاق الطعام في جميع أنحاء العالم.'
+            };
+            return true;
+          }
+          if (kw.indexOf('夜宵')>-1 || kw.indexOf('烧烤')>-1 || kw.indexOf('night market')>-1 || kw.indexOf('street food')>-1 || kw.indexOf('大排档')>-1) {
+            topicTL = { zh:'中国夜宵文化', en:'Chinese Night Market & Street Food Culture', ja:'中国の夜食文化', ko:'중국 야식 문화', fr:'Culture des Marchés Nocturnes Chinois', es:'Cultura de Mercados Nocturnos Chinos', de:'Chinesische Nachtmarkt-Kultur', ar:'ثقافة الأسواق الليلية الصينية' };
+            tags = {
+              zh: '#夜宵 #夜市 #街头美食 #烧烤 #烟火气',
+              en: '#NightMarket #StreetFood #BBQ #ChineseFoodCulture #FoodieLife',
+              ja: '#夜食 #夜市 #屋台料理 #中国食文化',
+              ko: '#야식 #야시장 #길거리음식 #중국식문화',
+              es: '#MercadoNocturno #ComidaCallejera #CulturaGastronómicaChina',
+              fr: '#MarchéNocturne #CuisineDeRue #CultureGastronomiqueChinoise',
+              de: '#Nachtmarkt #Streetfood #ChinesischeEsskultur',
+              ar: '#سوق_ليلي #طعام_الشارع #ثقافة_الطعام_الصيني'
+            };
+            body = {
+              zh: '夜市与夜宵文化是中国城市生活最具"烟火气"的组成部分。从北京的簋街到成都的锦里，从台北的士林夜市到西安的回民街，夜幕降临后的美食狂欢成为城市活力的最佳注脚。\n\n中国烧烤文化博大精深——新疆羊肉串以孜然辣椒为魂，东北烧烤讲究"万物皆可烤"，广东炭炉生蚝配上蒜蓉粉丝。搭配冰镇啤酒，"没有什么是一顿烧烤解决不了的，如果有，就两顿"。\n\n夜市不仅是美食聚集地，更是城市社交空间与草根文化的孵化器。它代表着中国人"民以食为天"的生活态度和以食会友的社交传统。',
+              en: 'Night markets and late-night food culture are among the most vibrant expressions of Chinese urban life. From Beijing\'s Guijie (Ghost Street) to Chengdu\'s Jinli, from Taipei\'s Shilin Night Market to Xi\'an\'s Muslim Quarter — the food fiesta that erupts after dark is the pulse of the city.\n\nChinese BBQ culture is vast and diverse: Xinjiang lamb skewers sing with cumin and chili, Dongbei (Northeastern) BBQ lives by "everything can be grilled," and Cantonese charcoal-grilled oysters with garlic and vermicelli are legendary. Paired with ice-cold beer — "There\'s nothing a BBQ session can\'t fix; if there is, make it two."\n\nNight markets are not just food destinations — they\'re urban social spaces and incubators of grassroots culture, embodying the Chinese ethos of "food is heaven" and the tradition of bonding over shared meals.',
+              ja: '夜市と夜食文化は中国の都市生活で最も活気ある風景です。北京の簋街、成都の錦里、台北の士林夜市、西安の回民街—日が暮れて始まる食の祭典は都市の鼓動そのものです。新疆のクミン香る羊肉串、東北の「なんでも焼く」スタイル、広東のニンニク焼き牡蠣。夜市は食の場であると同時に都市の社交空間であり草の根文化の発信地です。',
+              ko: '야시장과 야식 문화는 중국 도시 생활에서 가장 활기찬 풍경입니다. 베이징 구이제, 청두 진리, 타이베이 스린 야시장, 시안 후이민제—해가 지면 시작되는 음식 축제는 도시의 심장박동입니다. 신장 양꼬치, 둥베이 바비큐, 광둥식 숯불 굴. 야시장은 음식뿐 아니라 사교 공간이자 풀뿌리 문화의 발신지입니다.',
+              es: 'Los mercados nocturnos y la cultura de comida callejera son una expresión vibrante de la vida urbana china. Desde la calle Guijie en Pekín hasta el mercado nocturno de Shilin en Taipéi, la fiesta gastronómica nocturna es el latido de la ciudad.',
+              fr: 'Les marchés nocturnes et la culture de la cuisine de rue sont une expression vibrante de la vie urbaine chinoise. De la rue Guijie à Pékin au marché nocturne de Shilin à Taipei, la fête gastronomique nocturne est le pouls de la ville.',
+              de: 'Nachtmärkte und Streetfood-Kultur sind ein lebendiger Ausdruck des chinesischen Stadtlebens. Von der Guijie-Straße in Peking bis zum Shilin-Nachtmarkt in Taipeh — das nächtliche Food-Festival ist der Herzschlag der Stadt.',
+              ar: 'الأسواق الليلية وثقافة الطعام في الشارع هي تعبير نابض بالحياة عن الحياة الحضرية الصينية. من شارع غويجي في بكين إلى سوق شيلين الليلي في تايبيه، مهرجان الطعام الليلي هو نبض المدينة.'
+            };
+            return true;
+          }
+          return false;
+        }
+
+        // ---- 民俗技艺类 ----
+        function matchFolkCraft() {
+          if (kw.indexOf('剪纸')>-1 || kw.indexOf('paper cutting')>-1 || kw.indexOf('papercut')>-1) {
+            topicTL = { zh:'中国剪纸', en:'Chinese Paper Cutting (Jianzhi)', ja:'中国切り紙', ko:'중국 전지 공예', fr:'Découpage de Papier Chinois', es:'Recorte de Papel Chino', de:'Chinesischer Papierschnitt', ar:'قص الورق الصيني' };
+            tags = {
+              zh: '#中国剪纸 #非遗 #民间艺术 #窗花 #传统文化',
+              en: '#ChinesePaperCutting #Jianzhi #IntangibleHeritage #FolkArt #ChineseCulture',
+              ja: '#中国切り紙 #無形文化遺産 #民間芸術 #中国文化',
+              ko: '#중국전지 #무형문화유산 #민간예술 #중국문화',
+              es: '#RecorteDePapelChino #PatrimonioInmaterial #ArtePopular #CulturaChina',
+              fr: '#DécoupageDePapierChinois #PatrimoineImmatériel #ArtPopulaire #CultureChinoise',
+              de: '#ChinesischerPapierschnitt #ImmateriellesErbe #Volkskunst #ChinesischeKultur',
+              th: '#การตัดกระดาษจีน #มรดกที่จับต้องไม่ได้ #ศิลปะพื้นบ้าน #วัฒนธรรมจีน',
+              vi: '#CắtGiấyTrungQuốc #DiSảnPhiVậtThể #NghệThuậtDânGian #VănHóaTrungQuốc',
+              id: '#PotongKertasTiongkok #WarisanTakbenda #SeniRakyat #BudayaTiongkok',
+              ms: '#PotonganKertasCina #WarisanTidakKetara #SeniRakyat #BudayaCina',
+              ar: '#قص_الورق_الصيني #تراث_غير_مادي #فن_شعبي #ثقافة_صينية'
+            };
+            body = {
+              zh: '中国剪纸是流传于民间超过1500年的传统手工艺术，2009年被列入联合国教科文组织人类非物质文化遗产代表作名录。一把剪刀、一张红纸，在匠人手中幻化为花鸟鱼虫、人物故事，方寸之间蕴含大千世界。\n\n剪纸的题材包罗万象——春节的福字窗花、婚礼的"囍"字图案、端午的五毒辟邪剪纸……每一幅作品都承载着中国人对美好生活的向往与祈福纳祥的文化心理。\n\n如今，剪纸艺术正走向国际舞台。从巴黎时装周的剪纸元素礼服到纽约现代艺术博物馆的剪纸装置，这门古老的东方手艺正在被全球创意人士重新诠释与演绎。',
+              en: 'Chinese paper cutting (Jianzhi) is a traditional folk art with over 1,500 years of history, inscribed on UNESCO\'s Representative List of the Intangible Cultural Heritage of Humanity in 2009. With just scissors and red paper, artisans create intricate designs of flowers, birds, figures, and stories — a whole universe within a small frame.\n\nThe themes are diverse: "Fu" (fortune) window decorations for Spring Festival, "double happiness" symbols for weddings, and protective motifs for Dragon Boat Festival. Each piece embodies hopes for a better life and the cultural ethos of seeking blessings.\n\nToday, paper cutting art is going global. From paper-cut-inspired gowns at Paris Fashion Week to installations at the MoMA in New York, this ancient Eastern craft is being reimagined by creatives worldwide.',
+              ja: '中国の切り紙は1,500年以上の歴史を持つ伝統的な民間手工芸で、2009年にユネスコ無形文化遺産に登録されました。一枚の赤い紙と一丁のハサミから、花鳥魚虫、人物物語が生まれます。\n\n題材は正月の「福」の窓飾り、婚礼の「囍」字、端午の厄除け切り紙など多岐にわたり、それぞれが幸せな生活への願いを表現しています。\n\n今日、切り紙芸術はパリコレからニューヨークの美術館まで、世界中で新たな解釈を受けています。',
+              ko: '중국 전지 공예는 1,500년 이상의 역사를 가진 전통 민간 수공예로, 2009년 유네스코 인류무형문화유산 대표목록에 등재되었습니다. 가위 한 자루와 빨간 종이 한 장으로 꽃, 새, 물고기, 인물 이야기를 표현합니다.\n\n춘절의 복자 창문 장식, 결혼식의 쌍희자, 단오절의 액막이 전지 등 소재는 다양하며, 각 작품은 더 나은 삶에 대한 소망을 담고 있습니다.\n\n오늘날 전지 예술은 파리 패션위크부터 뉴욕 현대미술관까지 세계 무대에서 새롭게 해석되고 있습니다.',
+              es: 'El recorte de papel chino es un arte popular tradicional con más de 1,500 años de historia, inscrito en 2009 en la Lista Representativa del Patrimonio Cultural Inmaterial de la Humanidad de la UNESCO.\n\nLos temas abarcan desde decoraciones del Año Nuevo hasta símbolos nupciales, cada pieza reflejando aspiraciones de buena fortuna.\n\nHoy, este arte inspira desde pasarelas de moda en París hasta instalaciones en museos de Nueva York.',
+              fr: 'Le découpage de papier chinois est un art populaire traditionnel avec plus de 1 500 ans d\'histoire, inscrit en 2009 sur la Liste représentative du patrimoine culturel immatériel de l\'UNESCO.\n\nLes thèmes sont variés — décorations du Nouvel An, symboles de mariage, motifs protecteurs — chaque œuvre exprime des vœux de bonheur.\n\nAujourd\'hui, cet art ancien inspire des créateurs du monde entier, des défilés parisiens aux musées new-yorkais.',
+              de: 'Der chinesische Papierschnitt ist eine traditionelle Volkskunst mit über 1.500 Jahren Geschichte, 2009 in die UNESCO-Liste des immateriellen Kulturerbes aufgenommen.\n\nMit Schere und rotem Papier erschaffen Kunsthandwerker filigrane Designs aus Blumen, Vögeln, Figuren und Geschichten.\n\nHeute inspiriert diese alte Kunst Modedesigner in Paris und Künstler in New Yorker Museen.',
+              ar: 'قص الورق الصيني هو فن شعبي تقليدي يمتد لأكثر من 1,500 عام، أُدرج في قائمة اليونسكو للتراث الثقافي غير المادي في عام 2009. بمقص وورقة حمراء فقط، يبدع الحرفيون تصاميم معقدة من الزهور والطيور والقصص.\n\nتتنوع المواضيع من زينة رأس السنة إلى رموز الزفاف، وكل قطعة تعبر عن تطلعات لحياة أفضل.\n\nاليوم، يلهم هذا الفن القديم المصممين في باريس والفنانين في متاحف نيويورك.'
+            };
+            return true;
+          }
+          if (kw.indexOf('皮影')>-1 || kw.indexOf('shadow puppet')>-1 || kw.indexOf('皮影戏')>-1) {
+            topicTL = { zh:'皮影戏', en:'Chinese Shadow Puppetry', ja:'影絵芝居', ko:'그림자 인형극', fr:'Théâtre d\'Ombres Chinois', es:'Teatro de Sombras Chino', de:'Chinesisches Schattenspiel', ar:'مسرح الظل الصيني' };
+            tags = {
+              zh: '#皮影戏 #非遗 #民间戏剧 #光影艺术 #传统文化',
+              en: '#ShadowPuppetry #IntangibleHeritage #FolkTheater #LightAndShadow #ChineseCulture',
+              ja: '#影絵芝居 #無形文化遺産 #民間演劇 #中国文化',
+              ko: '#그림자인형극 #무형문화유산 #민간연극 #중국문화',
+              es: '#TeatroDeSombras #PatrimonioInmaterial #TeatroPopular #CulturaChina',
+              fr: '#ThéâtreDOmbres #PatrimoineImmatériel #ThéâtrePopulaire #CultureChinoise',
+              de: '#Schattenspiel #ImmateriellesErbe #Volkstheater #ChinesischeKultur',
+              th: '#หนังตะลุงจีน #มรดกที่จับต้องไม่ได้ #ละครพื้นบ้าน #วัฒนธรรมจีน',
+              vi: '#MúaRốiBóng #DiSảnPhiVậtThể #SânKhấuDânGian #VănHóaTrungQuốc',
+              id: '#WayangKulitTiongkok #WarisanTakbenda #TeaterRakyat #BudayaTiongkok',
+              ms: '#WayangKulitCina #WarisanTidakKetara #TeaterRakyat #BudayaCina',
+              ar: '#مسرح_الظل_الصيني #تراث_غير_مادي #مسرح_شعبي #ثقافة_صينية'
+            };
+            body = {
+              zh: '皮影戏是中国古老的民间戏剧形式，距今已有两千余年历史，2011年被列入联合国教科文组织人类非物质文化遗产代表作名录。"一口道尽千古事，双手舞动百万兵"——这句诗生动描绘了皮影戏的艺术魅力。\n\n皮影以牛皮或驴皮精雕细刻而成，艺人在白色幕布后操纵影人，配合唱腔与音乐讲述历史演义、神话传说。灯光穿透镂空的皮影，在白幕上投射出栩栩如生的人物与场景，光影交错间演绎悲欢离合。\n\n如今皮影戏面临传承挑战，但数字技术与新媒体为其注入新活力。从动画电影到交互装置，皮影的美学语言正在当代语境中找到新的表达方式。',
+              en: 'Chinese shadow puppetry is an ancient folk theater with over 2,000 years of history, inscribed on UNESCO\'s Intangible Cultural Heritage list in 2011. "One mouth tells a thousand ancient tales; two hands command a million soldiers" — this verse captures the magic of shadow puppetry.\n\nFigures are meticulously carved from cowhide or donkey skin. Behind a white screen, puppeteers manipulate the figures while singing and narrating historical epics and legends. Light shining through the translucent, intricately carved figures projects vivid characters and scenes onto the screen.\n\nToday, shadow puppetry faces preservation challenges, but digital technology and new media are breathing new life into it. From animated films to interactive installations, its aesthetic language continues to find new expression.',
+              ja: '影絵芝居は2,000年以上の歴史を持つ中国の古い民間演劇で、2011年にユネスコ無形文化遺産に登録されました。牛皮やロバ皮を精巧に彫って人形を作り、白い幕の後ろで操りながら歌と語りで物語を紡ぎます。\n\n今日、影絵芝居はデジタル技術と新しいメディアによって新たな息吹を得ています。',
+              ko: '그림자 인형극은 2,000년 이상의 역사를 가진 중국의 고대 민간 연극으로, 2011년 유네스코 무형문화유산에 등재되었습니다. 소가죽이나 당나귀 가죽으로 정교하게 조각된 인형을 하얀 스크린 뒤에서 조종하며 노래와 이야기를 들려줍니다.\n\n오늘날 그림자 인형극은 디지털 기술과 뉴미디어를 통해 새로운 생명력을 얻고 있습니다.',
+              es: 'El teatro de sombras chino es una forma teatral antigua con más de 2.000 años de historia, inscrito en la UNESCO en 2011. Figuras talladas en cuero se manipulan detrás de una pantalla blanca mientras se cantan y narran historias épicas.\n\nHoy, el teatro de sombras encuentra nueva vida a través de la tecnología digital y los nuevos medios.',
+              fr: 'Le théâtre d\'ombres chinois est une forme théâtrale ancienne avec plus de 2 000 ans d\'histoire, inscrit à l\'UNESCO en 2011. Des figurines finement ciselées en cuir sont manipulées derrière un écran blanc, accompagnées de chants et de récits.\n\nAujourd\'hui, le théâtre d\'ombres trouve un nouveau souffle grâce aux technologies numériques.',
+              de: 'Das chinesische Schattenspiel ist eine uralte Theaterform mit über 2.000 Jahren Geschichte, 2011 von der UNESCO anerkannt. Fein geschnitzte Lederfiguren werden hinter einem weißen Schirm bewegt, begleitet von Gesang und Erzählung.\n\nHeute findet das Schattenspiel durch digitale Technologie neues Leben.',
+              ar: 'مسرح الظل الصيني هو شكل مسرحي شعبي قديم يمتد لأكثر من 2,000 عام، أُدرج في قائمة اليونسكو عام 2011. تُصنع الدمى من الجلد المنحوت بدقة وتُحرك خلف ستارة بيضاء مع الغناء والسرد.\n\nاليوم، يجد مسرح الظل حياة جديدة من خلال التكنولوجيا الرقمية والوسائط الجديدة.'
+            };
+            return true;
+          }
+          if (kw.indexOf('刺绣')>-1 || kw.indexOf('embroidery')>-1 || kw.indexOf('苏绣')>-1 || kw.indexOf('湘绣')>-1 || kw.indexOf('蜀绣')>-1 || kw.indexOf('粤绣')>-1) {
+            topicTL = { zh:'中国刺绣', en:'Chinese Embroidery', ja:'中国刺繍', ko:'중국 자수', fr:'Broderie Chinoise', es:'Bordado Chino', de:'Chinesische Stickerei', ar:'التطريز الصيني' };
+            tags = {
+              zh: '#中国刺绣 #苏绣 #非遗 #手工艺 #东方美学',
+              en: '#ChineseEmbroidery #SilkArt #IntangibleHeritage #Handicraft #OrientalAesthetics',
+              ja: '#中国刺繍 #無形文化遺産 #手工芸 #東洋美学',
+              ko: '#중국자수 #무형문화유산 #수공예 #동양미학',
+              es: '#BordadoChino #PatrimonioInmaterial #Artesanía #EstéticaOriental',
+              fr: '#BroderieChinoise #PatrimoineImmatériel #Artisanat #EsthétiqueOrientale',
+              de: '#ChinesischeStickerei #ImmateriellesErbe #Handwerk #OrientalischeÄsthetik',
+              th: '#เย็บปักถักร้อยจีน #มรดกที่จับต้องไม่ได้ #หัตถกรรม #สุนทรียภาพตะวันออก',
+              vi: '#ThêuTrungQuốc #DiSảnPhiVậtThể #ThủCông #ThẩmMỹPhươngĐông',
+              id: '#SulamanTiongkok #WarisanTakbenda #KerajinanTangan #EstetikaTimur',
+              ms: '#SulamanCina #WarisanTidakKetara #Kraftangan #EstetikaTimur',
+              ar: '#تطريز_صيني #تراث_غير_مادي #حرفة_يدوية #جماليات_شرقية'
+            };
+            body = {
+              zh: '中国刺绣是世界上最古老、最精美的刺绣传统之一，以苏绣、湘绣、蜀绣、粤绣"四大名绣"为代表，距今已有三千余年历史。\n\n苏绣以苏州为中心，以"平、齐、细、密、匀、顺、和、光"八字著称，一根丝线可劈为1/128，绣出的猫眼能随光转动。湘绣以湖南为基地，擅绣虎狮，鬃毛丝丝入微。蜀绣用针如用笔，线条流畅如水墨。粤绣色彩浓艳、金银线镶嵌，尽显南国华丽。\n\n2006年起，四大名绣陆续被列入国家级非物质文化遗产名录。如今刺绣元素走上国际T台，成为东方美学的重要符号。',
+              en: 'Chinese embroidery is among the world\'s oldest and most refined embroidery traditions, represented by the "Four Great Embroideries" — Su, Xiang, Shu, and Yue — with over 3,000 years of history.\n\nSu embroidery (Suzhou) is renowned for its eight qualities: flat, neat, fine, dense, even, smooth, harmonious, and lustrous — a single silk thread can be split into 1/128th its thickness. Xiang embroidery (Hunan) excels at tigers and lions with lifelike fur detail. Shu embroidery (Sichuan) flows like ink painting. Yue embroidery (Guangdong) dazzles with vibrant colors and gold-silver thread inlay.\n\nSince 2006, the four styles have been recognized as National Intangible Cultural Heritage. Today, embroidery motifs appear on international runways as iconic symbols of Eastern aesthetics.',
+              ja: '中国刺繍は3,000年以上の歴史を持ち、「四大名繍」—蘇繍、湘繍、蜀繍、粤繍—に代表される世界最古で最も精巧な刺繍の伝統です。絹糸を128分の1に裂く蘇州刺繍の精緻さは、猫の瞳が光に応じて動くほど。\n\n今日、刺繍は国際的なファッションの舞台で東洋美学の象徴として輝いています。',
+              ko: '중국 자수는 3,000년 이상의 역사를 가진 세계에서 가장 오래되고 정교한 자수 전통 중 하나로, "4대 명수"—소수, 상수, 촉수, 월수—로 대표됩니다.\n\n오늘날 자수는 국제 패션 무대에서 동양 미학의 상징으로 빛나고 있습니다.',
+              es: 'El bordado chino es una de las tradiciones de bordado más antiguas y refinadas del mundo, representada por los "Cuatro Grandes Bordados" con más de 3.000 años de historia.\n\nHoy, los motivos de bordado aparecen en pasarelas internacionales como símbolos icónicos de la estética oriental.',
+              fr: 'La broderie chinoise est l\'une des plus anciennes et raffinées traditions de broderie au monde, représentée par les « Quatre Grandes Broderies » avec plus de 3 000 ans d\'histoire.\n\nAujourd\'hui, les motifs de broderie brillent sur les podiums internationaux comme symboles de l\'esthétique orientale.',
+              de: 'Die chinesische Stickerei ist eine der ältesten und raffiniertesten Sticktraditionen der Welt, vertreten durch die „Vier Großen Stickereien" mit über 3.000 Jahren Geschichte.\n\nHeute erscheinen Stickmotive auf internationalen Laufstegen als Symbole östlicher Ästhetik.',
+              ar: 'التطريز الصيني هو أحد أقدم وأرقى تقاليد التطريز في العالم، تمثله "المطرزات الأربع الكبرى" مع أكثر من 3,000 عام من التاريخ.\n\nاليوم، تظهر زخارف التطريز على منصات الأزياء العالمية كرموز للجماليات الشرقية.'
+            };
+            return true;
+          }
+          if (kw.indexOf('风筝')>-1 || kw.indexOf('kite')>-1) {
+            topicTL = { zh:'中国风筝', en:'Chinese Kite', ja:'中国凧', ko:'중국 연', fr:'Cerf-volant Chinois', es:'Cometa China', de:'Chinesischer Drachen', ar:'طائرة ورقية صينية' };
+            tags = {
+              zh: '#中国风筝 #潍坊 #非遗 #民间技艺 #天空艺术',
+              en: '#ChineseKite #Weifang #IntangibleHeritage #FolkCraft #SkyArt',
+              ja: '#中国凧 #無形文化遺産 #民間工芸 #空の芸術',
+              ko: '#중국연 #무형문화유산 #민간공예 #하늘예술',
+              es: '#CometaChina #PatrimonioInmaterial #ArtesaníaPopular #ArteCelestial',
+              fr: '#CerfVolantChinois #PatrimoineImmatériel #ArtisanatPopulaire #ArtCéleste',
+              de: '#ChinesischerDrachen #ImmateriellesErbe #Volkskunst #Himmelskunst',
+              ar: '#طائرة_ورقية_صينية #تراث_غير_مادي #حرفة_شعبية #فن_السماء'
+            };
+            body = {
+              zh: '中国是风筝的故乡，距今已有两千多年历史。山东潍坊被誉为"世界风筝之都"，每年举办国际风筝节，吸引全球数十个国家的爱好者参与。\n\n风筝最初用于军事侦察与测距，后来演变为民间娱乐与艺术形式。从简单的"纸鸢"到精美的龙凤筝、长串筝、软体筝，风筝的制作集扎、糊、绘、放四艺于一体。\n\n"好风凭借力，送我上青云"——风筝寄托了中国人对自由与梦想的向往。2006年，潍坊风筝制作技艺被列入首批国家级非物质文化遗产名录。',
+              en: 'China is the birthplace of kites, with a history of over 2,000 years. Weifang in Shandong is known as the "World Kite Capital," hosting an annual international kite festival that draws enthusiasts from dozens of countries.\n\nKites were originally used for military signaling and distance measurement before evolving into a folk art form. Crafting a kite integrates four skills: framing, papering, painting, and flying.\n\n"A good wind lends strength to carry me up to the blue clouds" — kites embody the Chinese yearning for freedom and dreams. In 2006, Weifang kite-making was listed among China\'s first National Intangible Cultural Heritage items.',
+              ja: '中国は凧の発祥地で、2,000年以上の歴史があります。山東省濰坊は「世界凧の都」として知られ、毎年国際凧祭りが開催されています。\n\n凧は元々軍事用途に使われ、後に民間の芸術形式に発展しました。2006年、濰坊凧作りは国家級無形文化遺産に登録されました。',
+              ko: '중국은 연의 발상지로, 2,000년 이상의 역사를 가지고 있습니다. 산둥성 웨이팡은 "세계 연의 수도"로 알려져 있습니다.\n\n연은 원래 군사용으로 사용되었고 나중에 민간 예술로 발전했습니다. 2006년 웨이팡 연 만들기는 국가급 무형문화유산으로 등재되었습니다.',
+              es: 'China es la cuna de las cometas, con más de 2.000 años de historia. Weifang es conocida como la "Capital Mundial de las Cometas".\n\nOriginalmente militares, las cometas evolucionaron a arte popular. En 2006, la fabricación de cometas de Weifang fue declarada Patrimonio Cultural Inmaterial Nacional.',
+              fr: 'La Chine est le berceau du cerf-volant avec plus de 2 000 ans d\'histoire. Weifang est la « Capitale Mondiale du Cerf-volant ».\n\nD\'abord militaires, les cerfs-volants sont devenus un art populaire. En 2006, la fabrication de cerfs-volants de Weifang a été inscrite au patrimoine culturel immatériel national.',
+              de: 'China ist die Heimat der Drachen mit über 2.000 Jahren Geschichte. Weifang ist die „Welthauptstadt der Drachen".\n\nUrsprünglich militärisch genutzt, entwickelten sich Drachen zur Volkskunst. 2006 wurde die Drachenherstellung von Weifang zum nationalen immateriellen Kulturerbe erklärt.',
+              ar: 'الصين هي مهد الطائرات الورقية مع أكثر من 2,000 عام من التاريخ. تُعرف ويفانغ باسم "عاصمة الطائرات الورقية العالمية".\n\nاستُخدمت الطائرات الورقية في الأصل للأغراض العسكرية، ثم تطورت إلى فن شعبي. في عام 2006، أُدرجت صناعة طائرات ويفانغ الورقية في قائمة التراث الثقافي غير المادي الوطني.'
+            };
+            return true;
+          }
+          if (kw.indexOf('年画')>-1 || kw.indexOf('木版年画')>-1 || kw.indexOf('new year painting')>-1 || kw.indexOf('new year print')>-1) {
+            topicTL = { zh:'木版年画', en:'Chinese New Year Woodblock Prints', ja:'木版年画', ko:'목판 연화', fr:'Estampes du Nouvel An Chinois', es:'Grabados de Año Nuevo Chino', de:'Chinesische Neujahrsdrucke', ar:'مطبوعات السنة الصينية الجديدة' };
+            tags = {
+              zh: '#木版年画 #非遗 #民间美术 #春节 #传统工艺',
+              en: '#ChineseNewYearPrints #WoodblockPrint #IntangibleHeritage #FolkArt #SpringFestival',
+              ja: '#木版年画 #無形文化遺産 #民間美術 #春節',
+              ko: '#목판연화 #무형문화유산 #민간미술 #춘절',
+              es: '#GrabadosDeAñoNuevo #PatrimonioInmaterial #ArtePopular #FestivalDePrimavera',
+              fr: '#EstampesDuNouvelAn #PatrimoineImmatériel #ArtPopulaire #FêteDuPrintemps',
+              de: '#Neujahrsdrucke #ImmateriellesErbe #Volkskunst #Frühlingsfest',
+              ar: '#مطبوعات_السنة_الجديدة #تراث_غير_مادي #فن_شعبي #مهرجان_الربيع'
+            };
+            body = {
+              zh: '木版年画是中国民间美术的重要组成部分，距今已有千年历史。每逢春节，家家户户张贴年画，祈福迎祥。天津杨柳青、苏州桃花坞、山东潍坊杨家埠、四川绵竹并称中国四大年画产地。\n\n年画题材多为门神、福娃、吉祥图案与戏曲故事，色彩鲜艳饱满，构图饱满对称，充满浓郁的民间生活气息与美好寓意。\n\n2006年，杨柳青木版年画等被列入首批国家级非物质文化遗产名录。',
+              en: 'Chinese New Year woodblock prints (Nianhua) are a vital part of Chinese folk art with a thousand-year history. Every Spring Festival, families paste these prints on doors and walls to welcome good fortune. The four great production centers are Yangliuqing (Tianjin), Taohuawu (Suzhou), Yangjiabu (Weifang), and Mianzhu (Sichuan).\n\nThemes range from door gods and lucky children to auspicious patterns and opera scenes — bursting with vibrant colors, symmetrical composition, and rich folk symbolism.\n\nIn 2006, Yangliuqing New Year prints were among China\'s first National Intangible Cultural Heritage items.',
+              ja: '木版年画は千年の歴史を持つ中国民間美術の重要な一部です。春節には各家庭で年画を貼り、福を招きます。天津楊柳青、蘇州桃花塢、濰坊楊家埠、四川綿竹が四大産地です。\n\n2006年、楊柳青木版年画は国家級無形文化遺産に登録されました。',
+              ko: '목판 연화는 천년 역사를 가진 중국 민간 미술의 중요한 부분입니다. 춘절에는 집집마다 연화를 붙여 복을 기원합니다.\n\n2006년 양류청 목판 연화는 국가급 무형문화유산으로 등재되었습니다.',
+              es: 'Los grabados de Año Nuevo Chino son una parte vital del arte popular chino con mil años de historia.\n\nEn 2006, los grabados de Yangliuqing fueron declarados Patrimonio Cultural Inmaterial Nacional.',
+              fr: 'Les estampes du Nouvel An chinois sont une partie essentielle de l\'art populaire chinois avec mille ans d\'histoire.\n\nEn 2006, les estampes de Yangliuqing ont été inscrites au patrimoine culturel immatériel national.',
+              de: 'Chinesische Neujahrsdrucke sind ein wesentlicher Teil der chinesischen Volkskunst mit tausendjähriger Geschichte.\n\n2006 wurden die Neujahrsdrucke von Yangliuqing zum nationalen immateriellen Kulturerbe erklärt.',
+              ar: 'مطبوعات السنة الصينية الجديدة هي جزء حيوي من الفن الشعبي الصيني مع ألف عام من التاريخ.\n\nفي عام 2006، أُدرجت مطبوعات يانغليوتشينغ في قائمة التراث الثقافي غير المادي الوطني.'
+            };
+            return true;
+          }
+          if (kw.indexOf('泥塑')>-1 || kw.indexOf('泥人')>-1 || kw.indexOf('clay sculpture')>-1 || kw.indexOf('clay figurine')>-1) {
+            topicTL = { zh:'中国泥塑', en:'Chinese Clay Sculpture', ja:'中国泥塑', ko:'중국 점토 조각', fr:'Sculpture d\'Argile Chinoise', es:'Escultura de Arcilla China', de:'Chinesische Tonskulptur', ar:'نحت الطين الصيني' };
+            tags = {
+              zh: '#泥塑 #非遗 #民间手艺 #泥人张 #传统工艺',
+              en: '#ChineseClaySculpture #ClayArt #IntangibleHeritage #FolkCraft #ClayFigurine',
+              ja: '#中国泥塑 #無形文化遺産 #民間工芸 #粘土芸術',
+              ko: '#중국점토조각 #무형문화유산 #민간공예 #점토예술',
+              es: '#EsculturaDeArcilla #PatrimonioInmaterial #ArtesaníaPopular',
+              fr: '#SculptureDArgile #PatrimoineImmatériel #ArtisanatPopulaire',
+              de: '#Tonskulptur #ImmateriellesErbe #Volkskunst',
+              ar: '#نحت_الطين_الصيني #تراث_غير_مادي #حرفة_شعبية'
+            };
+            body = {
+              zh: '中国泥塑是流传于民间的古老雕塑艺术，以泥土为原料，经过捏塑、阴干、彩绘等工序制成。天津"泥人张"、陕西凤翔泥塑、河南淮阳泥泥狗、无锡惠山泥人各具特色。\n\n天津"泥人张"创始于清代道光年间，至今已传六代，其作品形神兼备、栩栩如生。凤翔泥塑以"挂虎"、"坐虎"等泥塑彩绘闻名，色彩浓烈奔放。\n\n2006年，"泥人张"彩塑、凤翔泥塑等被列入首批国家级非物质文化遗产名录。',
+              en: 'Chinese clay sculpture is an ancient folk sculptural art. Using clay as raw material, artisans shape, dry, and paint each piece. Tianjin\'s "Clay Figure Zhang," Shaanxi\'s Fengxiang clay sculptures, Henan\'s Huaiyang clay dogs, and Wuxi\'s Huishan clay figurines each have distinctive styles.\n\n"Clay Figure Zhang," founded during the Qing Dynasty Daoguang era, has been passed down through six generations, known for lifelike figures capturing both form and spirit. Fengxiang clay sculptures are famous for their vividly painted tiger motifs.\n\nIn 2006, these traditions were inscribed on China\'s National Intangible Cultural Heritage list.',
+              ja: '中国泥塑は古い民間彫刻芸術です。天津「泥人張」は清代道光年間に始まり、六代にわたって受け継がれてきました。2006年に国家級無形文化遺産に登録されました。',
+              ko: '중국 점토 조각은 오래된 민간 조각 예술입니다. 톈진 "니런장"은 청나라 도광 연간에 시작되어 6대째 전승되고 있습니다. 2006년 국가급 무형문화유산으로 등재되었습니다.',
+              es: 'La escultura de arcilla china es un antiguo arte escultórico popular. El "Zhang de Figuras de Arcilla" de Tianjin, fundado durante la dinastía Qing, se ha transmitido por seis generaciones.',
+              fr: 'La sculpture d\'argile chinoise est un art sculptural populaire ancien. Le « Zhang aux Figurines d\'Argile » de Tianjin, fondé sous la dynastie Qing, s\'est transmis sur six générations.',
+              de: 'Die chinesische Tonskulptur ist eine alte volkstümliche Bildhauerkunst. „Tonfigur Zhang" aus Tianjin, gegründet in der Qing-Dynastie, wurde über sechs Generationen weitergegeben.',
+              ar: 'نحت الطين الصيني هو فن نحتي شعبي قديم. "تشانغ تماثيل الطين" من تيانجين، الذي تأسس في عهد أسرة تشينغ، تم تناقله عبر ستة أجيال.'
+            };
+            return true;
+          }
+          if (kw.indexOf('竹编')>-1 || kw.indexOf('bamboo weaving')>-1 || kw.indexOf('bamboo craft')>-1) {
+            topicTL = { zh:'中国竹编', en:'Chinese Bamboo Weaving', ja:'中国竹編', ko:'중국 죽세공', fr:'Vannerie de Bambou Chinoise', es:'Cestería de Bambú China', de:'Chinesisches Bambusflechten', ar:'نسيج الخيزران الصيني' };
+            tags = {
+              zh: '#竹编 #非遗 #手工艺 #东方美学 #可持续',
+              en: '#BambooWeaving #IntangibleHeritage #Handicraft #OrientalAesthetics #Sustainable',
+              ja: '#竹編 #無形文化遺産 #手工芸 #東洋美学',
+              ko: '#죽세공 #무형문화유산 #수공예 #동양미학',
+              es: '#CesteríaDeBambú #PatrimonioInmaterial #Artesanía #EstéticaOriental',
+              fr: '#VannerieDeBambou #PatrimoineImmatériel #Artisanat #EsthétiqueOrientale',
+              de: '#Bambusflechten #ImmateriellesErbe #Handwerk #OrientalischeÄsthetik',
+              ar: '#نسيج_الخيزران #تراث_غير_مادي #حرفة_يدوية #جماليات_شرقية'
+            };
+            body = {
+              zh: '中国是世界上竹类资源最丰富的国家，也是竹编艺术的发源地。从新石器时代的竹编器物到明清时期的精美竹工艺品，竹编贯穿了中华文明的发展历程。\n\n东阳竹编、嵊州竹编、自贡竹编（龚扇）等流派各具特色。匠人将竹子劈成细如发丝的篾丝，通过穿、插、绕、编等技法，制成器物、灯饰、屏风乃至精美书画。\n\n"宁可食无肉，不可居无竹"——苏东坡的名句道出了竹在中国文化中的崇高地位。竹子象征高洁、坚韧与谦逊，竹编艺术正是这一精神的物化体现。',
+              en: 'China is home to the world\'s richest bamboo resources and the birthplace of bamboo weaving. From Neolithic bamboo utensils to exquisite Ming-Qing bamboo crafts, bamboo weaving threads through the entire tapestry of Chinese civilization.\n\nDongyang, Shengzhou, and Zigong (Gong Fan) styles each have distinctive characteristics. Artisans split bamboo into hair-thin strips and use interweaving techniques to create vessels, lamps, screens, and even intricate artworks.\n\n"Better to eat without meat than to live without bamboo" — Su Dongpo\'s famous line expresses bamboo\'s revered status in Chinese culture, symbolizing integrity, resilience, and humility.',
+              ja: '中国は世界で最も豊富な竹資源を持ち、竹編芸術の発祥地です。新石器時代から明清の精巧な工芸品まで、竹編は中国文明と共に発展してきました。\n\n「肉なくして食らうとも、竹なくして住むべからず」—蘇東坡のこの言葉は中国文化における竹の崇高な地位を表しています。',
+              ko: '중국은 세계에서 가장 풍부한 대나무 자원을 보유한 국가이자 죽세공 예술의 발상지입니다.\n\n"고기 없이 식사할 수 있어도 대나무 없이 살 수 없다"—소동파의 이 유명한 구절은 중국 문화에서 대나무의 숭고한 지위를 표현합니다.',
+              es: 'China posee los recursos de bambú más ricos del mundo y es la cuna de la cestería de bambú.\n\n"Mejor comer sin carne que vivir sin bambú" — la famosa frase de Su Dongpo expresa el estatus reverenciado del bambú en la cultura china.',
+              fr: 'La Chine possède les plus riches ressources en bambou au monde et est le berceau de la vannerie de bambou.\n\n« Mieux vaut manger sans viande que vivre sans bambou » — la célèbre phrase de Su Dongpo exprime le statut vénéré du bambou dans la culture chinoise.',
+              de: 'China besitzt die reichsten Bambusressourcen der Welt und ist die Wiege des Bambusflechtens.\n\n„Besser ohne Fleisch essen als ohne Bambus leben" — Su Dongpos berühmter Satz drückt den verehrten Status des Bambus in der chinesischen Kultur aus.',
+              ar: 'الصين هي موطن أغنى موارد الخيزران في العالم ومهد نسيج الخيزران.\n\n"الأفضل أن تأكل بدون لحم على أن تعيش بدون خيزران"—عبارة سو دونغبو الشهيرة تعبر عن مكانة الخيزران الموقرة في الثقافة الصينية.'
+            };
+            return true;
+          }
+          if (kw.indexOf('中国结')>-1 || kw.indexOf('chinese knot')>-1) {
+            topicTL = { zh:'中国结', en:'Chinese Knot (Zhongguo Jie)', ja:'中国結び', ko:'중국 매듭', fr:'Nœud Chinois', es:'Nudo Chino', de:'Chinesischer Knoten', ar:'عقدة صينية' };
+            tags = {
+              zh: '#中国结 #非遗 #手工艺 #吉祥如意 #传统编织',
+              en: '#ChineseKnot #IntangibleHeritage #Handicraft #GoodLuck #TraditionalWeaving',
+              ja: '#中国結び #無形文化遺産 #手工芸 #吉祥',
+              ko: '#중국매듭 #무형문화유산 #수공예 #길상',
+              es: '#NudoChino #PatrimonioInmaterial #Artesanía #BuenaSuerte',
+              fr: '#NœudChinois #PatrimoineImmatériel #Artisanat #BonneChance',
+              de: '#ChinesischerKnoten #ImmateriellesErbe #Handwerk #Glück',
+              ar: '#عقدة_صينية #تراث_غير_مادي #حرفة_يدوية #حظ_سعيد'
+            };
+            body = {
+              zh: '中国结是中国特有的手工编织工艺品，起源于上古时代的结绳记事，历经数千年演变，从实用绳结发展为精美绝伦的装饰艺术。\n\n中国结以一根红绳从头至尾编制而成，每一个基本结都根据其形、意命名——双钱结寓意财源广进，盘长结象征长久永恒，如意结代表万事顺心。红色代表喜庆吉祥，编结过程本身就是一种"以结寓情"的文化仪式。\n\n如今，中国结作为最具辨识度的中国文化符号之一，广泛用于节日装饰、国际赛事纪念品、外事礼品等，向世界传递着中国人的美好祝愿。',
+              en: 'The Chinese knot is a distinctive handcrafted decorative art originating from ancient rope-tying for record-keeping, evolving over thousands of years into an exquisite decorative form.\n\nEach knot is woven from a single red cord, with each pattern named for its shape and meaning — the Double Coin Knot symbolizes prosperity, the Pan Chang Knot represents eternity, and the Ruyi Knot conveys wishes coming true. Red signifies joy and good fortune, making the act of knotting a cultural ritual of expressing emotions through cord.\n\nToday, as one of the most recognizable Chinese cultural symbols, Chinese knots adorn festivals, international event souvenirs, and diplomatic gifts, conveying goodwill worldwide.',
+              ja: '中国結びは、上古時代の結縄記事に起源を持つ独特の手編み装飾工芸品です。一本の赤い紐から様々な吉祥の形が生まれます。\n\n今日、中国結びは最も認知度の高い中国文化シンボルの一つとして、世界中に祝福を伝えています。',
+              ko: '중국 매듭은 상고 시대의 결승 기사에서 기원한 독특한 수공예 장식품입니다. 하나의 붉은 끈으로 각종 길상 형태를 만듭니다.\n\n오늘날 중국 매듭은 가장 잘 알려진 중국 문화 상징 중 하나로 전 세계에 축복을 전합니다.',
+              es: 'El nudo chino es un arte decorativo artesanal distintivo originado en los antiguos registros con cuerdas. Cada nudo se teje de una sola cuerda roja.\n\nHoy, como uno de los símbolos culturales chinos más reconocibles, los nudos chinos transmiten buenos deseos en todo el mundo.',
+              fr: 'Le nœud chinois est un art décoratif artisanal distinctif originaire des anciens enregistrements par cordes. Chaque nœud est tissé d\'une seule corde rouge.\n\nAujourd\'hui, comme l\'un des symboles culturels chinois les plus reconnaissables, les nœuds chinois transmettent des vœux de bonheur dans le monde entier.',
+              de: 'Der chinesische Knoten ist eine unverwechselbare handgefertigte Dekorationskunst, die aus der alten Knotenschrift entstand. Jeder Knoten wird aus einer einzigen roten Schnur gewebt.\n\nHeute, als eines der bekanntesten chinesischen Kultursymbole, übermitteln chinesische Knoten weltweit gute Wünsche.',
+              ar: 'العقدة الصينية هي فن زخرفي يدوي مميز نشأ من تسجيل الحبال القديم. تُنسج كل عقدة من حبل أحمر واحد.\n\nاليوم، كواحدة من أكثر الرموز الثقافية الصينية شهرة، تنقل العقد الصينية التمنيات الطيبة في جميع أنحاء العالم.'
+            };
+            return true;
+          }
+          return false;
+        }
+
+        // ---- 世界遗产类 ----
+        function matchHeritage() {
+          if (kw.indexOf('故宫')>-1 || kw.indexOf('forbidden city')>-1 || kw.indexOf('紫禁城')>-1) {
+            topicTL = { zh:'故宫', en:'The Forbidden City (Palace Museum)', ja:'故宮博物院', ko:'자금성 (고궁박물원)', fr:'Cité Interdite (Musée du Palais)', es:'Ciudad Prohibida (Museo del Palacio)', de:'Verbotene Stadt (Palastmuseum)', ar:'المدينة المحرمة (متحف القصر)' };
+            tags = {
+              zh: '#故宫 #世界遗产 #明清皇宫 #中华文明 #紫禁城',
+              en: '#ForbiddenCity #WorldHeritage #ImperialPalace #ChineseCivilization #PalaceMuseum',
+              ja: '#故宮 #世界遺産 #明清皇宮 #中華文明',
+              ko: '#자금성 #세계유산 #명청황궁 #중화문명',
+              es: '#CiudadProhibida #PatrimonioMundial #PalacioImperial #CivilizaciónChina',
+              fr: '#CitéInterdite #PatrimoineMondial #PalaisImpérial #CivilisationChinoise',
+              de: '#VerboteneStadt #Weltkulturerbe #Kaiserpalast #ChinesischeZivilisation',
+              th: '#พระราชวังต้องห้าม #มรดกโลก #อารยธรรมจีน',
+              vi: '#TửCấmThành #DiSảnThếGiới #VănMinhTrungHoa',
+              id: '#KotaTerlarang #WarisanDunia #PeradabanTiongkok',
+              ms: '#KotaTerlarang #WarisanDunia #TamadunChina',
+              ar: '#المدينة_المحرمة #تراث_عالمي #حضارة_صينية'
+            };
+            body = {
+              zh: '故宫位于北京中轴线的中心，是中国明清两代的皇家宫殿，也是世界上现存规模最大、保存最完整的木质结构古建筑群。始建于明永乐四年（1406年），历时14年建成，占地72万平方米，有大小宫殿七十多座，房屋九千余间。\n\n故宫的建筑布局严格遵循"前朝后寝、左祖右社"的礼制传统，以三大殿（太和殿、中和殿、保和殿）为核心，红墙黄瓦、雕梁画栋，彰显了至高无上的皇权与"天人合一"的哲学理念。\n\n1987年，故宫被联合国教科文组织列入世界文化遗产名录。如今故宫博物院每年接待超过1900万观众，是全球参观人数最多的博物馆。从"文物医院"纪录片到故宫文创产品，这座600年的宫殿正以创新的方式讲述中国故事。',
+              en: 'The Forbidden City, located at the heart of Beijing\'s central axis, served as the imperial palace of the Ming and Qing dynasties. It is the world\'s largest and best-preserved ancient wooden architectural complex. Construction began in 1406 (Yongle era) and took 14 years, spanning 720,000 square meters with over 70 palace halls and 9,000 rooms.\n\nIts layout strictly follows the ceremonial tradition of "front court, rear residence; ancestral temple left, altar right." Centered around the Three Great Halls — Hall of Supreme Harmony, Hall of Central Harmony, and Hall of Preserving Harmony — its red walls and yellow glazed tiles embody supreme imperial power and the philosophy of "unity between heaven and humanity."\n\nInscribed as a UNESCO World Heritage Site in 1987, the Palace Museum now welcomes over 19 million visitors annually — the world\'s most visited museum. From documentary series about its "cultural relic hospital" to creative cultural products, the 600-year-old palace is telling China\'s story in innovative new ways.',
+              ja: '故宮は北京中軸線の中心に位置し、明清両代の皇帝の宮殿でした。1406年に建設開始、14年かけて完成した世界最大級の木造建築群で、72万平方メートルの敷地に70以上の宮殿と9,000以上の部屋があります。1987年に世界遺産登録。現在、年間1,900万人以上が訪れる世界一の博物館です。',
+              ko: '자금성은 베이징 중축선 중심에 위치한 명청 시대 황실 궁전입니다. 1406년에 착공하여 14년 만에 완공되었으며, 72만 제곱미터 부지에 70여 개의 전각과 9천여 개의 방이 있습니다. 1987년 세계유산 등재. 현재 연간 1,900만 명 이상이 방문하는 세계 최대 박물관입니다.',
+              es: 'La Ciudad Prohibida, en el corazón del eje central de Pekín, fue el palacio imperial de las dinastías Ming y Qing. Construida entre 1406-1420, es el mayor complejo de arquitectura antigua de madera del mundo. Declarada Patrimonio de la Humanidad por la UNESCO en 1987, hoy recibe más de 19 millones de visitantes anuales.',
+              fr: 'La Cité Interdite, au cœur de l\'axe central de Pékin, fut le palais impérial des dynasties Ming et Qing. Construite entre 1406 et 1420, c\'est le plus grand ensemble architectural ancien en bois au monde. Inscrite au patrimoine mondial de l\'UNESCO en 1987, elle accueille aujourd\'hui plus de 19 millions de visiteurs par an.',
+              de: 'Die Verbotene Stadt im Herzen der zentralen Achse Pekings war der Kaiserpalast der Ming- und Qing-Dynastien. Erbaut 1406–1420, ist sie der größte alte Holzbaukomplex der Welt. 1987 zum UNESCO-Weltkulturerbe erklärt, empfängt sie heute jährlich über 19 Millionen Besucher.',
+              ar: 'المدينة المحرمة، في قلب المحور المركزي لبكين، كانت القصر الإمبراطوري لسلالتي مينغ وتشينغ. بُنيت بين عامي 1406-1420، وهي أكبر مجمع معماري خشبي قديم في العالم. أُدرجت في قائمة اليونسكو للتراث العالمي عام 1987، وتستقبل اليوم أكثر من 19 مليون زائر سنوياً.'
+            };
+            return true;
+          }
+          if (kw.indexOf('长城')>-1 || kw.indexOf('great wall')>-1) {
+            topicTL = { zh:'长城', en:'The Great Wall', ja:'万里の長城', ko:'만리장성', fr:'Grande Muraille', es:'Gran Muralla', de:'Große Mauer', ar:'سور الصين العظيم' };
+            tags = {
+              zh: '#长城 #世界遗产 #万里长城 #中华象征 #奇迹',
+              en: '#GreatWall #WorldHeritage #WonderOfTheWorld #SymbolOfChina #AncientArchitecture',
+              ja: '#万里の長城 #世界遺産 #中国のシンボル #古代建築',
+              ko: '#만리장성 #세계유산 #중국의상징 #고대건축',
+              es: '#GranMuralla #PatrimonioMundial #SímboloDeChina #ArquitecturaAntigua',
+              fr: '#GrandeMuraille #PatrimoineMondial #SymboleDeLaChine #ArchitectureAncienne',
+              de: '#GroßeMauer #Weltkulturerbe #SymbolChinas #AntikeArchitektur',
+              ar: '#سور_الصين_العظيم #تراث_عالمي #رمز_الصين #عمارة_قديمة'
+            };
+            body = {
+              zh: '长城是中国古代最伟大的防御工程，也是世界建筑史上的奇迹。始建于春秋战国时期（约公元前7世纪），秦始皇统一六国后将各国城墙连接并扩建。明代（1368-1644年）是长城修筑的巅峰，现存长城多为此时期所建，总长度超过21,000公里。\n\n"不到长城非好汉"——这句名言使长城成为每一个到访中国的游客心中必去的精神圣地。长城不仅是军事防御工事，更是贸易通道、文化走廊与民族融合的见证。\n\n1987年，长城被列入联合国教科文组织世界文化遗产名录，并被评为"世界新七大奇迹"之一。',
+              en: 'The Great Wall is ancient China\'s greatest defensive project and a wonder of world architecture. Construction began during the Spring and Autumn / Warring States periods (c. 7th century BCE). Qin Shi Huang connected and extended existing walls after unifying China. The Ming Dynasty (1368–1644) marked the peak of construction, with surviving sections totaling over 21,000 km.\n\n"He who has not climbed the Great Wall is not a true man" — this famous saying makes the Wall a spiritual pilgrimage for every visitor to China. Beyond military defense, the Wall was a trade corridor, cultural bridge, and witness to ethnic integration.\n\nInscribed as a UNESCO World Heritage Site in 1987, it was also named one of the "New Seven Wonders of the World."',
+              ja: '万里の長城は中国古代最大の防衛施設であり、世界建築史上の奇跡です。紀元前7世紀頃から建設が始まり、秦の始皇帝が各国の城壁を連結拡張。明代に最盛期を迎え、現存する総延長は21,000km以上に及びます。1987年に世界遺産登録、「新・世界七不思議」の一つにも選ばれました。',
+              ko: '만리장성은 고대 중국 최대의 방어 시설이자 세계 건축사의 기적입니다. 기원전 7세기경부터 건설이 시작되어 진시황이 각국 성벽을 연결 확장했으며, 명대에 절정을 이루었습니다. 현존 총연장은 21,000km 이상입니다. 1987년 세계유산 등재, "신 세계 7대 불가사의" 중 하나로 선정되었습니다.',
+              es: 'La Gran Muralla es el mayor proyecto defensivo de la antigua China y una maravilla arquitectónica mundial. Su construcción comenzó hacia el siglo VII a.C. Sobreviven más de 21.000 km. Declarada Patrimonio de la Humanidad por la UNESCO en 1987 y una de las "Nuevas Siete Maravillas del Mundo".',
+              fr: 'La Grande Muraille est le plus grand projet défensif de la Chine antique et une merveille architecturale mondiale. Sa construction débuta vers le VIIe siècle av. J.-C. Plus de 21 000 km subsistent. Inscrite au patrimoine mondial de l\'UNESCO en 1987 et l\'une des « Nouvelles Sept Merveilles du Monde ».',
+              de: 'Die Große Mauer ist das größte Verteidigungsprojekt des alten China und ein Weltwunder der Architektur. Baubeginn etwa im 7. Jh. v. Chr. Über 21.000 km sind erhalten. 1987 zum UNESCO-Weltkulturerbe erklärt und eines der „Neuen Sieben Weltwunder".',
+              ar: 'سور الصين العظيم هو أعظم مشروع دفاعي في الصين القديمة وأعجوبة معمارية عالمية. بدأ بناؤه حوالي القرن السابع قبل الميلاد. يمتد لأكثر من 21,000 كم. أُدرج في قائمة اليونسكو للتراث العالمي عام 1987 واختير كواحد من "عجائب الدنيا السبع الجديدة".'
+            };
+            return true;
+          }
+          if (kw.indexOf('兵马俑')>-1 || kw.indexOf('terracotta')>-1 || kw.indexOf('秦始皇')>-1 && kw.indexOf('长城')===-1) {
+            topicTL = { zh:'兵马俑', en:'Terracotta Warriors', ja:'兵馬俑', ko:'병마용', fr:'Armée de Terre Cuite', es:'Guerreros de Terracota', de:'Terrakotta-Armee', ar:'محاربو الطين' };
+            tags = {
+              zh: '#兵马俑 #世界遗产 #秦始皇 #考古奇迹 #中华文明',
+              en: '#TerracottaWarriors #WorldHeritage #QinShiHuang #Archaeology #AncientChina',
+              ja: '#兵馬俑 #世界遺産 #秦始皇 #考古学の奇跡',
+              ko: '#병마용 #세계유산 #진시황 #고고학의기적',
+              es: '#GuerrerosDeTerracota #PatrimonioMundial #Arqueología #ChinaAntigua',
+              fr: '#ArméeDeTerreCuite #PatrimoineMondial #Archéologie #ChineAntique',
+              de: '#TerrakottaArmee #Weltkulturerbe #Archäologie #AntikesChina',
+              ar: '#محاربو_الطين #تراث_عالمي #تشين_شي_هوانغ #علم_الآثار #الصين_القديمة'
+            };
+            body = {
+              zh: '兵马俑是秦始皇陵的陪葬坑，位于陕西省西安市临潼区，1974年被当地农民打井时偶然发现，被誉为"世界第八大奇迹"。\n\n三个俑坑总面积超过20,000平方米，出土陶俑、陶马约8,000件。每个陶俑身高约1.8米，面容各异、栩栩如生——没有两张完全相同的脸。他们军阵整齐、气势磅礴，再现了秦朝"带甲百万、车千乘、骑万匹"的强盛军容。\n\n1987年，秦始皇陵及兵马俑坑被列入联合国教科文组织世界文化遗产名录。兵马俑不仅是中国考古史上最伟大的发现之一，更是全人类共同的文化瑰宝。',
+              en: 'The Terracotta Warriors, part of Qin Shi Huang\'s mausoleum complex in Xi\'an, Shaanxi Province, were accidentally discovered by local farmers drilling a well in 1974 — now hailed as the "Eighth Wonder of the World."\n\nThree pits spanning over 20,000 square meters contain approximately 8,000 life-sized terracotta soldiers and horses. Each figure stands about 1.8 meters tall with unique facial features — no two faces are identical. Arranged in battle formation, they vividly recreate the might of the Qin Dynasty\'s million-strong army.\n\nIn 1987, the Mausoleum of the First Qin Emperor and the Terracotta Warriors were inscribed as a UNESCO World Heritage Site — not only one of archaeology\'s greatest discoveries, but a cultural treasure belonging to all humanity.',
+              ja: '兵馬俑は秦の始皇帝陵の副葬品で、1974年に地元農民によって偶然発見され、「世界八番目の不思議」と称されます。三つの坑から約8,000体の等身大の兵士と馬が出土。一体ごとに顔が異なり、秦の強力な軍隊を再現しています。1987年に世界遺産登録。',
+              ko: '병마용은 진시황릉의 부장품으로, 1974년 지역 농민에 의해 우연히 발견되어 "세계 8대 불가사의"로 불립니다. 세 개의 갱에서 약 8,000구의 실물 크기 도용과 도마가 출토되었습니다. 1987년 세계유산 등재.',
+              es: 'Los Guerreros de Terracota, parte del mausoleo de Qin Shi Huang en Xi\'an, fueron descubiertos accidentalmente en 1974. Unos 8.000 soldados y caballos a tamaño real, cada uno con rasgos únicos. Declarados Patrimonio de la Humanidad por la UNESCO en 1987.',
+              fr: 'L\'Armée de Terre Cuite, partie du mausolée de Qin Shi Huang à Xi\'an, fut découverte accidentellement en 1974. Environ 8 000 soldats et chevaux grandeur nature, chacun au visage unique. Inscrite au patrimoine mondial de l\'UNESCO en 1987.',
+              de: 'Die Terrakotta-Armee, Teil des Mausoleums von Qin Shi Huang in Xi\'an, wurde 1974 zufällig entdeckt. Rund 8.000 lebensgroße Soldaten und Pferde, jedes mit einzigartigen Gesichtszügen. 1987 zum UNESCO-Weltkulturerbe erklärt.',
+              ar: 'محاربو الطين، جزء من ضريح تشين شي هوانغ في شيآن، اكتُشفوا بالصدفة عام 1974. حوالي 8,000 جندي وحصان بالحجم الطبيعي، لكل منهم ملامح وجه فريدة. أُدرجوا في قائمة اليونسكو للتراث العالمي عام 1987.'
+            };
+            return true;
+          }
+          if (kw.indexOf('敦煌')>-1 || kw.indexOf('dunhuang')>-1 || kw.indexOf('莫高窟')>-1 || kw.indexOf('mgao')>-1) {
+            topicTL = { zh:'敦煌莫高窟', en:'Dunhuang Mogao Caves', ja:'敦煌莫高窟', ko:'둔황 막고굴', fr:'Grottes de Mogao à Dunhuang', es:'Cuevas de Mogao en Dunhuang', de:'Mogao-Grotten von Dunhuang', ar:'كهوف موغاو في دونهوانغ' };
+            tags = {
+              zh: '#敦煌 #莫高窟 #世界遗产 #丝绸之路 #佛教艺术',
+              en: '#Dunhuang #MogaoCaves #WorldHeritage #SilkRoad #BuddhistArt',
+              ja: '#敦煌 #莫高窟 #世界遺産 #シルクロード #仏教美術',
+              ko: '#둔황 #막고굴 #세계유산 #실크로드 #불교미술',
+              es: '#Dunhuang #CuevasDeMogao #PatrimonioMundial #RutaDeLaSeda #ArteBudista',
+              fr: '#Dunhuang #GrottesDeMogao #PatrimoineMondial #RouteDeLaSoie #ArtBouddhique',
+              de: '#Dunhuang #MogaoGrotten #Weltkulturerbe #Seidenstraße #BuddhistischeKunst',
+              ar: '#دونهوانغ #كهوف_موغاو #تراث_عالمي #طريق_الحرير #فن_بوذي'
+            };
+            body = {
+              zh: '敦煌莫高窟位于甘肃省敦煌市东南25公里的鸣沙山东麓，是世界上现存规模最大、内容最丰富的佛教艺术圣地。始建于前秦建元二年（366年），历经十六国、北朝、隋、唐、五代、宋、西夏、元等朝代持续营建，形成南北长1,680米的石窟群，现存洞窟735个，壁画45,000平方米，彩塑2,400余身。\n\n敦煌壁画的内容涵盖佛教经变、本生故事、供养人像、飞天伎乐等，被誉为"墙壁上的图书馆"。藏经洞出土的5万余件文献更是研究中古时期中国与中亚历史的珍贵史料。\n\n1987年，莫高窟被列入联合国教科文组织世界文化遗产名录。如今"数字敦煌"项目利用数字化技术永久保存石窟艺术，让全世界的观众在线领略敦煌之美。',
+              en: 'The Mogao Caves, located 25 km southeast of Dunhuang in Gansu Province at the eastern foot of the Mingsha Dunes, constitute the world\'s largest and richest repository of Buddhist art. Construction began in 366 CE and continued across multiple dynasties for over a thousand years, creating a cave complex stretching 1,680 meters with 735 surviving caves, 45,000 square meters of murals, and over 2,400 painted sculptures.\n\nThe murals depict Buddhist sutras, Jataka tales, donor portraits, and celestial musicians (apsaras) — earning the title "library on walls." The 50,000+ manuscripts discovered in the Library Cave are invaluable for studying medieval China and Central Asia.\n\nInscribed as a UNESCO World Heritage Site in 1987, the "Digital Dunhuang" project now uses technology to preserve the cave art and make it accessible online to audiences worldwide.',
+              ja: '敦煌莫高窟は甘粛省敦煌市の東南25kmに位置し、世界最大級の仏教芸術の宝庫です。366年に創建され、千年以上にわたって造営が続けられ、735の洞窟、45,000平方メートルの壁画、2,400体以上の塑像が現存します。1987年に世界遺産登録。「デジタル敦煌」プロジェクトで世界中からアクセス可能です。',
+              ko: '둔황 막고굴은 간쑤성 둔황시 동남쪽 25km에 위치한 세계 최대 불교 예술 보고입니다. 366년에 창건되어 천년 이상 조영되었으며, 735개의 석굴, 45,000제곱미터의 벽화, 2,400여 구의 소상이 현존합니다. 1987년 세계유산 등재.',
+              es: 'Las Cuevas de Mogao en Dunhuang constituyen el mayor repositorio de arte budista del mundo. Construidas desde el 366 d.C., albergan 735 cuevas con 45.000 m² de murales. Patrimonio de la Humanidad por la UNESCO en 1987.',
+              fr: 'Les Grottes de Mogao à Dunhuang constituent le plus grand répertoire d\'art bouddhique au monde. Construites depuis 366 ap. J.-C., elles abritent 735 grottes avec 45 000 m² de fresques. Patrimoine mondial de l\'UNESCO en 1987.',
+              de: 'Die Mogao-Grotten von Dunhuang sind das weltweit größte Repertoire buddhistischer Kunst. Seit 366 n. Chr. erbaut, beherbergen sie 735 Höhlen mit 45.000 m² Wandmalereien. 1987 zum UNESCO-Weltkulturerbe erklärt.',
+              ar: 'كهوف موغاو في دونهوانغ هي أكبر مستودع للفن البوذي في العالم. بُنيت منذ عام 366م، وتضم 735 كهفاً مع 45,000 متر مربع من الجداريات. أُدرجت في قائمة اليونسكو للتراث العالمي عام 1987.'
+            };
+            return true;
+          }
+          if (kw.indexOf('苏州园林')>-1 || kw.indexOf('园林')>-1 && kw.indexOf('苏州')>-1 || kw.indexOf('suzhou garden')>-1 || kw.indexOf('classical garden')>-1 && kw.indexOf('suzhou')>-1) {
+            topicTL = { zh:'苏州园林', en:'Suzhou Classical Gardens', ja:'蘇州園林', ko:'쑤저우 원림', fr:'Jardins Classiques de Suzhou', es:'Jardines Clásicos de Suzhou', de:'Klassische Gärten von Suzhou', ar:'حدائق سوتشو الكلاسيكية' };
+            tags = {
+              zh: '#苏州园林 #世界遗产 #中国园林 #江南文化 #建筑美学',
+              en: '#SuzhouGardens #WorldHeritage #ChineseGarden #JiangnanCulture #LandscapeArchitecture',
+              ja: '#蘇州園林 #世界遺産 #中国庭園 #江南文化',
+              ko: '#쑤저우원림 #세계유산 #중국정원 #강남문화',
+              es: '#JardinesDeSuzhou #PatrimonioMundial #JardínChino #CulturaJiangnan',
+              fr: '#JardinsDeSuzhou #PatrimoineMondial #JardinChinois #CultureJiangnan',
+              de: '#SuzhouGärten #Weltkulturerbe #ChinesischerGarten #JiangnanKultur',
+              ar: '#حدائق_سوتشو #تراث_عالمي #حديقة_صينية #ثقافة_جيانغنان'
+            };
+            body = {
+              zh: '苏州园林是中国古典园林的杰出代表，以"咫尺之内再造乾坤"的造园理念闻名于世。拙政园、留园、网师园、环秀山庄等九座园林于1997年和2000年被列入联合国教科文组织世界文化遗产名录。\n\n苏州园林的精髓在于"借景"、"框景"、"障景"等造园手法——以假山、水池、花木、亭台楼阁构成微缩的自然山水，步移景异，小中见大。文人墨客在此吟诗作画、品茗对弈，园林是物质空间，更是精神栖所。\n\n"江南园林甲天下，苏州园林甲江南"——苏州园林是中国文人士大夫"诗意栖居"理想的最高呈现。',
+              en: 'Suzhou\'s classical gardens represent the pinnacle of Chinese garden art, renowned for the philosophy of "recreating nature within a limited space." Nine gardens — including the Humble Administrator\'s Garden, Lingering Garden, and Master of the Nets Garden — were inscribed as UNESCO World Heritage Sites in 1997 and 2000.\n\nThe essence of Suzhou gardens lies in techniques like "borrowed scenery," "framed views," and "obstructed views" — using rockeries, ponds, plants, and pavilions to compose miniature natural landscapes. Every step reveals a new vista; vastness is found within smallness. Here scholar-officials composed poetry, painted, sipped tea, and played chess — the garden is both physical space and spiritual sanctuary.\n\n"Jiangnan gardens are the finest under heaven; Suzhou gardens are the finest in Jiangnan" — these gardens represent the ultimate ideal of poetic dwelling cherished by Chinese literati.',
+              ja: '蘇州庭園は中国古典庭園の最高峰で、「限られた空間に自然を再現する」理念で知られます。拙政園、留園など九つの庭園が1997年と2000年に世界遺産登録されました。借景、枠景などの技法で山水のミニチュア世界を作り出します。',
+              ko: '쑤저우 원림은 중국 고전 정원의 정수를 대표하며, "제한된 공간에 자연을 재현하는" 이념으로 유명합니다. 줘정위안, 류위안 등 9개 정원이 1997년과 2000년 세계유산으로 등재되었습니다.',
+              es: 'Los Jardines Clásicos de Suzhou representan la cumbre del arte del jardín chino. Nueve jardines fueron declarados Patrimonio de la Humanidad por la UNESCO en 1997 y 2000.',
+              fr: 'Les Jardins Classiques de Suzhou représentent le summum de l\'art du jardin chinois. Neuf jardins ont été inscrits au patrimoine mondial de l\'UNESCO en 1997 et 2000.',
+              de: 'Die Klassischen Gärten von Suzhou sind der Höhepunkt chinesischer Gartenkunst. Neun Gärten wurden 1997 und 2000 zum UNESCO-Weltkulturerbe erklärt.',
+              ar: 'حدائق سوتشو الكلاسيكية تمثل قمة فن الحدائق الصيني. أُدرجت تسع حدائق في قائمة اليونسكو للتراث العالمي عامي 1997 و2000.'
+            };
+            return true;
+          }
+          if (kw.indexOf('大运河')>-1 || kw.indexOf('grand canal')>-1 || kw.indexOf('京杭大运河')>-1) {
+            topicTL = { zh:'大运河', en:'The Grand Canal', ja:'大運河', ko:'대운하', fr:'Grand Canal', es:'Gran Canal', de:'Kaiserkanal', ar:'القناة الكبرى' };
+            tags = {
+              zh: '#大运河 #世界遗产 #京杭大运河 #古代工程 #水利奇迹',
+              en: '#GrandCanal #WorldHeritage #AncientEngineering #Waterway #ChinaHistory',
+              ja: '#大運河 #世界遺産 #古代土木工学 #中国史',
+              ko: '#대운하 #세계유산 #고대공학 #중국역사',
+              es: '#GranCanal #PatrimonioMundial #IngenieríaAntigua #HistoriaChina',
+              fr: '#GrandCanal #PatrimoineMondial #IngénierieAncienne #HistoireChinoise',
+              de: '#Kaiserkanal #Weltkulturerbe #AntikeIngenieurskunst #ChinesischeGeschichte',
+              ar: '#القناة_الكبرى #تراث_عالمي #هندسة_قديمة #تاريخ_الصين'
+            };
+            body = {
+              zh: '中国大运河是世界上里程最长、规模最大的古代人工运河，北起北京、南至杭州，全长约1,794公里，贯穿海河、黄河、淮河、长江、钱塘江五大水系。始建于春秋时期（公元前486年），隋代贯通南北，元代裁弯取直形成京杭大运河。\n\n大运河是中国古代南北交通的大动脉，也是经济文化交流的生命线。运河两岸兴起了扬州、苏州、杭州、天津等繁华都市，促进了南北方物资流通与文化融合。\n\n2014年，中国大运河被列入联合国教科文组织世界文化遗产名录，沿线31个城市的运河遗产得到整体保护。',
+              en: 'The Grand Canal is the world\'s longest and largest ancient artificial waterway, stretching approximately 1,794 km from Beijing in the north to Hangzhou in the south, connecting five major river systems. Construction began in the Spring and Autumn period (486 BCE), with the Sui Dynasty linking north and south, and the Yuan Dynasty creating the direct Beijing-Hangzhou route.\n\nThe Grand Canal was the great artery of ancient China — a lifeline for economic and cultural exchange that gave rise to prosperous cities like Yangzhou, Suzhou, Hangzhou, and Tianjin along its banks.\n\nInscribed as a UNESCO World Heritage Site in 2014, the canal heritage spanning 31 cities now receives integrated protection.',
+              ja: '大運河は世界最長最大の古代人工水路で、北京から杭州までの約1,794km、五大水系を結びます。春秋時代（紀元前486年）に建設開始、隋代に南北連結、元代に京杭大運河が形成されました。2014年に世界遺産登録。',
+              ko: '대운하는 세계에서 가장 길고 큰 고대 인공 수로로, 베이징에서 항저우까지 약 1,794km, 5대 수계를 연결합니다. 춘추시대(기원전 486년)에 건설이 시작되어 2014년 세계유산으로 등재되었습니다.',
+              es: 'El Gran Canal es la vía fluvial artificial antigua más larga del mundo, con 1.794 km conectando Pekín con Hangzhou. Patrimonio de la Humanidad por la UNESCO en 2014.',
+              fr: 'Le Grand Canal est la plus longue voie navigable artificielle ancienne du monde, reliant Pékin à Hangzhou sur 1 794 km. Patrimoine mondial de l\'UNESCO en 2014.',
+              de: 'Der Kaiserkanal ist die längste antike künstliche Wasserstraße der Welt, 1.794 km von Peking nach Hangzhou. 2014 zum UNESCO-Weltkulturerbe erklärt.',
+              ar: 'القناة الكبرى هي أطول ممر مائي اصطناعي قديم في العالم، تمتد 1,794 كم من بكين إلى هانغتشو. أُدرجت في قائمة اليونسكو للتراث العالمي عام 2014.'
+            };
+            return true;
+          }
+          if (kw.indexOf('布达拉宫')>-1 || kw.indexOf('potala')>-1) {
+            topicTL = { zh:'布达拉宫', en:'Potala Palace', ja:'ポタラ宮', ko:'포탈라궁', fr:'Palais du Potala', es:'Palacio de Potala', de:'Potala-Palast', ar:'قصر بوتالا' };
+            tags = {
+              zh: '#布达拉宫 #世界遗产 #西藏 #藏文化 #佛教圣地',
+              en: '#PotalaPalace #WorldHeritage #Tibet #TibetanCulture #BuddhistSanctuary',
+              ja: '#ポタラ宮 #世界遺産 #チベット #チベット文化',
+              ko: '#포탈라궁 #세계유산 #티베트 #티베트문화',
+              es: '#PalacioPotala #PatrimonioMundial #Tíbet #CulturaTibetana',
+              fr: '#PalaisDuPotala #PatrimoineMondial #Tibet #CultureTibétaine',
+              de: '#PotalaPalast #Weltkulturerbe #Tibet #TibetischeKultur',
+              ar: '#قصر_بوتالا #تراث_عالمي #التبت #ثقافة_تبتية'
+            };
+            body = {
+              zh: '布达拉宫坐落在西藏拉萨市海拔3,700米的红山上，是世界上海拔最高的古代宫殿群。始建于公元7世纪松赞干布时期，17世纪五世达赖喇嘛重建，是西藏政教合一时期的权力中心。\n\n布达拉宫依山而建，群楼重叠，气势雄伟。主体建筑分红宫和白宫两部分——红宫是历代达赖喇嘛的灵塔殿和佛殿，白宫是达赖喇嘛的冬宫和办公场所。宫内珍藏大量佛像、壁画、唐卡、经卷等珍贵文物。\n\n1994年，布达拉宫被列入联合国教科文组织世界文化遗产名录，是西藏最具标志性的文化符号。',
+              en: 'The Potala Palace, perched on Red Mountain at 3,700 meters in Lhasa, Tibet, is the world\'s highest ancient palace complex. First built in the 7th century under Songtsen Gampo and rebuilt in the 17th century by the 5th Dalai Lama, it was the center of Tibetan theocratic governance.\n\nThe palace climbs the mountainside in overlapping tiers of grandeur. The Red Palace houses the stupa-tombs and chapels of successive Dalai Lamas; the White Palace served as the winter residence and administrative seat. Inside are countless Buddha statues, murals, thangkas, and scriptures.\n\nInscribed as a UNESCO World Heritage Site in 1994, the Potala Palace stands as Tibet\'s most iconic cultural symbol.',
+              ja: 'ポタラ宮はチベットのラサ、標高3,700mの紅山に建つ世界最高所の古代宮殿群です。7世紀に創建、17世紀に再建。1994年に世界遺産登録。チベットで最も象徴的な文化遺産です。',
+              ko: '포탈라궁은 티베트 라싸 해발 3,700m의 붉은 산에 위치한 세계 최고 고도의 고대 궁전군입니다. 7세기에 창건, 17세기에 재건. 1994년 세계유산 등재.',
+              es: 'El Palacio de Potala, a 3.700 metros en Lhasa, Tíbet, es el complejo palaciego antiguo más alto del mundo. Patrimonio de la Humanidad por la UNESCO en 1994.',
+              fr: 'Le Palais du Potala, à 3 700 mètres à Lhassa, Tibet, est le plus haut complexe palatial ancien du monde. Patrimoine mondial de l\'UNESCO en 1994.',
+              de: 'Der Potala-Palast auf 3.700 Metern in Lhasa, Tibet, ist der höchstgelegene antike Palastkomplex der Welt. 1994 zum UNESCO-Weltkulturerbe erklärt.',
+              ar: 'قصر بوتالا، على ارتفاع 3,700 متر في لاسا، التبت، هو أعلى مجمع قصور قديم في العالم. أُدرج في قائمة اليونسكو للتراث العالمي عام 1994.'
+            };
+            return true;
+          }
+          return false;
+        }
+
+        // ---- 文学经典类 ----
+        function matchLiterature() {
+          if (kw.indexOf('西游记')>-1 || kw.indexOf('journey to the west')>-1 || kw.indexOf('孙悟空')>-1 || kw.indexOf('monkey king')>-1) {
+            topicTL = { zh:'《西游记》', en:'Journey to the West', ja:'『西遊記』', ko:'『서유기』', fr:'« Le Voyage en Occident »', es:'« Viaje al Oeste »', de:'„Die Reise nach Westen"', ar:'«رحلة إلى الغرب»' };
+            tags = {
+              zh: '#西游记 #孙悟空 #四大名著 #中国文学 #神话经典',
+              en: '#JourneyToTheWest #MonkeyKing #ChineseLiterature #ClassicNovel #Mythology',
+              ja: '#西遊記 #孫悟空 #四大名著 #中国文学 #神話',
+              ko: '#서유기 #손오공 #사대명저 #중국문학 #신화',
+              es: '#ViajeAlOeste #ReyMono #LiteraturaChina #NovelaClásica #Mitología',
+              fr: '#VoyageEnOccident #RoiSinge #LittératureChinoise #RomanClassique #Mythologie',
+              de: '#ReiseNachWesten #Affenkönig #ChinesischeLiteratur #Klassiker #Mythologie',
+              ar: '#رحلة_إلى_الغرب #الملك_القرد #أدب_صيني #رواية_كلاسيكية #أساطير'
+            };
+            body = {
+              zh: '《西游记》是中国古典四大名著之一，成书于明代（16世纪），一般认为是吴承恩所著。全书一百回，讲述了唐僧师徒四人——唐三藏、孙悟空、猪八戒、沙和尚——历经九九八十一难，前往西天取经的故事。\n\n孙悟空是中国文学史上最受欢迎的角色之一。他机智勇敢、神通广大，一个筋斗十万八千里，七十二变随心所欲。但其深层魅力在于从桀骜不驯到忠诚担当的成长弧线——这正是中国人修身养性、明心见性的文化理想的文学投射。\n\n《西游记》已被翻译为数十种语言，改编为无数影视、动漫、游戏作品。"美猴王"已成为全球共享的文化符号，是中华文化"走出去"最成功的IP之一。',
+              en: '"Journey to the West" is one of China\'s Four Great Classical Novels, completed in the 16th century (Ming Dynasty), generally attributed to Wu Cheng\'en. Across 100 chapters, it tells of the Tang monk Xuanzang and his three disciples — Sun Wukong (Monkey King), Zhu Bajie (Pigsy), and Sha Wujing (Sandy) — who endure 81 tribulations on their pilgrimage to India for sacred scriptures.\n\nSun Wukong is among the most beloved characters in Chinese literature — clever, brave, and endowed with supernatural powers including cloud-somersaulting 108,000 li in a single bound and 72 transformations. His deeper appeal lies in his character arc from rebellious defiance to loyal dedication — a literary projection of the Chinese cultural ideal of self-cultivation and spiritual awakening.\n\nTranslated into dozens of languages and adapted into countless films, animations, and games, the "Monkey King" has become a globally shared cultural icon — one of Chinese culture\'s most successful exports.',
+              ja: '『西遊記』は中国四大名著の一つで、16世紀（明代）に成立。全百回、三蔵法師と孫悟空、猪八戒、沙悟浄の四人が八十一難を経て天竺へ経典を求める旅を描きます。孫悟空は中国文学で最も愛されるキャラクターの一つです。数十言語に翻訳され、世界中で愛されています。',
+              ko: '『서유기』는 중국 사대명저 중 하나로, 16세기(명대)에 완성되었습니다. 전 100회, 삼장법사와 손오공, 저팔계, 사오정이 81난을 겪으며 천축으로 경전을 구하러 가는 이야기입니다. 손오공은 중국 문학에서 가장 사랑받는 캐릭터 중 하나입니다.',
+              es: '"Viaje al Oeste" es una de las Cuatro Grandes Novelas Clásicas de China (siglo XVI). Narra la peregrinación del monje Xuanzang y sus tres discípulos — el Rey Mono, Cerdo y Arena — a través de 81 tribulaciones hacia la India en busca de escrituras sagradas.',
+              fr: '« Le Voyage en Occident » est l\'un des Quatre Grands Romans Classiques de la Chine (XVIe siècle). Il raconte le pèlerinage du moine Xuanzang et de ses trois disciples — le Roi Singe, Cochon et Sandy — à travers 81 épreuves vers l\'Inde.',
+              de: '„Die Reise nach Westen" ist einer der Vier Großen Klassischen Romane Chinas (16. Jh.). Er erzählt die Pilgerreise des Mönchs Xuanzang mit seinen drei Schülern — Affenkönig, Schwein und Sandy — durch 81 Prüfungen nach Indien.',
+              ar: '"رحلة إلى الغرب" هي إحدى الروايات الكلاسيكية الأربع الكبرى في الصين (القرن السادس عشر). تروي حج الراهب تشوانتسانغ وتلاميذه الثلاثة — الملك القرد والخنزير وساندي — عبر 81 محنة إلى الهند.'
+            };
+            return true;
+          }
+          if (kw.indexOf('红楼梦')>-1 || kw.indexOf('dream of the red chamber')>-1 || kw.indexOf('stone story')>-1) {
+            topicTL = { zh:'《红楼梦》', en:'Dream of the Red Chamber', ja:'『紅楼夢』', ko:'『홍루몽』', fr:'« Le Rêve dans le Pavillon Rouge »', es:'« Sueño en el Pabellón Rojo »', de:'„Der Traum der Roten Kammer"', ar:'«حلم الغرفة الحمراء»' };
+            tags = {
+              zh: '#红楼梦 #曹雪芹 #四大名著 #中国文学 #古典美学',
+              en: '#DreamOfTheRedChamber #CaoXueqin #ChineseLiterature #ClassicNovel #LiteraryMasterpiece',
+              ja: '#紅楼夢 #曹雪芹 #四大名著 #中国文学 #古典美学',
+              ko: '#홍루몽 #조설근 #사대명저 #중국문학 #고전미학',
+              es: '#SueñoEnElPabellónRojo #CaoXueqin #LiteraturaChina #NovelaClásica',
+              fr: '#RêveDansLePavillonRouge #CaoXueqin #LittératureChinoise #RomanClassique',
+              de: '#TraumDerRotenKammer #CaoXueqin #ChinesischeLiteratur #Klassiker',
+              ar: '#حلم_الغرفة_الحمراء #تساو_شيوي_تشين #أدب_صيني #رواية_كلاسيكية'
+            };
+            body = {
+              zh: '《红楼梦》是中国古典文学的巅峰之作，清代曹雪芹著（前80回），高鹗续（后40回）。以贾宝玉、林黛玉、薛宝钗的爱情婚姻悲剧为主线，描绘了贾、史、王、薛四大家族的兴衰，被誉为"中国封建社会的百科全书"。\n\n小说以细腻入微的笔触塑造了四百多个栩栩如生的人物形象。大观园中的诗词歌赋、饮食服饰、园林建筑展现了中华传统美学的极致高度。\n\n"满纸荒唐言，一把辛酸泪"——《红楼梦》超越了个人命运的悲欢，深刻探讨了存在、欲望与幻灭的终极命题。红学已成为一门国际性的学术研究领域。',
+              en: '"Dream of the Red Chamber" is the pinnacle of Chinese classical literature, written by Cao Xueqin (first 80 chapters) during the Qing Dynasty, with the remaining 40 chapters completed by Gao E. Centered on the tragic love triangle between Jia Baoyu, Lin Daiyu, and Xue Baochai, it chronicles the rise and fall of four noble families — acclaimed as the "encyclopedia of Chinese feudal society."\n\nThe novel brings to life over 400 characters with exquisite detail. The poetry, cuisine, costumes, and garden architecture of the Grand View Garden represent the zenith of traditional Chinese aesthetics.\n\n"Pages full of absurd words, brushed with bitter tears" — the novel transcends personal tragedy to probe the ultimate questions of existence, desire, and disillusionment. "Redology" has become a truly international academic field.',
+              ja: '『紅楼夢』は中国古典文学の最高峰で、清代の曹雪芹による前80回、高鶚による後40回の続編からなります。賈宝玉、林黛玉、薛宝釵の悲恋を中心に四大家族の盛衰を描き、「中国封建社会の百科全書」と称されます。400人を超える人物が生き生きと描かれ、紅楼夢研究（紅学）は国際的な学術分野となっています。',
+              ko: '『홍루몽』은 중국 고전 문학의 정점으로, 청대 조설근이 전 80회를 집필하고 고악이 후 40회를 완성했습니다. 가보옥, 임대옥, 설보채의 비극적 사랑을 중심으로 네 대가문의 흥망을 그렸습니다. 400명 이상의 인물이 생생하게 묘사되어 있습니다.',
+              es: '"Sueño en el Pabellón Rojo" es la cumbre de la literatura clásica china. Escrito por Cao Xueqin en la dinastía Qing, narra la trágica historia de amor entre Jia Baoyu, Lin Daiyu y Xue Baochai, crónica del ascenso y caída de cuatro familias nobles.',
+              fr: '« Le Rêve dans le Pavillon Rouge » est le sommet de la littérature classique chinoise. Écrit par Cao Xueqin sous la dynastie Qing, il raconte l\'histoire d\'amour tragique entre Jia Baoyu, Lin Daiyu et Xue Baochai.',
+              de: '„Der Traum der Roten Kammer" ist der Höhepunkt der klassischen chinesischen Literatur. Geschrieben von Cao Xueqin in der Qing-Dynastie, erzählt er die tragische Liebesgeschichte zwischen Jia Baoyu, Lin Daiyu und Xue Baochai.',
+              ar: '"حلم الغرفة الحمراء" هو قمة الأدب الكلاسيكي الصيني. كتبه تساو شيوي تشين في عهد أسرة تشينغ، ويروي قصة الحب المأساوية بين جيا باويو ولين داييو وشيويه باوتشاي.'
+            };
+            return true;
+          }
+          if (kw.indexOf('三国')>-1 || kw.indexOf('three kingdoms')>-1 || kw.indexOf('诸葛亮')>-1 || kw.indexOf('关羽')>-1) {
+            topicTL = { zh:'《三国演义》', en:'Romance of the Three Kingdoms', ja:'『三国志演義』', ko:'『삼국지연의』', fr:'« Roman des Trois Royaumes »', es:'« Romance de los Tres Reinos »', de:'„Die Geschichte der Drei Reiche"', ar:'«رومانسية الممالك الثلاث»' };
+            tags = {
+              zh: '#三国演义 #四大名著 #历史小说 #中国文学 #智慧谋略',
+              en: '#ThreeKingdoms #ChineseLiterature #HistoricalNovel #Strategy #ClassicNovel',
+              ja: '#三国志演義 #四大名著 #中国文学 #歴史小説 #戦略',
+              ko: '#삼국지연의 #사대명저 #중국문학 #역사소설 #전략',
+              es: '#TresReinos #LiteraturaChina #NovelaHistórica #Estrategia',
+              fr: '#TroisRoyaumes #LittératureChinoise #RomanHistorique #Stratégie',
+              de: '#DreiReiche #ChinesischeLiteratur #HistorischerRoman #Strategie',
+              ar: '#الممالك_الثلاث #أدب_صيني #رواية_تاريخية #استراتيجية'
+            };
+            body = {
+              zh: '《三国演义》是中国第一部长篇章回体历史演义小说，元末明初罗贯中著。全书以东汉末年至西晋初年近百年的历史为背景，描绘了魏、蜀、吴三国之间的政治军事斗争。\n\n"桃园三结义"、"草船借箭"、"空城计"、"赤壁之战"等经典情节脍炙人口。诸葛亮成为智慧与忠诚的象征，关羽被尊为"武圣"。\n\n《三国演义》在东亚文化圈影响深远，其战略思想被广泛应用于商战与管理领域。',
+              en: '"Romance of the Three Kingdoms" is China\'s first great historical novel, written by Luo Guanzhong in the late Yuan / early Ming period. Set against the turbulent century from the fall of the Han Dynasty to the rise of the Jin, it chronicles the power struggle among Wei, Shu, and Wu.\n\nIconic episodes — "Oath of the Peach Garden," "Borrowing Arrows with Straw Boats," "The Empty City Stratagem," and "The Battle of Red Cliffs" — are etched into popular consciousness. Zhuge Liang personifies wisdom and loyalty; Guan Yu is revered as the "Martial Saint."\n\nThe novel profoundly influences East Asian culture, with its strategic thinking widely applied in modern business and management.',
+              ja: '『三国志演義』は中国初の長編歴史小説で、元末明初の羅貫中によって書かれました。後漢末から西晋初頭までの百年近くにわたる魏・蜀・呉の三国間の政治軍事闘争を描いています。\n\n「桃園の誓い」「赤壁の戦い」などの名場面は広く知られ、諸葛亮は知恵の象徴、関羽は「武聖」と崇められています。東アジア文化圏に深い影響を与え、経営戦略にも応用されています。',
+              ko: '『삼국지연의』는 중국 최초의 장편 역사 소설로, 원말명초 나관중이 집필했습니다. 후한 말부터 서진 초까지 백년 가까운 기간 동안 위·촉·오 삼국의 정치 군사 투쟁을 그렸습니다. 동아시아 문화권에 깊은 영향을 미치며 경영 전략에도 응용됩니다.',
+              es: '"Romance de los Tres Reinos", escrito por Luo Guanzhong, es la primera gran novela histórica de China. Narra la lucha por el poder entre Wei, Shu y Wu durante casi un siglo. Su pensamiento estratégico se aplica en negocios modernos.',
+              fr: '« Le Roman des Trois Royaumes » de Luo Guanzhong est le premier grand roman historique chinois. Il relate la lutte pour le pouvoir entre Wei, Shu et Wu. Sa pensée stratégique est appliquée dans les affaires modernes.',
+              de: '„Die Geschichte der Drei Reiche" von Luo Guanzhong ist der erste große historische Roman Chinas. Er schildert den Machtkampf zwischen Wei, Shu und Wu. Sein strategisches Denken wird im modernen Management angewendet.',
+              ar: '"رومانسية الممالك الثلاث" للكاتب لوه غوانتشونغ هي أول رواية تاريخية صينية عظيمة. تروي الصراع على السلطة بين وي وشو وو. يُطبق تفكيرها الاستراتيجي في الأعمال الحديثة.'
+            };
+            return true;
+          }
+          if (kw.indexOf('水浒')>-1 || kw.indexOf('water margin')>-1 || kw.indexOf('outlaws of the marsh')>-1) {
+            topicTL = { zh:'《水浒传》', en:'Water Margin (Outlaws of the Marsh)', ja:'『水滸伝』', ko:'『수호전』', fr:'« Au Bord de l\'Eau »', es:'« Bandidos del Pantano »', de:'„Die Räuber vom Liang-Schan-Moor"', ar:'«حافة الماء»' };
+            tags = {
+              zh: '#水浒传 #四大名著 #英雄小说 #中国文学 #侠义精神',
+              en: '#WaterMargin #ChineseLiterature #ClassicNovel #Heroes #MartialValor',
+              ja: '#水滸伝 #四大名著 #中国文学 #英雄譚 #侠義',
+              ko: '#수호전 #사대명저 #중국문학 #영웅소설 #협의',
+              es: '#BandidosDelPantano #LiteraturaChina #NovelaClásica #Héroes',
+              fr: '#AuBordDeLEau #LittératureChinoise #RomanClassique #Héros',
+              de: '#DieRäuber #ChinesischeLiteratur #Klassiker #Helden',
+              ar: '#حافة_الماء #أدب_صيني #رواية_كلاسيكية #أبطال'
+            };
+            body = {
+              zh: '《水浒传》是中国古典四大名著之一，元末明初施耐庵著。全书讲述了北宋末年以宋江为首的108位好汉被逼上梁山、聚义造反，最终接受招安、为国征战的故事。\n\n"路见不平一声吼"——梁山好汉代表了中国人"替天行道、除暴安良"的侠义理想。武松打虎、鲁智深倒拔垂杨柳、林冲雪夜上梁山等故事家喻户晓。\n\n《水浒传》以质朴刚健的语言塑造了一组性格鲜明的好汉群像，深入探讨了忠义与反抗、个人与体制的永恒矛盾。',
+              en: '"Water Margin" is one of China\'s Four Great Classical Novels, attributed to Shi Nai\'an (late Yuan / early Ming). It tells of 108 outlaws led by Song Jiang who, driven to rebellion by corrupt officials, gather at Liangshan Marsh to fight for justice — only to eventually accept amnesty and serve the empire.\n\n"A roar at injustice on the road" — the Liangshan heroes embody the Chinese ideal of "executing Heaven\'s will and righting wrongs." Tales of Wu Song slaying a tiger bare-handed, Lu Zhishen uprooting a willow tree, and Lin Chong fleeing to Liangshan through a snowy night are woven into cultural memory.\n\nWith its vigorous, earthy language, the novel creates a gallery of vivid heroic characters while probing the eternal tensions between loyalty and rebellion, individual and system.',
+              ja: '『水滸伝』は中国四大名著の一つで、元末明初の施耐庵によって書かれました。北宋末、宋江を首領とする108人の好漢が梁山泊に集い、不正に立ち向かう物語です。武松の虎退治、魯智深の柳の木引き抜きなどの名場面が語り継がれています。',
+              ko: '『수호전』은 중국 사대명저 중 하나로, 원말명초 시내암이 집필했습니다. 북송 말, 송강을 두령으로 하는 108명의 호걸이 양산박에 모여 정의를 위해 싸우는 이야기입니다. 무송의 호랑이 퇴치, 노지심의 버드나무 뽑기 등 명장면이 전해집니다.',
+              es: '"Bandidos del Pantano" es una de las Cuatro Grandes Novelas Clásicas de China. Narra la historia de 108 forajidos liderados por Song Jiang que luchan contra la injusticia. Sus historias son parte de la memoria cultural china.',
+              fr: '« Au Bord de l\'Eau » est l\'un des Quatre Grands Romans Classiques de la Chine. Il raconte l\'histoire de 108 hors-la-loi menés par Song Jiang, luttant contre l\'injustice. Leurs récits font partie de la mémoire culturelle chinoise.',
+              de: '„Die Räuber vom Liang-Schan-Moor" ist einer der Vier Großen Klassischen Romane Chinas. Er erzählt von 108 Geächteten unter Song Jiang, die gegen Ungerechtigkeit kämpfen.',
+              ar: '"حافة الماء" هي إحدى الروايات الكلاسيكية الأربع الكبرى في الصين. تروي قصة 108 خارجين عن القانون بقيادة سونغ جيانغ يقاتلون ضد الظلم.'
+            };
             return true;
           }
           return false;
@@ -1839,7 +2576,7 @@
         }
 
         // 按优先级匹配
-        if (!matchFestival() && !matchArt() && !matchPhilosophy() && !matchFood()) {
+        if (!matchFestival() && !matchHeritage() && !matchLiterature() && !matchArt() && !matchFolkCraft() && !matchPhilosophy() && !matchFood()) {
           matchGeneric();
         }
 
@@ -2761,12 +3498,117 @@
 
     /* ========== 初始化日志 ========== */
     console.log(
-      '%c云译华夏 %cv1.0 %c广外高翻',
+      '%c云译华夏 %cv1.1 %c广外高翻',
       'color:#8B2323;font-size:22px;font-weight:900;',
       'color:#333;font-size:13px;',
       'color:#999;font-size:12px;'
     );
     console.log('%cAI驱动中华文化多语种国际传播平台', 'color:#FFD700;font-size:13px;');
+
+    /* ========== 跨文化表达适配层 ========== */
+    var crossCulturalMap = {
+      dragon: {
+        zh_note: '龙在中国文化中象征皇权、力量与祥瑞',
+        suggestion_en: 'Use "Chinese dragon" or "Long (Chinese dragon)" to differentiate from Western dragon imagery. Emphasize its benevolent, auspicious nature.',
+        suggestion_es: 'Usar "dragón chino" para diferenciarlo del dragón occidental. Enfatizar su naturaleza benévola.',
+        suggestion_fr: 'Utiliser "dragon chinois" pour le différencier du dragon occidental. Souligner sa nature bienveillante.',
+        suggestion_de: '"Chinesischer Drache" verwenden, um ihn vom westlichen Drachen zu unterscheiden. Seine wohlwollende Natur betonen.',
+        suggestion_ar: 'استخدم "التنين الصيني" لتمييزه عن التنين الغربي. أكد على طبيعته الخيرة.'
+      },
+      phoenix: {
+        zh_note: '凤凰象征太平、美德与重生',
+        suggestion_en: 'Reference the "Fenghuang (Chinese phoenix)" — a symbol of harmony, virtue, and peace rather than just rebirth.',
+        suggestion_es: 'Referirse al "Fenghuang (fénix chino)" como símbolo de armonía y virtud.',
+        suggestion_fr: 'Mentionner le "Fenghuang (phénix chinois)" comme symbole d\'harmonie et de vertu.',
+        suggestion_de: 'Auf den "Fenghuang (chinesischer Phönix)" als Symbol der Harmonie und Tugend verweisen.',
+        suggestion_ar: 'أشر إلى "فينغهوانغ (طائر الفينيق الصيني)" كرمز للانسجام والفضيلة.'
+      },
+      red: {
+        zh_note: '红色象征喜庆、吉祥、繁荣',
+        suggestion_en: 'When introducing red in Chinese cultural context, explicitly connect it to "festivity," "good fortune," and "celebration" rather than assuming universal positive association.',
+        suggestion_es: 'Explicar que el rojo simboliza celebración y buena fortuna en la cultura china.',
+        suggestion_fr: 'Expliquer que le rouge symbolise la célébration et la bonne fortune dans la culture chinoise.',
+        suggestion_de: 'Erklären, dass Rot in der chinesischen Kultur Feier und Glück symbolisiert.',
+        suggestion_ar: 'وضح أن اللون الأحمر يرمز إلى الاحتفال والحظ السعيد في الثقافة الصينية.'
+      },
+      white: {
+        zh_note: '白色在中国传统中与丧事相关',
+        suggestion_en: 'Acknowledge the cultural difference: "In traditional Chinese culture, white carries associations different from Western weddings — it is linked to mourning and simplicity."',
+        suggestion_es: 'Reconocer la diferencia cultural del blanco en el contexto chino (luto) vs occidental (bodas).',
+        suggestion_fr: 'Reconnaître la différence culturelle du blanc dans le contexte chinois (deuil) vs occidental (mariages).',
+        suggestion_de: 'Den kulturellen Unterschied von Weiß im chinesischen Kontext (Trauer) vs. westlichen Kontext (Hochzeiten) anerkennen.',
+        suggestion_ar: 'اعترف بالاختلاف الثقافي للأبيض في السياق الصيني (الحداد) مقابل السياق الغربي (الأعراس).'
+      }
+    };
+
+    window.getCrossCulturalNote = function (kw, targetLang) {
+      if (targetLang === 'zh') return '';
+      var notes = [];
+      if (kw.indexOf('龙') > -1 || kw.indexOf('dragon') > -1) {
+        notes.push(crossCulturalMap.dragon['suggestion_' + targetLang] || crossCulturalMap.dragon.suggestion_en);
+      }
+      if (kw.indexOf('凤') > -1 || kw.indexOf('phoenix') > -1 || kw.indexOf('凤凰') > -1) {
+        notes.push(crossCulturalMap.phoenix['suggestion_' + targetLang] || crossCulturalMap.phoenix.suggestion_en);
+      }
+      if (notes.length > 0) {
+        var crossLabels = { es:'Nota Intercultural:', fr:'Note Interculturelle :', de:'Interkultureller Hinweis:', ar:'ملاحظة عبر الثقافات:' };
+        return '\n\n🌍 ' + (crossLabels[targetLang] || 'Cross-Cultural Note:') + '\n' + notes.join('\n');
+      }
+      return '';
+    };
+
+    /* ========== 一键复制功能 ========== */
+    window.copyToClipboard = function (elementId) {
+      var el = $('#' + elementId);
+      if (!el) return;
+      var text = el.value || el.innerText || el.textContent || '';
+      text = text.replace(/<br\s*\/?>/gi, '\n');
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () {
+          showToast('已复制到剪贴板！');
+        }).catch(function () {
+          fallbackCopy(text);
+        });
+      } else {
+        fallbackCopy(text);
+      }
+    };
+
+    function fallbackCopy(text) {
+      var textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed';
+      textarea.style.left = '-9999px';
+      textarea.style.top = '-9999px';
+      document.body.appendChild(textarea);
+      textarea.focus();
+      textarea.select();
+      try {
+        document.execCommand('copy');
+        showToast('已复制到剪贴板！');
+      } catch (e) {
+        showToast('复制失败，请手动复制');
+      }
+      document.body.removeChild(textarea);
+    }
+
+    /* ========== 发送到社媒适配 ========== */
+    window.sendToSocial = function () {
+      var resultEl = $('#copywritingResultText');
+      if (!resultEl) return;
+      var text = resultEl.value.trim();
+      if (!text) {
+        showToast('请先生成文案再发送到社媒适配～');
+        return;
+      }
+      var socialInput = $('#socialInput');
+      if (socialInput) {
+        socialInput.value = text;
+        socialInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        showToast('文案已发送到社媒适配区，请选择平台后点击"一键适配"');
+      }
+    };
 
   })();
   </script>
