@@ -1292,7 +1292,7 @@
     const DEEPSEEK_API_BASE = 'https://api.deepseek.com/v1';
     const DEEPSEEK_API_KEY  = 'sk-aff40f3fbcbe440fa37ba26019bb7def';
 
-    const API_TIMEOUT = 180000; // 180秒超时（知识库检索 + 大模型生成需要时间）
+    const API_TIMEOUT = 90000; // 90秒超时（并行调用，单次API通常15秒内完成）
 
     // ── 语言名称映射 ──
     const LANG_LOCAL_NAMES = {
@@ -1418,7 +1418,7 @@
      * @returns {Promise<string>} 生成的文本
      */
     async function callDeepSeekAPI(messages, maxTokens) {
-      maxTokens = maxTokens || 4096;
+      maxTokens = maxTokens || 2000;
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), API_TIMEOUT);
       try {
@@ -1431,7 +1431,7 @@
           body: JSON.stringify({
             model: 'deepseek-chat',
             messages: messages,
-            temperature: 0.7,
+            temperature: 0.6,
             max_tokens: maxTokens,
             top_p: 0.9,
           }),
@@ -1469,23 +1469,27 @@
      * @param {string} lang - 目标语言代码
      * @returns {Promise<{result: string, refCount: number}>}
      */
-    async function ragPipeline(knowledgeQuery, userMessage, buildSystemPrompt, lang) {
-      // ① 知识库检索 — 获取原始知识库片段内容
-      var kbResult = await searchDifyKnowledgeBase(knowledgeQuery);
-      var knowledgeContext = kbResult.kbContents || '';
-      var refCount = kbResult.refCount;
+    async function ragPipeline(knowledgeQuery, userMessage, buildSystemPrompt, lang, maxTokens) {
+      maxTokens = maxTokens || 2000;
 
-      // ② 基于检索到的真实知识库内容构建 DeepSeek 的系统提示词
-      var systemPrompt = buildSystemPrompt(knowledgeContext, lang);
+      // ★ 并行优化：Dify 知识库检索 与 DeepSeek 生成 同时启动
+      // 不再串行等待 KB 结果再调 DeepSeek，总耗时 = max(KB时间, DS时间) 而非 KB+DS
 
-      // ③ 调用 DeepSeek 大模型生成最终结果（使用用户自己的 DeepSeek API Key）
+      // 构建不含 KB 的系统提示词（DeepSeek 对中华文化有丰富知识，无 KB 也能高质量输出）
+      var systemPromptNoKB = buildSystemPrompt('', lang);
       var messages = [
-        { role: 'system', content: systemPrompt },
+        { role: 'system', content: systemPromptNoKB },
         { role: 'user',   content: userMessage },
       ];
-      var result = await callDeepSeekAPI(messages, 4096);
 
-      return { result: result, refCount: refCount };
+      // 两个 API 同时发起
+      var kbPromise = searchDifyKnowledgeBase(knowledgeQuery);
+      var dsPromise = callDeepSeekAPI(messages, maxTokens);
+
+      var kbResult = await kbPromise;
+      var result    = await dsPromise;
+
+      return { result: result, refCount: kbResult.refCount };
     }
 
     /* ========== 文案生成功能 ========== */
@@ -1636,8 +1640,8 @@
               );
           }
 
-          // ④ 执行 RAG 管道
-          var ragResult = await ragPipeline(knowledgeQuery, userMessage, buildSystemPrompt, lang);
+          // ④ 执行 RAG 管道（2500 tokens 足够文案输出）
+          var ragResult = await ragPipeline(knowledgeQuery, userMessage, buildSystemPrompt, lang, 2500);
 
           resultEl.value = ragResult.result;
           resultEl.removeAttribute('readonly');
@@ -1760,8 +1764,8 @@
               '\n请直接输出适配后的完整文案（包含正文、推荐标签、最佳发布时间建议和平台运营小贴士），自然分段，干净清爽。';
           }
 
-          // ⑤ 执行 RAG 管道 —— 使用源语言，非自动检测，平台不改语种
-          var ragResult = await ragPipeline(knowledgeQuery, userMessage, buildSystemPrompt, sourceLang);
+          // ⑤ 执行 RAG 管道 —— 社媒适配用 1500 tokens 即可
+          var ragResult = await ragPipeline(knowledgeQuery, userMessage, buildSystemPrompt, sourceLang, 1500);
 
           resultEl.classList.remove('text-golden', 'font-medium');
           resultEl.classList.add('text-dark');
@@ -1905,8 +1909,8 @@
               );
           }
 
-          // ④ 执行 RAG 管道
-          var ragResult = await ragPipeline(knowledgeQuery, userMessage, buildSystemPrompt, lang);
+          // ④ 执行 RAG 管道（视频脚本需要更多内容，3000 tokens）
+          var ragResult = await ragPipeline(knowledgeQuery, userMessage, buildSystemPrompt, lang, 3000);
 
           resultEl.classList.remove('text-golden', 'font-medium');
           resultEl.classList.add('text-dark');
